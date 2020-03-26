@@ -1,11 +1,13 @@
-package com.bluebox.planner.auth.common.dto;
+package com.bluebox.planner.auth.common.viewModel.dto;
 
-import com.bluebox.planner.auth.common.dto.views.ViewMain;
+import com.bluebox.planner.auth.common.viewModel.views.ViewMain;
+import com.bluebox.planner.auth.persistence.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -14,9 +16,9 @@ import java.util.Collection;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PaginatedResultDTO<T> {
+public class PaginatedResultDto<D extends BaseDto<I>,I extends Serializable> {
     @JsonView(ViewMain.Query.class)
-    private Collection<T> results;
+    private Collection<D> results;
     @JsonView(ViewMain.Query.class)
     private long totalElements;
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="trace" monitorInterval="30" shutdownHook="disable">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%highlight{%5p} %d{yyyy-MM-dd-HH:mm:ss} %t %c{1}(%L) - %m%n{FATAL=red, ERROR=red, WARN=yellow, INFO=black, DEBUG=green, TRACE=blue}"/>
+        </Console>
+        <RollingRandomAccessFile name="RollingRandomAccessFile"
+                                 fileName="./log/@log4j.file.name@.log"
+                                 filePattern="./log/$${date:yyyy-MM}/@log4j.file.name@-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout
+                    pattern="%highlight{%5p} %d{yyyy-MM-dd-HH:mm:ss} %t %c{1}(%L) - %m%n{FATAL=red, ERROR=red, WARN=yellow, INFO=black, DEBUG=green, TRACE=blue}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="Config"
+                                 fileName="./log/config/@log4j.file.name@-config.log"
+                                 filePattern="./log/config/$${date:yyyy-MM}/@log4j.file.name@-config-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd-HH:mm:ss} %t %c{1}(%L) - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="gc"
+                                 fileName="./log/gc/@log4j.file.name@-gc.log"
+                                 filePattern="./log/gc/$${date:yyyy-MM}/@log4j.file.name@-gc-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd-HH:mm:ss} %t %c{1}(%L) - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Root level="@log4j.root.level@">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingRandomAccessFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

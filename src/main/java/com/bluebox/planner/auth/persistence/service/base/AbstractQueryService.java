@@ -1,14 +1,14 @@
 package com.bluebox.planner.auth.persistence.service.base;
 
 import com.bluebox.planner.auth.common.Constants;
-import com.bluebox.planner.auth.common.dto.*;
 import com.bluebox.planner.auth.common.exception.GlobalException;
 import com.bluebox.planner.auth.common.exception.ResourceNotFoundException;
-import com.bluebox.planner.auth.common.util.ConvertUtil;
+import com.bluebox.planner.auth.common.viewModel.SortField;
+import com.bluebox.planner.auth.common.viewModel.cto.BaseCto;
+import com.bluebox.planner.auth.common.viewModel.cto.SortableCtoPage;
 import com.bluebox.planner.auth.persistence.entity.BaseEntity;
 import com.bluebox.planner.auth.persistence.repository.BaseRepository;
 import com.bluebox.planner.auth.persistence.service.base.enums.IDSortFields;
-import org.modelmapper.PropertyMap;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,18 +19,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 @Transactional(readOnly = true)
-public abstract class AbstractQueryService<E extends BaseEntity<I>, D extends BaseDto<I>,
-        F extends SortField, I extends Serializable>
-        implements QueryService<E, D, F, I> {
+public abstract class AbstractQueryService<
+        E extends BaseEntity<I>,
+        C extends BaseCto,
+        F extends SortField,
+        I extends Serializable>
+        implements QueryService<E,C, F, I> {
 
     @Override
-    public <K> E get(K key, Function<K, Optional<E>> extractor) throws GlobalException {
+    public  E fetch(I key) throws GlobalException {
         if (key == null)
             throw new ResourceNotFoundException(String.format(Constants.VALIDATION_IS_NULL_OR_NEGATIVE_MSG, getEntityName() + " key"));
-        Optional<E> byId = extractor.apply(key);
+        Optional<E> byId = getRepository().findById(key);
         if (byId.isEmpty())
             throw new ResourceNotFoundException(String.format(Constants.VALIDATION_NOT_FOUND_MSG, getEntityName(), key));
         return byId.get();
@@ -38,53 +40,50 @@ public abstract class AbstractQueryService<E extends BaseEntity<I>, D extends Ba
     }
 
     @Override
-    public PaginatedResultDTO<E> search(SortableDtoPage<D, F, I> dto) {
+    public SearchResult<E,I> search(SortableCtoPage<C, F> criteria) {
 
-        if (dto == null) {
+        if (criteria == null) {
             return defaultResponse();
         }
-        if (dto.getDto() == null) {
-            return respondWithCustomSort(dto);
+        if (criteria.getCto() == null) {
+            return respondWithCustomSort(criteria);
         }
-        return respondWithCustomDto(dto);
-    }
-    public <H extends BaseEntity, G extends BaseDto<I>> D fetch(I id, PropertyMap<H, G> propertyMap) throws GlobalException {
-        E byId = get(id, this::extract);
-        return ConvertUtil.to(propertyMap, byId, getDTOClass());
+        return respondWithCustomDto(criteria);
     }
 
 
-    private PaginatedResultDTO<E> respondWithCustomDto(SortableDtoPage<D, F, I> dto) {
+    private SearchResult<E, I>  respondWithCustomDto(SortableCtoPage<C, F> dto) {
         Page<E> all;
-        PaginatedResultDTO<E> resp = new PaginatedResultDTO<>();
+        SearchResult<E, I>  resp = new SearchResult<>();
         PageRequest pageable;
         if (!dto.getSorts().isEmpty()) {
             pageable = generatePageRequest(dto.getStart(), dto.getSize(), Sort.by(getOrders(dto.getSorts())));
         } else {
             pageable = generatePageRequest(dto.getStart(), dto.getSize());
         }
-        all = searchBy(dto.getDto(), pageable);
+        BaseSpec<E> spec = getSpec(dto.getCto());
+        all = getRepository().findAll(spec.get(), pageable);
         resp.setTotalElements(all.getTotalElements());
         resp.setResults(all.getContent());
         return resp;
     }
 
-    private PaginatedResultDTO<E> respondWithCustomSort(SortableDtoPage<D, F, I> dto) {
+    private SearchResult<E, I>  respondWithCustomSort(SortableCtoPage<C, F> criteria) {
         Page<E> all;
-        PaginatedResultDTO<E> resp = new PaginatedResultDTO<>();
+        SearchResult<E, I>  resp = new SearchResult<>();
         Sort sort = Sort.by(getOrders(getDefaultSort()));
-        if (dto.getSorts() != null && !dto.getSorts().isEmpty()) {
-            List<SortableDtoPage.SortBy<F>> sorts = dto.getSorts();
+        if (criteria.getSorts() != null && !criteria.getSorts().isEmpty()) {
+            List<SortableCtoPage.SortBy<F>> sorts = criteria.getSorts();
             sort = Sort.by(getOrders(sorts));
         }
-        all = getRepository().findAll(generatePageRequest(dto.getStart(), dto.getSize(), sort));
+        all = getRepository().findAll(generatePageRequest(criteria.getStart(), criteria.getSize(), sort));
         resp.setResults(all.getContent());
         resp.setTotalElements(all.getTotalElements());
         return resp;
     }
 
-    private PaginatedResultDTO<E> defaultResponse() {
-        PaginatedResultDTO<E> resp = new PaginatedResultDTO<>();
+    private SearchResult<E, I> defaultResponse() {
+        SearchResult<E,I> resp = new SearchResult<>();
         List<E> list = getRepository().findAll(Sort.by(getOrders(getDefaultSort())));
         resp.setResults(list);
         resp.setTotalElements(list.size());
@@ -94,9 +93,9 @@ public abstract class AbstractQueryService<E extends BaseEntity<I>, D extends Ba
 
 
 
-    private <H extends SortField> List<Sort.Order> getOrders(List<SortableDtoPage.SortBy<H>> sortByList) {
+    private <H extends SortField> List<Sort.Order> getOrders(List<SortableCtoPage.SortBy<H>> sortByList) {
         List<Sort.Order> orders = new ArrayList<>();
-        for (SortableDtoPage.SortBy<H> sort : sortByList) {
+        for (SortableCtoPage.SortBy<H> sort : sortByList) {
             if (sort.getDirection().equals(Sort.Direction.ASC))
                 orders.add(Sort.Order.asc(sort.getFieldName().getName()));
             else
@@ -105,9 +104,9 @@ public abstract class AbstractQueryService<E extends BaseEntity<I>, D extends Ba
         return orders;
     }
 
-    private List<SortableDtoPage.SortBy<SortField>> getDefaultSort() {
+    private List<SortableCtoPage.SortBy<SortField>> getDefaultSort() {
         SortField id = IDSortFields.ID;
-        SortableDtoPage.SortBy<SortField> idSortFieldsSortBy = new SortableDtoPage.SortBy<>(id, Sort.Direction.DESC);
+        SortableCtoPage.SortBy<SortField> idSortFieldsSortBy = new SortableCtoPage.SortBy<>(id, Sort.Direction.DESC);
         return Collections.singletonList(idSortFieldsSortBy);
     }
 
@@ -140,15 +139,9 @@ public abstract class AbstractQueryService<E extends BaseEntity<I>, D extends Ba
         return PageRequest.of(page, count);
     }
 
-    protected Page<E> searchBy(D dto, PageRequest pageable) {
-        throw new AbstractMethodError("Could not implemented");
-    }
+    protected abstract BaseSpec<E> getSpec(C criteria);
 
-    public abstract BaseRepository<E, ?> getRepository();
+    public abstract BaseRepository<E, I> getRepository();
 
     public abstract String getEntityName();
-
-    protected abstract Class<D> getDTOClass();
-
-    protected abstract Optional<E> extract(I key);
 }

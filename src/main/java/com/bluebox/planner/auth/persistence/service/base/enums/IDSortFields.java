@@ -1,6 +1,6 @@
 package com.bluebox.planner.auth.persistence.service.base.enums;
 
-import com.bluebox.planner.auth.common.dto.SortField;
+import com.bluebox.planner.auth.common.viewModel.SortField;
 
 public enum IDSortFields implements SortField {
     ID("id");

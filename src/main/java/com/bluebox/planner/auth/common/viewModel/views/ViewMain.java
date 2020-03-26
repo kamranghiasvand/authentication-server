@@ -1,4 +1,4 @@
-package com.bluebox.planner.auth.common.dto.views;
+package com.bluebox.planner.auth.common.viewModel.views;
 
 /**
  * @author Yaser(amin) Sadeghi

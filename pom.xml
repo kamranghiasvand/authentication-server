@@ -23,6 +23,7 @@
         <java.version>13</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <log4j.file.name>wedding-${project.name}</log4j.file.name>
     </properties>
 
     <dependencies>
@@ -75,6 +76,16 @@
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
             <version>2.2.5.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -176,6 +187,8 @@
                 <mysql.address>jdbc:mysql://${mysql.ip}:${mysql.port}/${mysql.db}</mysql.address>
                 <mysql.user>root</mysql.user>
                 <mysql.pass></mysql.pass>
+                <log4j.root.level>info</log4j.root.level>
+
             </properties>
         </profile>
     </profiles>

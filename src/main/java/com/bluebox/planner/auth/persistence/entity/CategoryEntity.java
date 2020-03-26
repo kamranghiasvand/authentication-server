@@ -29,6 +29,7 @@ public class CategoryEntity extends BaseEntity<Long> {
             name = "native",
             strategy = "native"
     )
+    @Override
     @Column(name = "pk_id")
     public final Long getId() {
         return id;
@@ -38,6 +39,7 @@ public class CategoryEntity extends BaseEntity<Long> {
     public String getName() {
         return name;
     }
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_domain_id", foreignKey = @ForeignKey(name =
             FK_CATEGORY_TO_DOMAIN))

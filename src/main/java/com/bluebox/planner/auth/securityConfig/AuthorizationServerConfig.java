@@ -1,4 +1,4 @@
-package com.bluebox.planner.auth.config;
+package com.bluebox.planner.auth.securityConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  */
 @Configuration
 @EnableAuthorizationServer
-public class AuthorizationServerConfig1 extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private static final String CLIEN_ID = "devglan-client";
     private static final String CLIENT_SECRET = "$2a$04$1VGGg98BkCSvSLs4RDSyUu8MrYf0jkY3dgCLAy8GHJe6QA4VAM/X2";
@@ -33,7 +33,7 @@ public class AuthorizationServerConfig1 extends AuthorizationServerConfigurerAda
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public AuthorizationServerConfig1(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthorizationServerConfig(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
     }
 

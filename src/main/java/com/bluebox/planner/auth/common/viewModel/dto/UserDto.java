@@ -1,6 +1,6 @@
-package com.bluebox.planner.auth.common.dto;
+package com.bluebox.planner.auth.common.viewModel.dto;
 
-import com.bluebox.planner.auth.common.dto.views.ViewUser;
+import com.bluebox.planner.auth.common.viewModel.views.ViewUser;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
