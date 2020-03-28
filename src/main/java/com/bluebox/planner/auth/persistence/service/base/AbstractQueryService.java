@@ -5,7 +5,7 @@ import com.bluebox.planner.auth.common.exception.GlobalException;
 import com.bluebox.planner.auth.common.exception.ResourceNotFoundException;
 import com.bluebox.planner.auth.common.viewModel.SortField;
 import com.bluebox.planner.auth.common.viewModel.cto.BaseCto;
-import com.bluebox.planner.auth.common.viewModel.cto.SortableCtoPage;
+import com.bluebox.planner.auth.common.viewModel.cto.SortablePageCto;
 import com.bluebox.planner.auth.persistence.entity.BaseEntity;
 import com.bluebox.planner.auth.persistence.repository.BaseRepository;
 import com.bluebox.planner.auth.persistence.service.base.enums.IDSortFields;
@@ -40,7 +40,7 @@ public abstract class AbstractQueryService<
     }
 
     @Override
-    public SearchResult<E,I> search(SortableCtoPage<C, F> criteria) {
+    public SearchResult<E,I> search(SortablePageCto<C, F> criteria) {
 
         if (criteria == null) {
             return defaultResponse();
@@ -52,7 +52,7 @@ public abstract class AbstractQueryService<
     }
 
 
-    private SearchResult<E, I>  respondWithCustomDto(SortableCtoPage<C, F> dto) {
+    private SearchResult<E, I>  respondWithCustomDto(SortablePageCto<C, F> dto) {
         Page<E> all;
         SearchResult<E, I>  resp = new SearchResult<>();
         PageRequest pageable;
@@ -68,12 +68,12 @@ public abstract class AbstractQueryService<
         return resp;
     }
 
-    private SearchResult<E, I>  respondWithCustomSort(SortableCtoPage<C, F> criteria) {
+    private SearchResult<E, I>  respondWithCustomSort(SortablePageCto<C, F> criteria) {
         Page<E> all;
         SearchResult<E, I>  resp = new SearchResult<>();
         Sort sort = Sort.by(getOrders(getDefaultSort()));
         if (criteria.getSorts() != null && !criteria.getSorts().isEmpty()) {
-            List<SortableCtoPage.SortBy<F>> sorts = criteria.getSorts();
+            List<SortablePageCto.SortBy<F>> sorts = criteria.getSorts();
             sort = Sort.by(getOrders(sorts));
         }
         all = getRepository().findAll(generatePageRequest(criteria.getStart(), criteria.getSize(), sort));
@@ -93,9 +93,9 @@ public abstract class AbstractQueryService<
 
 
 
-    private <H extends SortField> List<Sort.Order> getOrders(List<SortableCtoPage.SortBy<H>> sortByList) {
+    private <H extends SortField> List<Sort.Order> getOrders(List<SortablePageCto.SortBy<H>> sortByList) {
         List<Sort.Order> orders = new ArrayList<>();
-        for (SortableCtoPage.SortBy<H> sort : sortByList) {
+        for (SortablePageCto.SortBy<H> sort : sortByList) {
             if (sort.getDirection().equals(Sort.Direction.ASC))
                 orders.add(Sort.Order.asc(sort.getFieldName().getName()));
             else
@@ -104,9 +104,9 @@ public abstract class AbstractQueryService<
         return orders;
     }
 
-    private List<SortableCtoPage.SortBy<SortField>> getDefaultSort() {
+    private List<SortablePageCto.SortBy<SortField>> getDefaultSort() {
         SortField id = IDSortFields.ID;
-        SortableCtoPage.SortBy<SortField> idSortFieldsSortBy = new SortableCtoPage.SortBy<>(id, Sort.Direction.DESC);
+        SortablePageCto.SortBy<SortField> idSortFieldsSortBy = new SortablePageCto.SortBy<>(id, Sort.Direction.DESC);
         return Collections.singletonList(idSortFieldsSortBy);
     }
 

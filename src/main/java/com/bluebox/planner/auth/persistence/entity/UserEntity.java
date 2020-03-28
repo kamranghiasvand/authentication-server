@@ -1,34 +1,22 @@
 package com.bluebox.planner.auth.persistence.entity;
 
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 
 /**
  * @author by kamran ghiasvand
  */
-@Entity
+@MappedSuperclass
 @Setter
-@Table(name = "tbl_user")
-public class UserEntity  extends BaseEntity<Long>{
+public class UserEntity<I extends Serializable> extends BaseEntity<I> {
     private String email;
     private String password;
-    private String firstName;
-    private String lastName;
+    private boolean isEnabled=true;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(
-            name = "native",
-            strategy = "native"
-    )
-    @Column(name = "pk_id")
-    public final Long getId() {
-        return id;
-    }
-
-    @Column(name = "email", nullable = false,unique = true)
+    @Column(name = "email", nullable = false )
     public String getEmail() {
         return email;
     }
@@ -36,14 +24,8 @@ public class UserEntity  extends BaseEntity<Long>{
     public String getPassword() {
         return password;
     }
-
-    @Column(name = "first_name")
-    public String getFirstName() {
-        return firstName;
-    }
-
-    @Column(name = "last_name")
-    public String getLastName() {
-        return lastName;
+    @Column(name = "enabled")
+    public boolean isEnabled() {
+        return isEnabled;
     }
 }

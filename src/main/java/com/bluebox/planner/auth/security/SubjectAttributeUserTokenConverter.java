@@ -1,4 +1,4 @@
-//package com.bluebox.planner.auth.securityConfig;
+//package com.bluebox.planner.auth.security;
 //
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.authority.AuthorityUtils;

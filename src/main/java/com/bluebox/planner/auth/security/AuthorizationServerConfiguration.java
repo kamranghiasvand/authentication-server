@@ -1,4 +1,4 @@
-//package com.bluebox.planner.auth.securityConfig;
+//package com.bluebox.planner.auth.security;
 //
 //import com.bluebox.planner.auth.persistence.service.ClientService;
 //import org.slf4j.Logger;
@@ -8,12 +8,12 @@
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
 //import org.springframework.security.authentication.AuthenticationManager;
-//import org.springframework.security.securityConfig.annotation.authentication.configuration.AuthenticationConfiguration;
+//import org.springframework.security.security.annotation.authentication.configuration.AuthenticationConfiguration;
 //import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.oauth2.securityConfig.annotation.configurers.ClientDetailsServiceConfigurer;
-//import org.springframework.security.oauth2.securityConfig.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
-//import org.springframework.security.oauth2.securityConfig.annotation.web.configuration.EnableAuthorizationServer;
-//import org.springframework.security.oauth2.securityConfig.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+//import org.springframework.security.oauth2.security.annotation.configurers.ClientDetailsServiceConfigurer;
+//import org.springframework.security.oauth2.security.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+//import org.springframework.security.oauth2.security.annotation.web.configuration.EnableAuthorizationServer;
+//import org.springframework.security.oauth2.security.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 //import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 //import org.springframework.security.oauth2.provider.token.TokenStore;
 //import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;

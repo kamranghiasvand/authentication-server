@@ -2,14 +2,32 @@ package com.bluebox.planner.auth.persistence.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * @author by kamran ghiasvand
  */
 @Setter
-@Getter
+@MappedSuperclass
 public class BaseEntity<I extends Serializable> {
     protected I id;
+    private String scope;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(
+            name = "native",
+            strategy = "native"
+    )
+    @Column(name = "pk_id")
+    public final I getId() {
+        return id;
+    }
+
+    @Column(name = "domain")
+    public String getScope() {
+        return scope;
+    }
 }

@@ -12,17 +12,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SortableCtoPage<C extends BaseCto, F extends SortField>
+public class SortablePageCto<C extends BaseCto, F extends SortField>
         extends SortablePage<F> {
 
     private C cto;
 
-    public SortableCtoPage(SortablePage<F> page, C cto) {
+    public SortablePageCto(SortablePage<F> page, C cto) {
         super(page, page.getSorts());
         this.cto = cto;
     }
 
-    public SortableCtoPage(SortablePage<F> page) {
+    public SortablePageCto(SortablePage<F> page) {
         this(page, null);
     }
 }

@@ -12,10 +12,12 @@ public class Constants {
     public static final String FK_PERMISSION_TO_DOMAIN = "fk_permission_to_domain";
 
     /*.................... UNIQUE...............................................................*/
-    public static final String UNIQUE_NAME_DOMAIN = "unique_name_domain";
+    public static final String UNIQUE_USER_EMAIL = "unique_user_email";
+    public static final String UNIQUE_PERMISSION_NAME = "unique_user_email";
 
     /*.................... ERROR................................................................*/
     public static final String ERROR_NOT_FOUND = "not_found_error";
+    public static final String ERROR_VALIDATION = "validation_error";
 
 
     /*.................... VALIDATION..........................................................*/

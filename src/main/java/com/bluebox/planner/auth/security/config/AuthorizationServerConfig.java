@@ -1,4 +1,4 @@
-package com.bluebox.planner.auth.securityConfig;
+package com.bluebox.planner.auth.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
