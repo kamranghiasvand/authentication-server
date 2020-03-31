@@ -7,6 +7,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
+import static com.bluebox.planner.auth.common.Constants.FK_PERMISSION_TO_ROLE;
+import static com.bluebox.planner.auth.common.Constants.FK_ROLE_TO_PERMISSION;
+
 /**
  * @author by kamran ghiasvand
  */
@@ -23,9 +26,13 @@ public class RegularRoleEntity extends BaseEntity<Long> {
         return name;
     }
 
-    @ManyToMany
-    @JoinTable(name = "tbl_reg_role_permission", joinColumns = @JoinColumn(name = "fk_role_id"),
-            inverseJoinColumns = @JoinColumn(name = "fk_permission_id"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tbl_reg_role_permission",
+            joinColumns = @JoinColumn(name = "role_id",referencedColumnName = "pk_id",
+                    foreignKey = @ForeignKey(name = FK_ROLE_TO_PERMISSION)),
+            inverseJoinColumns = @JoinColumn(name = "permission_id",referencedColumnName = "pk_id",
+                    foreignKey = @ForeignKey(name = FK_PERMISSION_TO_ROLE)
+            ))
     public List<PermissionEntity> getPermissions() {
         return permissions;
     }

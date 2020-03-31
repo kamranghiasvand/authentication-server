@@ -32,8 +32,8 @@ public class RegularUserEntity extends UserEntity<Long> {
     }
 
     @ManyToMany
-    @JoinTable(name = "tbl_reg_user_role", joinColumns = @JoinColumn(name = "fk_user_id"),
-            inverseJoinColumns = @JoinColumn(name = "fk_role_id"))
+    @JoinTable(name = "tbl_reg_user_role", joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "pk_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "pk_id"))
     public List<RegularRoleEntity> getRoles() {
         return roles;
     }

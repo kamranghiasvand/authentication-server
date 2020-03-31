@@ -8,7 +8,7 @@ import static com.bluebox.planner.auth.common.Constants.ERROR_VALIDATION;
 
 
 /**
- * @author Yaser(amin) Sadeghi
+ * @author kamran ghiasvand
  */
 public class ValidationException extends GlobalException {
 

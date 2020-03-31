@@ -1,6 +1,5 @@
 package com.bluebox.planner.auth.persistence.entity;
 
-import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,7 +13,7 @@ import java.io.Serializable;
 @MappedSuperclass
 public class BaseEntity<I extends Serializable> {
     protected I id;
-    private String scope;
+    private String domain;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(
@@ -27,7 +26,7 @@ public class BaseEntity<I extends Serializable> {
     }
 
     @Column(name = "domain")
-    public String getScope() {
-        return scope;
+    public String getDomain() {
+        return domain;
     }
 }

@@ -1,4 +1,4 @@
-package com.bluebox.planner.auth.common.viewModel.cto;
+package com.bluebox.planner.auth.common.viewModel;
 
 /**
  * @author by kamran ghiasvand

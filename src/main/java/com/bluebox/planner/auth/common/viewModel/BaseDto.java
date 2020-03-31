@@ -1,4 +1,4 @@
-package com.bluebox.planner.auth.common.viewModel.dto;
+package com.bluebox.planner.auth.common.viewModel;
 
 import lombok.Getter;
 import lombok.Setter;

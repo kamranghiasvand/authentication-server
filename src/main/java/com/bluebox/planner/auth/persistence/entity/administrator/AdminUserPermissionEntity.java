@@ -4,11 +4,11 @@ import com.bluebox.planner.auth.persistence.entity.BaseEntity;
 import com.bluebox.planner.auth.persistence.entity.PermissionEntity;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
+
+import static com.bluebox.planner.auth.common.Constants.FK_APE_TO_ADMIN_USER;
+import static com.bluebox.planner.auth.common.Constants.FK_APE_TO_PERMISSION;
 
 /**
  * @author by kamran ghiasvand
@@ -23,14 +23,26 @@ public class AdminUserPermissionEntity extends BaseEntity<Long> {
     private boolean canGrant=false;
     private Timestamp assignTime;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @Column(name = "can_grant")
+    public boolean isCanGrant() {
+        return canGrant;
+    }
+
+    @Column(name = "assign_time")
+    public Timestamp getAssignTime() {
+        return assignTime;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name =
+            FK_APE_TO_ADMIN_USER))
     public AdminUserEntity getUser() {
         return user;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "permission_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "permission_id", foreignKey = @ForeignKey(name =
+            FK_APE_TO_PERMISSION))
     public PermissionEntity getPermission() {
         return permission;
     }

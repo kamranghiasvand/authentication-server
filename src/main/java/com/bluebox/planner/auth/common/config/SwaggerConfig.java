@@ -1,7 +1,9 @@
 package com.bluebox.planner.auth.common.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -15,6 +17,7 @@ import java.util.Collections;
 /**
  * @author Yaser(amin) Sadeghi
  */
+@ConditionalOnProperty(value = "swagger.enabled",havingValue = "true", matchIfMissing = true)
 @Configuration
 @EnableSwagger2
 @EnableAutoConfiguration

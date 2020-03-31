@@ -3,7 +3,7 @@ package com.bluebox.planner.auth.common.viewModel.views;
 /**
  * @author by kamran ghiasvand
  */
-public class ViewUser {
+public class ViewRegularUser {
     public interface PublicRequest {
     }
     public interface CreateRequest extends PublicRequest {

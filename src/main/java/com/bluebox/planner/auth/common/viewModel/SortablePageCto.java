@@ -1,7 +1,5 @@
-package com.bluebox.planner.auth.common.viewModel.cto;
+package com.bluebox.planner.auth.common.viewModel;
 
-import com.bluebox.planner.auth.common.viewModel.SortField;
-import com.bluebox.planner.auth.common.viewModel.dto.SortablePage;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

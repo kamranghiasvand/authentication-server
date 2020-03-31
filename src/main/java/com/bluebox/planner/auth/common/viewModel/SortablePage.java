@@ -1,7 +1,5 @@
-package com.bluebox.planner.auth.common.viewModel.dto;
+package com.bluebox.planner.auth.common.viewModel;
 
-import com.bluebox.planner.auth.common.viewModel.SortField;
-import com.bluebox.planner.auth.common.viewModel.dto.CustomPage;
 import com.bluebox.planner.auth.common.viewModel.views.ViewMain;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;

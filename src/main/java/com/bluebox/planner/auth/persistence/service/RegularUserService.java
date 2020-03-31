@@ -1,7 +1,8 @@
 package com.bluebox.planner.auth.persistence.service;
 
 import com.bluebox.planner.auth.common.Constants;
-import com.bluebox.planner.auth.common.viewModel.cto.BaseCto;
+import com.bluebox.planner.auth.common.viewModel.BaseCto;
+import com.bluebox.planner.auth.common.viewModel.regular.RegularUserCto;
 import com.bluebox.planner.auth.persistence.entity.regular.RegularUserEntity;
 import com.bluebox.planner.auth.persistence.repository.BaseRepository;
 import com.bluebox.planner.auth.persistence.repository.RegularUserRepository;
@@ -17,12 +18,12 @@ import org.springframework.stereotype.Service;
  * @author by kamran ghiasvand
  */
 @Service
-public class UserServiceImpl extends AbstractCRUDService<RegularUserEntity, BaseCto, IDSortFields,Long> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+public class RegularUserService extends AbstractCRUDService<RegularUserEntity, RegularUserCto, IDSortFields,Long> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RegularUserService.class);
     private final RegularUserRepository regularUserRepository;
 
     @Autowired
-    public UserServiceImpl(RegularUserRepository regularUserRepository) {
+    public RegularUserService(RegularUserRepository regularUserRepository) {
         this.regularUserRepository = regularUserRepository;
     }
 
@@ -38,7 +39,7 @@ public class UserServiceImpl extends AbstractCRUDService<RegularUserEntity, Base
     }
 
     @Override
-    protected BaseSpec<RegularUserEntity> getSpec(BaseCto criteria) {
+    protected BaseSpec<RegularUserEntity> getSpec(RegularUserCto criteria) {
         return new BaseSpec<>();
     }
 

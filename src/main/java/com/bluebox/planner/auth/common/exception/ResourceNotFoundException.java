@@ -4,7 +4,7 @@ import com.bluebox.planner.auth.common.Constants;
 import org.springframework.http.HttpStatus;
 
 /**
- * @author Yaser(amin) Sadeghi
+ * @author kamran ghiasvand
  */
 public class ResourceNotFoundException extends GlobalException {
 

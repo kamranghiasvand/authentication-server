@@ -1,6 +1,5 @@
 package com.bluebox.planner.auth.persistence.service.base;
 
-import com.bluebox.planner.auth.common.viewModel.dto.BaseDto;
 import com.bluebox.planner.auth.common.exception.GlobalException;
 import com.bluebox.planner.auth.persistence.entity.BaseEntity;
 

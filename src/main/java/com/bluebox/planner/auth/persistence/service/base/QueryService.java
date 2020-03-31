@@ -3,8 +3,8 @@ package com.bluebox.planner.auth.persistence.service.base;
 
 import com.bluebox.planner.auth.common.exception.GlobalException;
 import com.bluebox.planner.auth.common.viewModel.SortField;
-import com.bluebox.planner.auth.common.viewModel.cto.BaseCto;
-import com.bluebox.planner.auth.common.viewModel.cto.SortablePageCto;
+import com.bluebox.planner.auth.common.viewModel.BaseCto;
+import com.bluebox.planner.auth.common.viewModel.SortablePageCto;
 import com.bluebox.planner.auth.persistence.entity.BaseEntity;
 
 import java.io.Serializable;

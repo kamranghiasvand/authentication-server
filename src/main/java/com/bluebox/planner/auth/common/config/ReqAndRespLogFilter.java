@@ -34,8 +34,8 @@ public class ReqAndRespLogFilter extends OncePerRequestFilter {
             MediaType.valueOf("application/*+xml"),
             MediaType.MULTIPART_FORM_DATA
     );
-    public static final String CLOSE_TAG = "|>";
-    public static final String OPEN_TAG = "|<";
+    public static final String CLOSE_TAG = "-->|";
+    public static final String OPEN_TAG = "<--|";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -76,7 +76,7 @@ public class ReqAndRespLogFilter extends OncePerRequestFilter {
     private static void logRequestHeader(ContentCachingRequestWrapper request, String prefix) {
         val queryString = request.getQueryString();
         if (queryString == null) {
-            LOGGER.info("{} {} {}?{}", prefix, request.getMethod(), request.getRequestURI(), request.getParameterMap());
+            LOGGER.info("{} {} {}", prefix, request.getMethod(), request.getRequestURI());
         } else {
             LOGGER.info("{} {} {}?{}", prefix, request.getMethod(), request.getRequestURI(), queryString);
         }

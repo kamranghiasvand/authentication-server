@@ -1,13 +1,12 @@
 package com.bluebox.planner.auth.security;
 
-import com.bluebox.planner.auth.persistence.entity.regular.RegularUserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.management.relation.Role;
-import javax.xml.bind.helpers.AbstractUnmarshallerImpl;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author by kamran ghiasvand

@@ -4,12 +4,12 @@ import com.bluebox.planner.auth.common.exception.GlobalException;
 import com.bluebox.planner.auth.common.exception.ValidationException;
 import com.bluebox.planner.auth.common.util.ConvertUtil;
 import com.bluebox.planner.auth.common.viewModel.SortField;
-import com.bluebox.planner.auth.common.viewModel.cto.BaseCto;
-import com.bluebox.planner.auth.common.viewModel.cto.SortablePageCto;
-import com.bluebox.planner.auth.common.viewModel.dto.BaseDto;
-import com.bluebox.planner.auth.common.viewModel.dto.CustomPage;
-import com.bluebox.planner.auth.common.viewModel.dto.PaginatedResultDto;
-import com.bluebox.planner.auth.common.viewModel.dto.SortablePage;
+import com.bluebox.planner.auth.common.viewModel.BaseCto;
+import com.bluebox.planner.auth.common.viewModel.SortablePageCto;
+import com.bluebox.planner.auth.common.viewModel.BaseDto;
+import com.bluebox.planner.auth.common.viewModel.CustomPage;
+import com.bluebox.planner.auth.common.viewModel.PaginatedResultDto;
+import com.bluebox.planner.auth.common.viewModel.SortablePage;
 import com.bluebox.planner.auth.persistence.entity.BaseEntity;
 import com.bluebox.planner.auth.persistence.service.base.QueryService;
 import com.bluebox.planner.auth.persistence.service.base.SearchResult;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 
 /**
- * @author kamran
+ * @author kamran ghiasvand
  */
 public abstract class BaseQueryController<
         E extends BaseEntity<I>,

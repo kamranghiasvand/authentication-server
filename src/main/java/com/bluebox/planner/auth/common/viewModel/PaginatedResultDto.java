@@ -1,7 +1,6 @@
-package com.bluebox.planner.auth.common.viewModel.dto;
+package com.bluebox.planner.auth.common.viewModel;
 
 import com.bluebox.planner.auth.common.viewModel.views.ViewMain;
-import com.bluebox.planner.auth.persistence.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
