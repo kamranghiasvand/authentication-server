@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 /**
  * @author by kamran ghiasvand
  */
@@ -18,14 +20,18 @@ public class RegularUserDto extends BaseDto<Long> {
     private String firstName;
     @JsonView({ViewRegularUser.PublicRequest.class})
     private String lastName;
-    @JsonView({ViewRegularUser.PublicRequest.class})
+    @JsonView({ViewRegularUser.PublicRequest.class,ViewRegularUser.LoginRequest.class})
     private String email;
-    @JsonView({ViewRegularUser.CreateRequest.class, ViewRegularUser.UpdateRequest.class})
+    @JsonView({ViewRegularUser.CreateRequest.class, ViewRegularUser.UpdateRequest.class,ViewRegularUser.LoginRequest.class})
     private String password;
     @JsonView({ViewRegularUser.CreateRequest.class, ViewRegularUser.UpdateRequest.class})
     private String matchingPassword;
     @JsonView({ViewRegularUser.PublicRequest.class})
     private boolean isEnabled;
+    @JsonView({ViewRegularUser.Response.class})
+    private Timestamp registrationDate;
+    @JsonView({ViewRegularUser.Response.class})
+    private Timestamp lastUpdateDate;
 
     @JsonView({ViewRegularUser.UpdateRequest.class, ViewRegularUser.Response.class})
     @Override

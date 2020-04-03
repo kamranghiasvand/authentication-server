@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
@@ -28,8 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.bluebox.planner.auth.common.Constants.VALIDATION_ARGUMENT_MSG;
-import static com.bluebox.planner.auth.common.Constants.VALIDATION_IS_NULL_MSG;
+import static com.bluebox.planner.auth.common.Constants.*;
 import static java.text.MessageFormat.format;
 
 
@@ -86,6 +86,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new RestErrorResponse(ex.getKey(), ex.getMessages()), ex.getStatus());
     }
 
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<RestErrorResponse> handleUsernameNotFound(UsernameNotFoundException ex) {
+        return new ResponseEntity<>(new RestErrorResponse(ERROR_NOT_FOUND, ex.getMessage()), HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<RestErrorResponse> methodArgumentNotValidException(MethodArgumentNotValidException ex) {

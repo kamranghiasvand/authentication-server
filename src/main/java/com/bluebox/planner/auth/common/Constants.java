@@ -19,10 +19,10 @@ public class Constants {
     public static final String FIELD_REGULAR_USER_MATCHING_PASSWORD = "matchingPassword";
 
     /*.................... MESSAGES ............................................................*/
-    public static final String DUPLICATE_MSG = "Duplicate {}";
+    public static final String DUPLICATE_MSG = "Duplicate {0}";
     public static final String OTHER_MSG = "other";
-    public static final String VIOLATION_OF_MSG = "Violation of {}";
-    public static final String VALIDATION_ARGUMENT_MSG = "{} is not valid for {}";
+    public static final String VIOLATION_OF_MSG = "Violation of {0}";
+    public static final String VALIDATION_ARGUMENT_MSG = "{0} is not valid for {1}";
 
     /*.................... FOREIGN KEY .........................................................*/
     public static final String FK_APE_TO_ADMIN_USER = "fk_admin_user_permission_to_admin_user";
@@ -43,20 +43,21 @@ public class Constants {
     public static final String ERROR_CLIENT = "client_error";
     public static final String ERROR_UNHANDLED = "unhandled_error";
     public static final String ERROR_DUPLICATE = "duplicate_error";
+    public static final String ERROR_UN_AUTHORIZED = "unAuthorize_error";
 
 
     /*.................... VALIDATION .........................................................*/
-    public static final String VALIDATION_IS_NULL_OR_NEGATIVE_MSG = "{} is null or negative";
-    public static final String VALIDATION_NOT_FOUND_MSG = "{} with id {} not found";
-    public static final String VALIDATION_REGEX_NOT_VALID1_MSG = "{} pattern incorrect";
-    public static final String VALIDATION_IS_NULL_MSG = "{} is null";
-    public static final String VALIDATION_MULTI_IS_NULL_MSG = "{} are null together";
-    public static final String VALIDATION_SIZE_MSG = "The {} length must be {}";
-    public static final String VALIDATION_IS_EMPTY_MSG = "{} is empty";
-    public static final String VALIDATION_LENGTH_MAX_MSG = "The {} max length is {}";
-    public static final String VALIDATION_LENGTH_MIN_MSG = "The {} min length is {}";
-    public static final String VALIDATION_IS_NEGATIVE_MSG = "{} must be greater than zero";
-    public static final String VALIDATION_IS_ZERO_MSG = "{} is zero";
+    public static final String VALIDATION_IS_NULL_OR_NEGATIVE_MSG = "{0} is null or negative";
+    public static final String VALIDATION_NOT_FOUND_MSG = "{0} with id {1} not found";
+    public static final String VALIDATION_REGEX_NOT_VALID1_MSG = "{0} pattern incorrect";
+    public static final String VALIDATION_IS_NULL_MSG = "{0} is null";
+    public static final String VALIDATION_MULTI_IS_NULL_MSG = "{0} are null together";
+    public static final String VALIDATION_SIZE_MSG = "The {0} length must be {1}";
+    public static final String VALIDATION_IS_EMPTY_MSG = "{0} is empty";
+    public static final String VALIDATION_LENGTH_MAX_MSG = "The {0} max length is {1}";
+    public static final String VALIDATION_LENGTH_MIN_MSG = "The {0} min length is {1}";
+    public static final String VALIDATION_IS_NEGATIVE_MSG = "{0} must be greater than zero";
+    public static final String VALIDATION_IS_ZERO_MSG = "{0} is zero";
 
     /*.................... SERVICE & CONTROLLERS NAMES .........................................*/
     public static final String USER_SERVICE = "userService";

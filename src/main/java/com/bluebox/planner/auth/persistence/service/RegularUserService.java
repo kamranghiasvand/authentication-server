@@ -1,7 +1,6 @@
 package com.bluebox.planner.auth.persistence.service;
 
 import com.bluebox.planner.auth.common.Constants;
-import com.bluebox.planner.auth.common.viewModel.BaseCto;
 import com.bluebox.planner.auth.common.viewModel.regular.RegularUserCto;
 import com.bluebox.planner.auth.persistence.entity.regular.RegularUserEntity;
 import com.bluebox.planner.auth.persistence.repository.BaseRepository;
@@ -12,21 +11,30 @@ import com.bluebox.planner.auth.persistence.service.base.enums.IDSortFields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
  * @author by kamran ghiasvand
  */
 @Service
-public class RegularUserService extends AbstractCRUDService<RegularUserEntity, RegularUserCto, IDSortFields,Long> {
+public class RegularUserService extends AbstractCRUDService<RegularUserEntity, RegularUserCto, IDSortFields, Long> {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegularUserService.class);
     private final RegularUserRepository regularUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegularUserService(RegularUserRepository regularUserRepository) {
+    public RegularUserService(RegularUserRepository regularUserRepository, PasswordEncoder passwordEncoder
+    ) {
         this.regularUserRepository = regularUserRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
+    @Override
+    public RegularUserEntity create(RegularUserEntity entity) {
+        //  entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+        return super.create(entity);
+    }
 
     @Override
     protected Class<RegularUserEntity> getEntityClass() {
@@ -52,4 +60,5 @@ public class RegularUserService extends AbstractCRUDService<RegularUserEntity, R
     public String getEntityName() {
         return Constants.USER_SERVICE;
     }
+
 }

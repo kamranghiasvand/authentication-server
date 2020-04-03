@@ -24,13 +24,13 @@ import java.util.Optional;
  * @author by kamran ghiasvand
  */
 @Service
-public class UserService implements UserDetailsService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+public class UserDetailsServiceImpl implements UserDetailsService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
     private final RegularUserRepository regularUserRepository;
     private final AdminUserRepository adminUserRepository;
 
     @Autowired
-    public UserService(RegularUserRepository regularUserRepository, AdminUserRepository adminUserRepository) {
+    public UserDetailsServiceImpl(RegularUserRepository regularUserRepository, AdminUserRepository adminUserRepository) {
 
         this.regularUserRepository = regularUserRepository;
         this.adminUserRepository = adminUserRepository;

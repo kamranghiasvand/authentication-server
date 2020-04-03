@@ -8,6 +8,8 @@ public class ViewRegularUser {
     }
     public interface CreateRequest extends PublicRequest {
     }
+    public interface LoginRequest {
+    }
 
     public interface UpdateRequest extends PublicRequest {
     }

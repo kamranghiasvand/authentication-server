@@ -59,6 +59,11 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <exclusions>
@@ -188,7 +193,7 @@
                 <mysql.address>jdbc:mysql://${mysql.ip}:${mysql.port}/${mysql.db}</mysql.address>
                 <mysql.user>root</mysql.user>
                 <mysql.pass></mysql.pass>
-                <log4j.root.level>info</log4j.root.level>
+                <log4j.root.level>all</log4j.root.level>
                 <swagger.enabled>true</swagger.enabled>
             </properties>
         </profile>
