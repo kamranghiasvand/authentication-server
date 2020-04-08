@@ -54,7 +54,7 @@ public class RegularRegistrationController extends BaseCRUDController<RegularUse
 
 
     @Override
-    protected Converter<RegularUserEntity, RegularUserDto, Long> getConverter() throws NotConverterSupportException {
+    protected Converter<RegularUserEntity, RegularUserDto, Long> getConverter()  {
         return converter;
     }
 

@@ -9,8 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,47 +41,38 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfiguration.class);
     private final PermissionRepository permissionRepository;
     private final UserDetailsServiceImpl userDetailsService;
-//    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    //    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 //    private final JwtRequestFilter jwtRequestFilter;
     private List<String> commonUrl = new ArrayList<>();
-
     {
         commonUrl.add(REGISTRATION_BASE);
         commonUrl.add(LOGIN_BASE);
         commonUrl.add("/**/*swagger*/**");
         commonUrl.add("/api-docs*");
+
     }
 
     @Autowired
-    public SecurityConfiguration(PermissionRepository permissionRepository,
-                                 UserDetailsServiceImpl userDetailsService
-//            ,
-//                                 CustomAuthenticationEntryPoint customAuthenticationEntryPoint
-//            ,
-//                                 JwtRequestFilter jwtRequestFilter
-    ) {
-        super();
+    public SecurityConfiguration(PermissionRepository permissionRepository, UserDetailsServiceImpl userDetailsService) {
         this.permissionRepository = permissionRepository;
         this.userDetailsService = userDetailsService;
-//        this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
-//        this.jwtRequestFilter = jwtRequestFilter;
     }
 
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.logout().clearAuthentication(true).invalidateHttpSession(true).and()
+        http.csrf().disable()
+                .logout().clearAuthentication(true).invalidateHttpSession(true).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
+////        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+//
         List<PermissionEntity> all = permissionRepository.findAll();
         for (PermissionEntity permission : all) {
             http.authorizeRequests()
                     .antMatchers(permission.getMethod(), permission.getUrl())
-                    .hasAnyAuthority(permission.getName());
+                    .hasAuthority(permission.getName());
         }
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().denyAll().and().httpBasic();
 //        handleExceptions(http);
     }
 
@@ -96,7 +89,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Bean
@@ -105,6 +98,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

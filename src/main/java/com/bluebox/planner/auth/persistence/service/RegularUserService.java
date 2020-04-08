@@ -32,7 +32,7 @@ public class RegularUserService extends AbstractCRUDService<RegularUserEntity, R
 
     @Override
     public RegularUserEntity create(RegularUserEntity entity) {
-        //  entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+          entity.setPassword(passwordEncoder.encode(entity.getPassword()));
         return super.create(entity);
     }
 

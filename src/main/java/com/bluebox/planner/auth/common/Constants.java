@@ -1,12 +1,14 @@
 package com.bluebox.planner.auth.common;
 
+import java.text.MessageFormat;
+
 /**
  * @author by kamran ghiasvand
  */
 public class Constants {
     /*.................... FIELDS .............................................................*/
     public static final String FIELD_ID = "id";
-    public static final String FIELD_PERMISSION_NAME = "name";
+
     public static final String FIELD_USER_EMAIL = "email";
     public static final String FIELD_APE_PERMISSION = "permission";
     public static final String FIELD_APE_USER = "user";
@@ -18,11 +20,21 @@ public class Constants {
     public static final String FIELD_REGULAR_USER_PASSWORD = "password";
     public static final String FIELD_REGULAR_USER_MATCHING_PASSWORD = "matchingPassword";
 
+    public static final String FIELD_PERMISSION_METHOD = "method";
+    public static final String FIELD_PERMISSION_NAME = "name";
+    public static final String FIELD_PERMISSION_URL = "url";
+
+    public static final String FIELD_ROLE_NAME = "name";
+    public static final String FIELD_ROLE_PERMISSIONS_ID = "permissions[{0}].id";
     /*.................... MESSAGES ............................................................*/
     public static final String DUPLICATE_MSG = "Duplicate {0}";
     public static final String OTHER_MSG = "other";
     public static final String VIOLATION_OF_MSG = "Violation of {0}";
+    public static final String IS_NULL_MSG = "{0} is null";
     public static final String VALIDATION_ARGUMENT_MSG = "{0} is not valid for {1}";
+    public static final String FIRST_IS_NOT_EQUAL_TO_SECOND_MSG = "{0} is not equal to {1}";
+
+    public static final String FIELD_ROLE_PERMISSION_ID_IS_NULL_MSG = MessageFormat.format(IS_NULL_MSG,FIELD_ROLE_PERMISSIONS_ID);
 
     /*.................... FOREIGN KEY .........................................................*/
     public static final String FK_APE_TO_ADMIN_USER = "fk_admin_user_permission_to_admin_user";
@@ -61,7 +73,12 @@ public class Constants {
 
     /*.................... SERVICE & CONTROLLERS NAMES .........................................*/
     public static final String USER_SERVICE = "userService";
+    public static final String PERMISSION_SERVICE = "permissionService";
+    public static final String ROLE_SERVICE = "roleService";
+
     public static final String REGULAR_USER = "RegularUser";
+    public static final String PERMISSION = "permission";
+    public static final String ROLE = "role";
 
 
 }

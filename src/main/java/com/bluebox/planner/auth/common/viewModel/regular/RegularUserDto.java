@@ -2,6 +2,7 @@ package com.bluebox.planner.auth.common.viewModel.regular;
 
 import com.bluebox.planner.auth.common.viewModel.BaseDto;
 import com.bluebox.planner.auth.common.viewModel.views.ViewRegularUser;
+import com.bluebox.planner.auth.common.viewModel.views.ViewRole;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +34,8 @@ public class RegularUserDto extends BaseDto<Long> {
     @JsonView({ViewRegularUser.Response.class})
     private Timestamp lastUpdateDate;
 
-    @JsonView({ViewRegularUser.UpdateRequest.class, ViewRegularUser.Response.class})
+    @JsonView({ViewRegularUser.UpdateRequest.class, ViewRegularUser.Response.class,
+            ViewRole.CreateRequest.class,ViewRole.UpdateRequest.class})
     @Override
     public void setId(Long id) {
         super.setId(id);

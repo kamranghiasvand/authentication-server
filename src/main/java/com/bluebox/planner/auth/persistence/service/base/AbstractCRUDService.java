@@ -15,12 +15,12 @@ public abstract class AbstractCRUDService<
         F extends SortField,
         I extends Serializable>
         extends AbstractQueryService<E, C, F, I>
-        implements CommandService<E,I> {
+        implements CommandService<E, I> {
 
 
     @Transactional
     @Override
-    public E create(E entity){
+    public E create(E entity) {
         return getRepository().save(entity);
     }
 
@@ -30,6 +30,14 @@ public abstract class AbstractCRUDService<
         E foundedInDB = fetch(entity.getId());
         edit(foundedInDB, entity);
         return getRepository().save(foundedInDB);
+    }
+
+    @Transactional(rollbackFor = GlobalException.class)
+    @Override
+    public E remove(I id) throws GlobalException {
+        E foundedInDB = fetch(id);
+        getRepository().delete(foundedInDB);
+        return foundedInDB;
     }
 
     protected abstract Class<E> getEntityClass();

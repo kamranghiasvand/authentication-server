@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
 import java.util.Collections;
+import java.util.List;
 
 import static com.bluebox.planner.auth.common.Constants.*;
 import static com.bluebox.planner.auth.validators.RuleFactory.*;
@@ -40,7 +41,7 @@ public class RegularValidationFactory extends ValidationFactory<RegularUserDto, 
             if(dto.getPassword()==null)
                 return null;
           if (!dto.getPassword().equals(dto.getMatchingPassword()))
-              return Collections.singletonList(format("{} is not equal to {}", FIELD_REGULAR_USER_PASSWORD,FIELD_REGULAR_USER_MATCHING_PASSWORD));
+              return single(format(FIRST_IS_NOT_EQUAL_TO_SECOND_MSG, FIELD_REGULAR_USER_PASSWORD,FIELD_REGULAR_USER_MATCHING_PASSWORD));
           return null;
         };
 
@@ -55,5 +56,8 @@ public class RegularValidationFactory extends ValidationFactory<RegularUserDto, 
                 lastName.getEmptyRule(), lastName.getLenRule(),
                 password.getEmptyRule(), password.getLenRule(),
                 samePassword);
+    }
+    private List<String> single(String mess) {
+        return java.util.Collections.singletonList(mess);
     }
 }

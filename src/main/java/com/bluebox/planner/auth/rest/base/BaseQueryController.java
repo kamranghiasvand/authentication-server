@@ -13,6 +13,7 @@ import com.bluebox.planner.auth.common.viewModel.SortablePage;
 import com.bluebox.planner.auth.persistence.entity.BaseEntity;
 import com.bluebox.planner.auth.persistence.service.base.QueryService;
 import com.bluebox.planner.auth.persistence.service.base.SearchResult;
+import com.bluebox.planner.auth.rest.Converter;
 import org.slf4j.Logger;
 
 import java.io.Serializable;
@@ -29,26 +30,29 @@ public abstract class BaseQueryController<
         F extends SortField,
         I extends Serializable> {
 
-    protected abstract QueryService<E,C, F, I> getQueryService();
+    protected abstract QueryService<E, C, F, I> getQueryService();
 
-    protected E fetch(I id) throws GlobalException {
+    protected abstract Converter<E, D, I> getConverter();
+
+    protected D fetch(I id) throws GlobalException {
         getLogger().info("Fetching {} with id '{}'", getEntityLabel(), id);
-        return getQueryService().fetch(id);
+        E fetch = getQueryService().fetch(id);
+        return getConverter().convert(fetch);
     }
 
-    protected PaginatedResultDto<D,I> query(SortablePageCto<C, F> page) throws ValidationException {
+    protected PaginatedResultDto<D, I> query(SortablePageCto<C, F> page) throws ValidationException {
         validatePaging(page);
         getLogger().info("Fetching all {} ", getEntityLabel());
         SearchResult<E, I> entities = getQueryService().search(page);
         getLogger().info("{} size is '{}' ", getEntityLabel(), entities.getResults().size());
-        PaginatedResultDto<D,I> dtoList = new PaginatedResultDto<>();
+        PaginatedResultDto<D, I> dtoList = new PaginatedResultDto<>();
         dtoList.setResults(new ArrayList<>());
         dtoList.setTotalElements(entities.getTotalElements());
         dtoList.getResults().addAll(ConvertUtil.to(entities.getResults(), getDTOClass()));
         return dtoList;
     }
 
-    protected PaginatedResultDto<D,I> query(CustomPage page) throws ValidationException {
+    protected PaginatedResultDto<D, I> query(CustomPage page) throws ValidationException {
         validatePaging(page);
         return query(new SortablePageCto<>(new SortablePage<>(page)));
     }
