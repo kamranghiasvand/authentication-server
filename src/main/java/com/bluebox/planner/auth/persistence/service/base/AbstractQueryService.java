@@ -6,6 +6,7 @@ import com.bluebox.planner.auth.common.exception.ResourceNotFoundException;
 import com.bluebox.planner.auth.common.viewModel.SortField;
 import com.bluebox.planner.auth.common.viewModel.BaseCto;
 import com.bluebox.planner.auth.common.viewModel.SortablePageCto;
+import com.bluebox.planner.auth.persistence.entity.BaseDomainEntity;
 import com.bluebox.planner.auth.persistence.entity.BaseEntity;
 import com.bluebox.planner.auth.persistence.repository.BaseRepository;
 import com.bluebox.planner.auth.persistence.service.base.enums.IDSortFields;
@@ -15,11 +16,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import static java.text.MessageFormat.format;
 
 @Transactional(readOnly = true)
 public abstract class AbstractQueryService<
@@ -32,10 +34,10 @@ public abstract class AbstractQueryService<
     @Override
     public  E fetch(I key) throws GlobalException {
         if (key == null)
-            throw new ResourceNotFoundException(MessageFormat.format(Constants.VALIDATION_IS_NULL_OR_NEGATIVE_MSG, getEntityName() + " key"));
+            throw new ResourceNotFoundException(format(Constants.VALIDATION_IS_NULL_OR_NEGATIVE_MSG, getEntityName() + " key"));
         Optional<E> byId = getRepository().findById(key);
         if (byId.isEmpty())
-            throw new ResourceNotFoundException(MessageFormat.format(Constants.VALIDATION_NOT_FOUND_MSG, getEntityName(), key));
+            throw new ResourceNotFoundException(format(Constants.VALIDATION_NOT_FOUND_MSG, getEntityName(), key));
         return byId.get();
 
     }

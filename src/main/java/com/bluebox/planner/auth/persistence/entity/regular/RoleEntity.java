@@ -1,6 +1,6 @@
 package com.bluebox.planner.auth.persistence.entity.regular;
 
-import com.bluebox.planner.auth.persistence.entity.BaseEntity;
+import com.bluebox.planner.auth.persistence.entity.BaseDomainEntity;
 import com.bluebox.planner.auth.persistence.entity.PermissionEntity;
 import lombok.Setter;
 
@@ -16,7 +16,7 @@ import static com.bluebox.planner.auth.common.Constants.FK_ROLE_TO_PERMISSION;
 @Entity
 @Setter
 @Table(name = "tbl_reg_role")
-public class RegularRoleEntity extends BaseEntity<Long> {
+public class RoleEntity extends BaseDomainEntity<Long> {
     private List<RegularUserEntity> users;
     private String name;
     protected List<PermissionEntity> permissions;

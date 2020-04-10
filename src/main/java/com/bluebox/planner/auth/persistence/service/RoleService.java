@@ -1,12 +1,9 @@
 package com.bluebox.planner.auth.persistence.service;
 
 import com.bluebox.planner.auth.common.Constants;
-import com.bluebox.planner.auth.common.viewModel.permission.PermissionCto;
 import com.bluebox.planner.auth.common.viewModel.role.RoleCto;
-import com.bluebox.planner.auth.persistence.entity.PermissionEntity;
-import com.bluebox.planner.auth.persistence.entity.regular.RegularRoleEntity;
+import com.bluebox.planner.auth.persistence.entity.regular.RoleEntity;
 import com.bluebox.planner.auth.persistence.repository.BaseRepository;
-import com.bluebox.planner.auth.persistence.repository.PermissionRepository;
 import com.bluebox.planner.auth.persistence.repository.RoleRepository;
 import com.bluebox.planner.auth.persistence.service.base.AbstractCRUDService;
 import com.bluebox.planner.auth.persistence.service.base.BaseSpec;
@@ -20,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author by kamran ghiasvand
  */
 @Service
-public class RoleService extends AbstractCRUDService<RegularRoleEntity, RoleCto, IDSortFields, Long> {
+public class RoleService extends AbstractCRUDService<RoleEntity, RoleCto, IDSortFields, Long> {
     private static final Logger LOGGER = LoggerFactory.getLogger(RoleService.class);
     private final RoleRepository roleRepository;
 
@@ -31,24 +28,24 @@ public class RoleService extends AbstractCRUDService<RegularRoleEntity, RoleCto,
 
 
     @Override
-    protected Class<RegularRoleEntity> getEntityClass() {
-        return RegularRoleEntity.class;
+    protected Class<RoleEntity> getEntityClass() {
+        return RoleEntity.class;
     }
 
     @Override
-    protected void edit(RegularRoleEntity foundedInDB, RegularRoleEntity newEntity) {
+    protected void edit(RoleEntity foundedInDB, RoleEntity newEntity) {
         LOGGER.info("editing entity");
     }
 
 
     @Override
-    protected BaseSpec<RegularRoleEntity> getSpec(RoleCto criteria) {
+    protected BaseSpec<RoleEntity> getSpec(RoleCto criteria) {
         return new BaseSpec<>();
     }
 
 
     @Override
-    public BaseRepository<RegularRoleEntity, Long> getRepository() {
+    public BaseRepository<RoleEntity, Long> getRepository() {
         return roleRepository;
     }
 

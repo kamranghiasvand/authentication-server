@@ -1,6 +1,6 @@
 package com.bluebox.planner.auth.persistence.entity;
 
-import com.bluebox.planner.auth.persistence.entity.regular.RegularRoleEntity;
+import com.bluebox.planner.auth.persistence.entity.regular.RoleEntity;
 import lombok.Setter;
 import org.springframework.http.HttpMethod;
 
@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.util.List;
 
 import static com.bluebox.planner.auth.common.Constants.UNIQUE_PERMISSION_NAME;
-import static com.bluebox.planner.auth.common.Constants.UNIQUE_USER_EMAIL;
 
 /**
  * @author by kamran ghiasvand
@@ -18,11 +17,11 @@ import static com.bluebox.planner.auth.common.Constants.UNIQUE_USER_EMAIL;
 @Setter
 @Table(name = "tbl_permission",
         uniqueConstraints = {@UniqueConstraint(name = UNIQUE_PERMISSION_NAME, columnNames = "name")})
-public class PermissionEntity extends BaseEntity<Long>{
+public class PermissionEntity extends BaseDomainEntity<Long> {
     private String url;
     private HttpMethod method;
     private String name;
-    private List<RegularRoleEntity> roles;
+    private List<RoleEntity> roles;
 
     @Column(name = "url", nullable = false)
     public String getUrl() {
@@ -41,7 +40,7 @@ public class PermissionEntity extends BaseEntity<Long>{
     }
 
     @ManyToMany(mappedBy = "permissions")
-    public List<RegularRoleEntity> getRoles() {
+    public List<RoleEntity> getRoles() {
         return roles;
     }
 

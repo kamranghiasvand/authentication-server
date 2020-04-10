@@ -1,6 +1,6 @@
 package com.bluebox.planner.auth.persistence.entity.administrator;
 
-import com.bluebox.planner.auth.persistence.entity.BaseEntity;
+import com.bluebox.planner.auth.persistence.entity.BaseDomainEntity;
 import com.bluebox.planner.auth.persistence.entity.PermissionEntity;
 import lombok.Setter;
 
@@ -16,7 +16,7 @@ import static com.bluebox.planner.auth.common.Constants.FK_APE_TO_PERMISSION;
 @Entity
 @Setter
 @Table(name = "tbl_ad_user_permission")
-public class AdminUserPermissionEntity extends BaseEntity<Long> {
+public class AdminUserPermissionEntity extends BaseDomainEntity<Long> {
 
     private AdminUserEntity user;
     private PermissionEntity permission;

@@ -44,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     //    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 //    private final JwtRequestFilter jwtRequestFilter;
     private List<String> commonUrl = new ArrayList<>();
+
     {
         commonUrl.add(REGISTRATION_BASE);
         commonUrl.add(LOGIN_BASE);
@@ -61,18 +62,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .logout().clearAuthentication(true).invalidateHttpSession(true).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-////        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//
-        List<PermissionEntity> all = permissionRepository.findAll();
-        for (PermissionEntity permission : all) {
-            http.authorizeRequests()
-                    .antMatchers(permission.getMethod(), permission.getUrl())
-                    .hasAuthority(permission.getName());
-        }
-        http.authorizeRequests().anyRequest().denyAll().and().httpBasic();
+        http.authorizeRequests().anyRequest().permitAll();
+
+//        http.csrf().disable().anonymous().and()
+//                .logout().clearAuthentication(true).invalidateHttpSession(true).and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        for (String url : commonUrl) {
+//            http.authorizeRequests().antMatchers(url).permitAll();
+//        }
+//        List<PermissionEntity> all = permissionRepository.findAll();
+//        for (PermissionEntity permission : all) {
+//            http.authorizeRequests()
+//                    .antMatchers(permission.getMethod(), permission.getUrl())
+//                    .hasAuthority(permission.getName());
+//        }
+//        http.authorizeRequests().anyRequest().denyAll().and().httpBasic();
 //        handleExceptions(http);
     }
 

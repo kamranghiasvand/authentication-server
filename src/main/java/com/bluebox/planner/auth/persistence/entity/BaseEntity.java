@@ -13,7 +13,6 @@ import java.io.Serializable;
 @MappedSuperclass
 public class BaseEntity<I extends Serializable> {
     protected I id;
-    private String domain;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(
@@ -23,10 +22,5 @@ public class BaseEntity<I extends Serializable> {
     @Column(name = "pk_id")
     public final I getId() {
         return id;
-    }
-
-    @Column(name = "domain")
-    public String getDomain() {
-        return domain;
     }
 }

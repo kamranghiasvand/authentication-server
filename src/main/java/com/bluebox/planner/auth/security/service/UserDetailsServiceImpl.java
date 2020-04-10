@@ -3,7 +3,7 @@ package com.bluebox.planner.auth.security.service;
 import com.bluebox.planner.auth.persistence.entity.PermissionEntity;
 import com.bluebox.planner.auth.persistence.entity.administrator.AdminUserEntity;
 import com.bluebox.planner.auth.persistence.entity.administrator.AdminUserPermissionEntity;
-import com.bluebox.planner.auth.persistence.entity.regular.RegularRoleEntity;
+import com.bluebox.planner.auth.persistence.entity.regular.RoleEntity;
 import com.bluebox.planner.auth.persistence.entity.regular.RegularUserEntity;
 import com.bluebox.planner.auth.persistence.repository.AdminUserRepository;
 import com.bluebox.planner.auth.persistence.repository.RegularUserRepository;
@@ -58,7 +58,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .setEnabled(user.isEnabled())
                 .setPassword(user.getPassword())
                 .setUsername(username);
-        for (RegularRoleEntity role : user.getRoles()) {
+        for (RoleEntity role : user.getRoles()) {
             for (PermissionEntity permission : role.getPermissions()) {
                 builder.addAuthority(permission.getName());
             }

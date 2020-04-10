@@ -19,7 +19,8 @@ public class ExceptionUtil {
 
     static {
         UNIQUE_CONST.put(Constants.UNIQUE_PERMISSION_NAME, Constants.FIELD_PERMISSION_NAME);
-        UNIQUE_CONST.put(Constants.UNIQUE_USER_EMAIL, Constants.FIELD_USER_EMAIL);
+        UNIQUE_CONST.put(Constants.UNIQUE_USER_PHONE, Constants.FIELD_USER_PHONE);
+        UNIQUE_CONST.put(Constants.UNIQUE_ADMIN_EMAIL, Constants.FIELD_ADMIN_EMAIL);
 
         FK_CONST.put(Constants.FK_APE_TO_PERMISSION, Constants.FIELD_APE_PERMISSION);
         FK_CONST.put(Constants.FK_APE_TO_ADMIN_USER, Constants.FIELD_APE_USER);

@@ -1,4 +1,4 @@
-package com.bluebox.planner.auth.rest.controller.regular;
+package com.bluebox.planner.auth.rest.controller.user;
 
 import com.bluebox.planner.auth.common.exception.GlobalException;
 import com.bluebox.planner.auth.common.util.ConvertUtil;

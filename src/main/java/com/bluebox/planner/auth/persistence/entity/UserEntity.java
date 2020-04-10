@@ -14,17 +14,14 @@ import java.sql.Timestamp;
  */
 @MappedSuperclass
 @Setter
-public class UserEntity<I extends Serializable> extends BaseEntity<I> {
-    private String email;
+public class UserEntity<I extends Serializable> extends BaseDomainEntity<I> {
+    protected String phone;
+    protected String email;
     private String password;
     private boolean isEnabled = true;
     private Timestamp registrationDate;
     private Timestamp lastUpdateDate;
 
-    @Column(name = "email", nullable = false)
-    public String getEmail() {
-        return email;
-    }
 
     @Column(name = "password", nullable = false)
     public String getPassword() {

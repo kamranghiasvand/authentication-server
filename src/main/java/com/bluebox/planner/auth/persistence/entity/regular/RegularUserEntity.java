@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-import static com.bluebox.planner.auth.common.Constants.UNIQUE_USER_EMAIL;
+import static com.bluebox.planner.auth.common.Constants.UNIQUE_USER_PHONE;
 
 /**
  * @author by kamran ghiasvand
@@ -14,12 +14,22 @@ import static com.bluebox.planner.auth.common.Constants.UNIQUE_USER_EMAIL;
 @Entity
 @Setter
 @Table(name = "tbl_reg_user",
-        uniqueConstraints = {@UniqueConstraint(name = UNIQUE_USER_EMAIL, columnNames = "email")})
+        uniqueConstraints = {@UniqueConstraint(name = UNIQUE_USER_PHONE, columnNames = "phone")})
 public class RegularUserEntity extends UserEntity<Long> {
 
     private String firstName;
     private String lastName;
-    private List<RegularRoleEntity> roles;
+    private List<RoleEntity> roles;
+
+    @Column(name = "phone", nullable = false)
+    public String getPhone() {
+        return phone;
+    }
+
+    @Column(name = "email")
+    public String getEmail() {
+        return email;
+    }
 
     @Column(name = "first_name")
     public String getFirstName() {
@@ -32,9 +42,9 @@ public class RegularUserEntity extends UserEntity<Long> {
     }
 
     @ManyToMany
-    @JoinTable(name = "tbl_reg_user_role", joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "pk_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "pk_id"))
-    public List<RegularRoleEntity> getRoles() {
+    @JoinTable(name = "tbl_reg_user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "pk_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "pk_id"))
+    public List<RoleEntity> getRoles() {
         return roles;
     }
 }

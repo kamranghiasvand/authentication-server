@@ -1,28 +1,28 @@
-package com.bluebox.planner.auth.rest.controller.regular;
+package com.bluebox.planner.auth.rest.controller.user.register;
 
 import com.bluebox.planner.auth.common.PathConstant;
 import com.bluebox.planner.auth.common.exception.GlobalException;
-import com.bluebox.planner.auth.common.exception.NotConverterSupportException;
 import com.bluebox.planner.auth.common.viewModel.regular.RegularUserCto;
 import com.bluebox.planner.auth.common.viewModel.regular.RegularUserDto;
 import com.bluebox.planner.auth.common.viewModel.views.ViewRegularUser;
 import com.bluebox.planner.auth.persistence.entity.regular.RegularUserEntity;
+import com.bluebox.planner.auth.persistence.service.PhoneVerificationService;
 import com.bluebox.planner.auth.persistence.service.RegularUserService;
 import com.bluebox.planner.auth.persistence.service.base.CommandService;
 import com.bluebox.planner.auth.persistence.service.base.QueryService;
 import com.bluebox.planner.auth.persistence.service.base.enums.IDSortFields;
-import com.bluebox.planner.auth.rest.base.BaseCRUDController;
 import com.bluebox.planner.auth.rest.Converter;
+import com.bluebox.planner.auth.rest.base.BaseCRUDController;
+import com.bluebox.planner.auth.rest.controller.user.RegularUserConverter;
+import com.bluebox.planner.auth.rest.controller.user.RegularValidationFactory;
 import com.bluebox.planner.auth.rest.validation.ValidationFactory;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import static com.bluebox.planner.auth.common.Constants.REGULAR_USER;
 
@@ -31,17 +31,19 @@ import static com.bluebox.planner.auth.common.Constants.REGULAR_USER;
  */
 @RestController
 @RequestMapping(PathConstant.REGISTRATION_BASE)
-public class RegularRegistrationController extends BaseCRUDController<RegularUserEntity, RegularUserDto, RegularUserCto, IDSortFields,Long> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RegularRegistrationController.class);
+public class RegistrationController extends BaseCRUDController<RegularUserEntity, RegularUserDto, RegularUserCto, IDSortFields, Long> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
     private final RegularUserService userService;
     private final RegularValidationFactory validationFactory;
     private final RegularUserConverter converter;
+    private final PhoneVerificationService phoneVerificationService;
 
     @Autowired
-    public RegularRegistrationController(RegularUserService userService, RegularValidationFactory validationFactory, RegularUserConverter converter) {
+    public RegistrationController(RegularUserService userService, RegularValidationFactory validationFactory, RegularUserConverter converter, PhoneVerificationService phoneVerificationService) {
         this.userService = userService;
         this.validationFactory = validationFactory;
         this.converter = converter;
+        this.phoneVerificationService = phoneVerificationService;
     }
 
     @JsonView(ViewRegularUser.Response.class)
@@ -50,11 +52,16 @@ public class RegularRegistrationController extends BaseCRUDController<RegularUse
         return add(dto);
     }
 
-
+    @JsonView(ViewRegularUser.Response.class)
+    @RequestMapping(value = PathConstant.VERIFY_PHONE, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> register(@RequestParam("phone") String phone) throws GlobalException {
+        phoneVerificationService.send(phone);
+        return ResponseEntity.ok(ResponseEntity.noContent());
+    }
 
 
     @Override
-    protected Converter<RegularUserEntity, RegularUserDto, Long> getConverter()  {
+    protected Converter<RegularUserEntity, RegularUserDto, Long> getConverter() {
         return converter;
     }
 

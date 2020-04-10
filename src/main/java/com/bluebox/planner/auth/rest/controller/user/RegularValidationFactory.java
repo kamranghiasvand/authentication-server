@@ -1,4 +1,4 @@
-package com.bluebox.planner.auth.rest.controller.regular;
+package com.bluebox.planner.auth.rest.controller.user;
 
 import com.bluebox.planner.auth.common.config.InputProperties;
 import com.bluebox.planner.auth.common.viewModel.regular.RegularUserDto;
@@ -7,8 +7,6 @@ import com.bluebox.planner.auth.validators.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.MessageFormat;
-import java.util.Collections;
 import java.util.List;
 
 import static com.bluebox.planner.auth.common.Constants.*;

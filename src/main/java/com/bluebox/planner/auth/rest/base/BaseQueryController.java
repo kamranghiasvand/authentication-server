@@ -10,7 +10,7 @@ import com.bluebox.planner.auth.common.viewModel.BaseDto;
 import com.bluebox.planner.auth.common.viewModel.CustomPage;
 import com.bluebox.planner.auth.common.viewModel.PaginatedResultDto;
 import com.bluebox.planner.auth.common.viewModel.SortablePage;
-import com.bluebox.planner.auth.persistence.entity.BaseEntity;
+import com.bluebox.planner.auth.persistence.entity.BaseDomainEntity;
 import com.bluebox.planner.auth.persistence.service.base.QueryService;
 import com.bluebox.planner.auth.persistence.service.base.SearchResult;
 import com.bluebox.planner.auth.rest.Converter;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * @author kamran ghiasvand
  */
 public abstract class BaseQueryController<
-        E extends BaseEntity<I>,
+        E extends BaseDomainEntity<I>,
         D extends BaseDto<I>,
         C extends BaseCto,
         F extends SortField,

@@ -9,7 +9,8 @@ public class Constants {
     /*.................... FIELDS .............................................................*/
     public static final String FIELD_ID = "id";
 
-    public static final String FIELD_USER_EMAIL = "email";
+    public static final String FIELD_ADMIN_EMAIL = "email";
+    public static final String FIELD_USER_PHONE = "phone";
     public static final String FIELD_APE_PERMISSION = "permission";
     public static final String FIELD_APE_USER = "user";
     public static final String FIELD_ROLE_PERMISSIONS = "permissions";
@@ -45,12 +46,14 @@ public class Constants {
 
 
     /*.................... UNIQUE ..............................................................*/
-    public static final String UNIQUE_USER_EMAIL = "unique_user_email";
+    public static final String UNIQUE_ADMIN_EMAIL = "unique_admin_email";
+    public static final String UNIQUE_USER_PHONE = "unique_user_phone";
     public static final String UNIQUE_PERMISSION_NAME = "unique_permission_name";
 
     /*.................... ERROR ...............................................................*/
     public static final String ERROR_NOT_FOUND = "not_found_error";
     public static final String ERROR_VALIDATION = "validation_error";
+    public static final String ERROR_PHONE_VERIFICATION = "phone_verification_error";
     public static final String ERROR_CONVERTER = "converter_error";
     public static final String ERROR_CLIENT = "client_error";
     public static final String ERROR_UNHANDLED = "unhandled_error";
@@ -75,10 +78,12 @@ public class Constants {
     public static final String USER_SERVICE = "userService";
     public static final String PERMISSION_SERVICE = "permissionService";
     public static final String ROLE_SERVICE = "roleService";
+    public static final String PHONE_VERIFICATION_SERVICE = "phoneVerificationService";
 
     public static final String REGULAR_USER = "RegularUser";
     public static final String PERMISSION = "permission";
     public static final String ROLE = "role";
+    public static final String USER = "user";
 
 
 }

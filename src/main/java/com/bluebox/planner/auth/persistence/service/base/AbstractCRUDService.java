@@ -3,6 +3,7 @@ package com.bluebox.planner.auth.persistence.service.base;
 import com.bluebox.planner.auth.common.exception.GlobalException;
 import com.bluebox.planner.auth.common.viewModel.SortField;
 import com.bluebox.planner.auth.common.viewModel.BaseCto;
+import com.bluebox.planner.auth.persistence.entity.BaseDomainEntity;
 import com.bluebox.planner.auth.persistence.entity.BaseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
