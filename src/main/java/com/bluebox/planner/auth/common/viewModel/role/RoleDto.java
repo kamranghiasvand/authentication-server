@@ -2,16 +2,13 @@ package com.bluebox.planner.auth.common.viewModel.role;
 
 import com.bluebox.planner.auth.common.viewModel.BaseDto;
 import com.bluebox.planner.auth.common.viewModel.permission.PermissionDto;
-import com.bluebox.planner.auth.common.viewModel.regular.RegularUserDto;
+import com.bluebox.planner.auth.common.viewModel.regular.RUserDto;
 import com.bluebox.planner.auth.common.viewModel.views.ViewPermission;
 import com.bluebox.planner.auth.common.viewModel.views.ViewRole;
-import com.bluebox.planner.auth.persistence.entity.PermissionEntity;
-import com.bluebox.planner.auth.persistence.entity.regular.RegularUserEntity;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.http.HttpMethod;
 
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class RoleDto extends BaseDto<Long> {
     @JsonView({ViewRole.PublicRequest.class})
     private String name;
 
-    private List<RegularUserDto> users;
+    private List<RUserDto> users;
     @JsonView({ViewRole.PublicRequest.class})
     protected List<PermissionDto> permissions;
 

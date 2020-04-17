@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
-import static com.bluebox.planner.auth.common.Constants.VALIDATION_REGEX_NOT_VALID1_MSG;
+import static com.bluebox.planner.auth.common.Constants.VALIDATION_REGEX_NOT_VALID_MSG;
 
 
 /**
@@ -31,6 +31,6 @@ public class PatternRule<T> implements Rule<T> {
     public final List<String> validate(T m) {
         String apply = supplier.apply(m);
         return apply != null ? pattern.matcher(apply.trim()).find() ? null :
-                Collections.singletonList(MessageFormat.format(VALIDATION_REGEX_NOT_VALID1_MSG, field)) : null;
+                Collections.singletonList(MessageFormat.format(VALIDATION_REGEX_NOT_VALID_MSG, field)) : null;
     }
 }

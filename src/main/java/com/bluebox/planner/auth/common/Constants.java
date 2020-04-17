@@ -34,9 +34,9 @@ public class Constants {
     public static final String IS_NULL_MSG = "{0} is null";
     public static final String VALIDATION_ARGUMENT_MSG = "{0} is not valid for {1}";
     public static final String FIRST_IS_NOT_EQUAL_TO_SECOND_MSG = "{0} is not equal to {1}";
-
-    public static final String FIELD_ROLE_PERMISSION_ID_IS_NULL_MSG = MessageFormat.format(IS_NULL_MSG,FIELD_ROLE_PERMISSIONS_ID);
-
+    public static final String FIELD_ROLE_PERMISSION_ID_IS_NULL_MSG = MessageFormat.format(IS_NULL_MSG, FIELD_ROLE_PERMISSIONS_ID);
+    public static final String CODE_IS_NOT_VALID_MSG = "code is not valid";
+    public static final String CODE_ALREADY_SENT_MSG = "code already sent";
     /*.................... FOREIGN KEY .........................................................*/
     public static final String FK_APE_TO_ADMIN_USER = "fk_admin_user_permission_to_admin_user";
     public static final String FK_APE_TO_PERMISSION = "fk_admin_user_permission_to_permission";
@@ -64,7 +64,7 @@ public class Constants {
     /*.................... VALIDATION .........................................................*/
     public static final String VALIDATION_IS_NULL_OR_NEGATIVE_MSG = "{0} is null or negative";
     public static final String VALIDATION_NOT_FOUND_MSG = "{0} with id {1} not found";
-    public static final String VALIDATION_REGEX_NOT_VALID1_MSG = "{0} pattern incorrect";
+    public static final String VALIDATION_REGEX_NOT_VALID_MSG = "{0} pattern incorrect";
     public static final String VALIDATION_IS_NULL_MSG = "{0} is null";
     public static final String VALIDATION_MULTI_IS_NULL_MSG = "{0} are null together";
     public static final String VALIDATION_SIZE_MSG = "The {0} length must be {1}";

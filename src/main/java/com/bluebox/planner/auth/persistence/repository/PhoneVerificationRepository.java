@@ -9,4 +9,5 @@ import java.util.Optional;
  */
 public interface PhoneVerificationRepository extends BaseRepository<PhoneVerificationEntity, Long> {
     Optional<PhoneVerificationEntity> findFirstByPhoneNumberAndCode(String phone,String code);
+    Optional<PhoneVerificationEntity> findFirstByPhoneNumber(String phone);
 }

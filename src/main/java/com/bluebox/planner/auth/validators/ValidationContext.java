@@ -1,6 +1,7 @@
 package com.bluebox.planner.auth.validators;
 
 import com.bluebox.planner.auth.common.exception.ValidationException;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,9 +12,15 @@ import java.util.List;
 /**
  * @author kamran ghiasvand
  */
+@NoArgsConstructor
 public class ValidationContext<T> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidationContext.class);
     private List<Rule<T>> validations = new ArrayList<>();
+
+    @SafeVarargs
+    public ValidationContext(Rule<T>... rules) {
+        addAll(rules);
+    }
 
     public void validate(T t) throws ValidationException {
         LOGGER.trace("Starting validation");

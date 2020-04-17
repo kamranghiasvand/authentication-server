@@ -8,7 +8,6 @@ import com.bluebox.planner.auth.persistence.entity.regular.RoleEntity;
 import com.bluebox.planner.auth.persistence.repository.PermissionRepository;
 import com.bluebox.planner.auth.persistence.repository.RegularUserRepository;
 import com.bluebox.planner.auth.persistence.repository.RoleRepository;
-import com.bluebox.planner.auth.rest.controller.assign.AssignController;
 import io.jsonwebtoken.lang.Collections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

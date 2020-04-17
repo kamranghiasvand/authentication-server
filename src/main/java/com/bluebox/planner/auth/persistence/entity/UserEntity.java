@@ -15,6 +15,9 @@ import java.sql.Timestamp;
 @MappedSuperclass
 @Setter
 public class UserEntity<I extends Serializable> extends BaseDomainEntity<I> {
+
+    private String firstName;
+    private String lastName;
     protected String phone;
     protected String email;
     private String password;
@@ -22,6 +25,15 @@ public class UserEntity<I extends Serializable> extends BaseDomainEntity<I> {
     private Timestamp registrationDate;
     private Timestamp lastUpdateDate;
 
+    @Column(name = "first_name")
+    public String getFirstName() {
+        return firstName;
+    }
+
+    @Column(name = "last_name")
+    public String getLastName() {
+        return lastName;
+    }
 
     @Column(name = "password", nullable = false)
     public String getPassword() {

@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties("app.phone-verification")
 public class PhoneVerificationConfig {
-    @Value("${app.phone-verification.expire-time}")
-    private Integer expireTime;
+    @Value("${app.phone-verification.expire-time-sec}")
+    private Integer expireTimeSec;
     @Value("${app.phone-verification.code-len}")
     private Integer codeLen;
 }

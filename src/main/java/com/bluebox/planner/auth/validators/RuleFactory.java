@@ -40,6 +40,10 @@ public class RuleFactory {
         return new EmailRule<>(supplier, field);
     }
 
+    public static <T> Rule<T> validPhone(Function<T, String> supplier, String field) {
+        return new PhoneRule<>(supplier, field);
+    }
+
     @SafeVarargs
     public static <T> Rule<T> multiNullRule(String fields, Function<T, ?>... suppliers) {
         return new MultiNullRule<>(fields, suppliers);

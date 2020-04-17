@@ -17,8 +17,6 @@ import static com.bluebox.planner.auth.common.Constants.UNIQUE_USER_PHONE;
         uniqueConstraints = {@UniqueConstraint(name = UNIQUE_USER_PHONE, columnNames = "phone")})
 public class RegularUserEntity extends UserEntity<Long> {
 
-    private String firstName;
-    private String lastName;
     private List<RoleEntity> roles;
 
     @Column(name = "phone", nullable = false)
@@ -31,15 +29,7 @@ public class RegularUserEntity extends UserEntity<Long> {
         return email;
     }
 
-    @Column(name = "first_name")
-    public String getFirstName() {
-        return firstName;
-    }
 
-    @Column(name = "last_name")
-    public String getLastName() {
-        return lastName;
-    }
 
     @ManyToMany
     @JoinTable(name = "tbl_reg_user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "pk_id"),
