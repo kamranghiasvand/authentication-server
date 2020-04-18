@@ -22,8 +22,7 @@ import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import static com.bluebox.planner.auth.common.Constants.CODE_ALREADY_SENT_MSG;
-import static com.bluebox.planner.auth.common.Constants.CODE_IS_NOT_VALID_MSG;
+import static com.bluebox.planner.auth.common.Constants.*;
 
 /**
  * @author by kamran ghiasvand
@@ -69,10 +68,10 @@ public class PhoneVerificationService extends AbstractCRUDService<PhoneVerificat
         var result = repository.findFirstByPhoneNumberAndCode(phoneNumber, code);
         try {
             if (result.isEmpty())
-                throw new PhoneVerificationException(CODE_IS_NOT_VALID_MSG);
+                throw new PhoneVerificationException(CODE_OR_PHONE_IS_NOT_VALID_MSG);
             var entity = result.get();
             if (codeExpired(entity))
-                throw new PhoneVerificationException(CODE_IS_NOT_VALID_MSG);
+                throw new PhoneVerificationException(CODE_OR_PHONE_IS_NOT_VALID_MSG);
         } finally {
             result.ifPresent(repository::delete);
         }

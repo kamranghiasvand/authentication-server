@@ -11,6 +11,7 @@ public class Constants {
 
     public static final String FIELD_ADMIN_EMAIL = "email";
     public static final String FIELD_USER_PHONE = "phone";
+    public static final String FIELD_VERIFICATION_CODE = "code";
     public static final String FIELD_APE_PERMISSION = "permission";
     public static final String FIELD_APE_USER = "user";
     public static final String FIELD_ROLE_PERMISSIONS = "permissions";
@@ -35,7 +36,7 @@ public class Constants {
     public static final String VALIDATION_ARGUMENT_MSG = "{0} is not valid for {1}";
     public static final String FIRST_IS_NOT_EQUAL_TO_SECOND_MSG = "{0} is not equal to {1}";
     public static final String FIELD_ROLE_PERMISSION_ID_IS_NULL_MSG = MessageFormat.format(IS_NULL_MSG, FIELD_ROLE_PERMISSIONS_ID);
-    public static final String CODE_IS_NOT_VALID_MSG = "code is not valid";
+    public static final String CODE_OR_PHONE_IS_NOT_VALID_MSG = "code or phoneNumber is not valid";
     public static final String CODE_ALREADY_SENT_MSG = "code already sent";
     /*.................... FOREIGN KEY .........................................................*/
     public static final String FK_APE_TO_ADMIN_USER = "fk_admin_user_permission_to_admin_user";

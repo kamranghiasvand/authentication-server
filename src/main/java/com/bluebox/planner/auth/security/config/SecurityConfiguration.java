@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         commonUrl.add(LOGIN_BASE);
         commonUrl.add("/**/*swagger*/**");
         commonUrl.add("/api-docs*");
+        commonUrl.add("/**");
 
     }
 

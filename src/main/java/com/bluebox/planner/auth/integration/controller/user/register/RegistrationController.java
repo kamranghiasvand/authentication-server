@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -67,11 +68,14 @@ public class RegistrationController extends BaseCRUDController<RegularUserEntity
     }
 
     @JsonView(ViewRegularUser.Response.class)
-    @RequestMapping(value = PathConstant.SEND_PHONE_VERIFICATION_CODE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = PathConstant.REGISTER_WITH_PHONE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public RUserDto registerWithPhoneVerificationCode(@RequestParam("code") String code, @RequestBody RUserDto userDto) throws GlobalException {
         phoneVerificationService.verify(userDto.getPhone(), code);
-        if (StringUtils.isEmpty(userDto.getPassword()))
+        if (StringUtils.isEmpty(userDto.getPassword())){
             userDto.setPassword(RandomPassUtil.generatePassword());
+            userDto.setMatchingPassword(userDto.getPassword());
+        }
         return add(userDto);
     }
 
