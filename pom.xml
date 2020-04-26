@@ -234,10 +234,10 @@
             <properties>
                 <mysql.ip>localhost</mysql.ip>
                 <mysql.port>3306</mysql.port>
-                <mysql.db>auth_server_dev</mysql.db>
+                <mysql.db>widding_auth_server_dev</mysql.db>
                 <mysql.address>jdbc:mysql://${mysql.ip}:${mysql.port}/${mysql.db}</mysql.address>
                 <mysql.user>root</mysql.user>
-                <mysql.pass></mysql.pass>
+                <mysql.pass>123456</mysql.pass>
                 <log4j.root.level>info</log4j.root.level>
                 <swagger.enabled>true</swagger.enabled>
             </properties>

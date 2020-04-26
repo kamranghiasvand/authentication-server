@@ -8,14 +8,14 @@ import java.text.MessageFormat;
 public class Constants {
     /*.................... FIELDS .............................................................*/
     public static final String FIELD_ID = "id";
+    public static final String FIELD_VERIFICATION_CODE = "code";
+    public static final String FIELD_USER_PHONE = "phone";
 
     public static final String FIELD_ADMIN_EMAIL = "email";
-    public static final String FIELD_USER_PHONE = "phone";
-    public static final String FIELD_VERIFICATION_CODE = "code";
+
     public static final String FIELD_APE_PERMISSION = "permission";
     public static final String FIELD_APE_USER = "user";
-    public static final String FIELD_ROLE_PERMISSIONS = "permissions";
-    public static final String FIELD_PERMISSION_ROLES = "roles";
+
     public static final String FIELD_REGULAR_USER_EMAIL = "email";
     public static final String FIELD_REGULAR_USER_FIRST_NAME = "firstName";
     public static final String FIELD_REGULAR_USER_LAST_NAME = "lastName";
@@ -25,9 +25,13 @@ public class Constants {
     public static final String FIELD_PERMISSION_METHOD = "method";
     public static final String FIELD_PERMISSION_NAME = "name";
     public static final String FIELD_PERMISSION_URL = "url";
+    public static final String FIELD_PERMISSION_ROLES = "roles";
 
+    public static final String FIELD_ROLE_PERMISSIONS = "permissions";
     public static final String FIELD_ROLE_NAME = "name";
     public static final String FIELD_ROLE_PERMISSIONS_ID = "permissions[{0}].id";
+
+    public static final String FIELD_CLIENT_ID = "clientId";
     /*.................... MESSAGES ............................................................*/
     public static final String DUPLICATE_MSG = "Duplicate {0}";
     public static final String OTHER_MSG = "other";
@@ -50,6 +54,7 @@ public class Constants {
     public static final String UNIQUE_ADMIN_EMAIL = "unique_admin_email";
     public static final String UNIQUE_USER_PHONE = "unique_user_phone";
     public static final String UNIQUE_PERMISSION_NAME = "unique_permission_name";
+    public static final String UNIQUE_CLIENT_ID = "unique_client_id";
 
     /*.................... ERROR ...............................................................*/
     public static final String ERROR_NOT_FOUND = "not_found_error";

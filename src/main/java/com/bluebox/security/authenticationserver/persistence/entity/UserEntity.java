@@ -59,8 +59,9 @@ public class UserEntity<I extends Serializable> extends BaseDomainEntity<I> {
     public void persist() {
         lastUpdateDate = registrationDate = new Timestamp(System.currentTimeMillis());
     }
+
     @PreUpdate
-    public void update(){
-        lastUpdateDate=new Timestamp(System.currentTimeMillis());
+    public void update() {
+        lastUpdateDate = new Timestamp(System.currentTimeMillis());
     }
 }

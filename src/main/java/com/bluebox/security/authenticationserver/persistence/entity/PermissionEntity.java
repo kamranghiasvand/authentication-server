@@ -17,7 +17,7 @@ import static com.bluebox.security.authenticationserver.common.Constants.UNIQUE_
 @Entity
 @Setter
 @Table(name = "tbl_permission",
-        uniqueConstraints = {@UniqueConstraint(name = UNIQUE_PERMISSION_NAME, columnNames = "name")})
+        uniqueConstraints = {@UniqueConstraint(name = UNIQUE_PERMISSION_NAME, columnNames = {"name","domain"})})
 public class PermissionEntity extends BaseDomainEntity<Long> {
     private String url;
     private HttpMethod method;

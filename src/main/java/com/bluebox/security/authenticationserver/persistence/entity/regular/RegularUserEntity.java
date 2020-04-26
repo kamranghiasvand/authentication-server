@@ -16,7 +16,7 @@ import static com.bluebox.security.authenticationserver.common.Constants.UNIQUE_
 @Entity
 @Setter
 @Table(name = "tbl_reg_user",
-        uniqueConstraints = {@UniqueConstraint(name = UNIQUE_USER_PHONE, columnNames = "phone")})
+        uniqueConstraints = @UniqueConstraint(name = UNIQUE_USER_PHONE, columnNames = {"phone", "domain"}))
 public class RegularUserEntity extends UserEntity<Long> {
 
     private List<RoleEntity> roles;

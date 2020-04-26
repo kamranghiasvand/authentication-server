@@ -18,7 +18,7 @@ import static com.bluebox.security.authenticationserver.common.Constants.UNIQUE_
 @Entity
 @Setter
 @Table(name = "tbl_ad_user",
-        uniqueConstraints = {@UniqueConstraint(name = UNIQUE_ADMIN_EMAIL, columnNames = "email")})
+        uniqueConstraints = @UniqueConstraint(name = UNIQUE_ADMIN_EMAIL, columnNames = {"email", "domain"}))
 public class AdminUserEntity extends UserEntity<Long> {
     private AdminUserEntity parent;
     private List<AdminUserEntity> children;

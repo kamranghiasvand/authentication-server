@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class BaseDomainEntity<I extends Serializable> extends BaseEntity<I> {
     private String domain;
 
-    @Column(name = "domain")
+    @Column(name = "domain", nullable = false)
     public String getDomain() {
         return domain;
     }
