@@ -8,6 +8,6 @@ import java.util.Optional;
 /**
  * @author by kamran ghiasvand
  */
-public interface RegularUserRepository extends BaseRepository<RegularUserEntity, Long> {
+public interface RegularUserRepository extends DomainAwareRepository<RegularUserEntity, Long> {
     Optional<RegularUserEntity> findByEmail(String username);
 }

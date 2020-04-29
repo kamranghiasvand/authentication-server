@@ -5,5 +5,5 @@ import com.bluebox.security.authenticationserver.persistence.entity.PermissionEn
 /**
  * @author by kamran ghiasvand
  */
-public interface PermissionRepository extends BaseRepository<PermissionEntity,Long> {
+public interface PermissionRepository extends DomainAwareRepository<PermissionEntity,Long> {
 }

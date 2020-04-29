@@ -16,6 +16,7 @@ public class UserPrincipal implements UserDetails {
     private String password;
     private boolean enabled;
     private Set<GrantedAuthority> roles = new HashSet<>();
+    private String domain;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -52,6 +53,10 @@ public class UserPrincipal implements UserDetails {
         return enabled;
     }
 
+    public String getDomain() {
+        return domain;
+    }
+
     public static Builder newBuilder() {
         return new Builder();
     }
@@ -61,6 +66,11 @@ public class UserPrincipal implements UserDetails {
 
         public Builder setEnabled(boolean enabled) {
             instance.enabled = enabled;
+            return this;
+        }
+
+        public Builder setDomain(String domain) {
+            instance.domain = domain;
             return this;
         }
 

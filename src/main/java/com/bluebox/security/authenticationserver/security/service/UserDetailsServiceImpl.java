@@ -55,6 +55,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         RegularUserEntity user = byEmail.get();
         UserPrincipal.Builder builder = UserPrincipal.newBuilder()
+                .setDomain(user.getDomain())
                 .setEnabled(user.isEnabled())
                 .setPassword(user.getPassword())
                 .setUsername(username);
@@ -73,6 +74,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         AdminUserEntity user = byEmail.get();
         UserPrincipal.Builder builder = UserPrincipal.newBuilder()
+                .setDomain(user.getDomain())
                 .setEnabled(user.isEnabled())
                 .setUsername(username)
                 .setPassword(user.getPassword());

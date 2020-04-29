@@ -5,5 +5,5 @@ import com.bluebox.security.authenticationserver.persistence.entity.regular.Role
 /**
  * @author by kamran ghiasvand
  */
-public interface RoleRepository extends BaseRepository<RoleEntity,Long> {
+public interface RoleRepository extends DomainAwareRepository<RoleEntity,Long> {
 }

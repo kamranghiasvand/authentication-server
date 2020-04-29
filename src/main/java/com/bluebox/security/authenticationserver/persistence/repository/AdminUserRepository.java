@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  * @author by kamran ghiasvand
  */
-public interface AdminUserRepository extends BaseRepository<AdminUserEntity,Long> {
+public interface AdminUserRepository extends DomainAwareRepository<AdminUserEntity,Long> {
 
     Optional<AdminUserEntity> findByEmail(String username);
 }
