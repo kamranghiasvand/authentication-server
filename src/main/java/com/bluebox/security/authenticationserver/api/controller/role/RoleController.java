@@ -67,7 +67,6 @@ public class RoleController extends BaseCRUDController<RoleEntity, RoleDto, Role
     }
 
 
-
     @Override
     protected Converter<RoleEntity, RoleDto, Long> getConverter() {
         return roleConverter;

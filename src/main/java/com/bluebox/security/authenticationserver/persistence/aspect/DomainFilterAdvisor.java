@@ -54,7 +54,8 @@ public class DomainFilterAdvisor {
 
     private UserPrincipal getUserPrinciple() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof AnonymousAuthenticationToken)
+
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
             throw new AuthenticationServiceException("no authenticated user found");
         return (UserPrincipal) authentication.getPrincipal();
 

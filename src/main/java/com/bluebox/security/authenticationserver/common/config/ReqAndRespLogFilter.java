@@ -24,6 +24,8 @@ import java.util.stream.Stream;
  * @author Yaser(amin) Sadeghi
  */
 public class ReqAndRespLogFilter extends OncePerRequestFilter {
+    public static final String CLOSE_TAG = "-->|";
+    public static final String OPEN_TAG = "<--|";
     private static final Logger LOGGER = LoggerFactory.getLogger(ReqAndRespLogFilter.class);
     private static final List<MediaType> VISIBLE_TYPES = Arrays.asList(
             MediaType.valueOf("text/*"),
@@ -34,44 +36,6 @@ public class ReqAndRespLogFilter extends OncePerRequestFilter {
             MediaType.valueOf("application/*+xml"),
             MediaType.MULTIPART_FORM_DATA
     );
-    public static final String CLOSE_TAG = "-->|";
-    public static final String OPEN_TAG = "<--|";
-
-    @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
-        if (isAsyncDispatch(request)) {
-            filterChain.doFilter(request, response);
-        } else {
-            doFilterWrapped(wrapRequest(request), wrapResponse(response), filterChain);
-        }
-    }
-
-    protected void doFilterWrapped(ContentCachingRequestWrapper request,
-                                   ContentCachingResponseWrapper response,
-                                   FilterChain filterChain) throws ServletException, IOException {
-        try {
-            beforeRequest(request, response);
-            filterChain.doFilter(request, response);
-        } finally {
-            afterRequest(request, response);
-            response.copyBodyToResponse();
-        }
-    }
-
-    protected void beforeRequest(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response) {
-        if (LOGGER.isInfoEnabled()) {
-            logRequestHeader(request, request.getRemoteAddr() + CLOSE_TAG);
-        }
-    }
-
-    protected void afterRequest(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response) {
-        if (LOGGER.isInfoEnabled()) {
-            logRequestBody(request, request.getRemoteAddr() + CLOSE_TAG);
-            logResponse(response, request.getRemoteAddr() + OPEN_TAG);
-        }
-    }
 
     private static void logRequestHeader(ContentCachingRequestWrapper request, String prefix) {
         val queryString = request.getQueryString();
@@ -142,6 +106,42 @@ public class ReqAndRespLogFilter extends OncePerRequestFilter {
             return (ContentCachingResponseWrapper) response;
         } else {
             return new ContentCachingResponseWrapper(response);
+        }
+    }
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+        if (isAsyncDispatch(request)) {
+            filterChain.doFilter(request, response);
+        } else {
+            doFilterWrapped(wrapRequest(request), wrapResponse(response), filterChain);
+        }
+    }
+
+    protected void doFilterWrapped(ContentCachingRequestWrapper request,
+                                   ContentCachingResponseWrapper response,
+                                   FilterChain filterChain) throws ServletException, IOException {
+        try {
+            beforeRequest(request, response);
+            filterChain.doFilter(request, response);
+        } finally {
+            afterRequest(request, response);
+            response.copyBodyToResponse();
+        }
+    }
+
+    protected void beforeRequest(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response) {
+        if (LOGGER.isInfoEnabled()) {
+            logRequestHeader(request, request.getRemoteAddr() + CLOSE_TAG);
+        }
+    }
+
+    protected void afterRequest(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response) {
+        if (LOGGER.isInfoEnabled()) {
+            logRequestBody(request, request.getRemoteAddr() + CLOSE_TAG);
+            logResponse(response, request.getRemoteAddr() + OPEN_TAG);
         }
     }
 }

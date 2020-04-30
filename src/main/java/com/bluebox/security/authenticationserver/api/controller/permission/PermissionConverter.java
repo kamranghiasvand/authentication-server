@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @author by kamran ghiasvand
  */
 @Service
-public class PermissionConverter implements Converter<PermissionEntity, PermissionDto,Long> {
+public class PermissionConverter implements Converter<PermissionEntity, PermissionDto, Long> {
     @Override
     public PermissionEntity convert(PermissionDto dto, Object... args) throws GlobalException {
         return ConvertUtil.to(dto, PermissionEntity.class);
@@ -19,6 +19,6 @@ public class PermissionConverter implements Converter<PermissionEntity, Permissi
 
     @Override
     public PermissionDto convert(PermissionEntity entity, Object... args) throws GlobalException {
-        return ConvertUtil.to(entity,PermissionDto.class);
+        return ConvertUtil.to(entity, PermissionDto.class);
     }
 }

@@ -16,14 +16,14 @@ import java.sql.Timestamp;
 @Setter
 public class UserEntity<I extends Serializable> extends BaseDomainEntity<I> {
 
-    private String firstName;
-    private String lastName;
+    protected String firstName;
+    protected String lastName;
     protected String phone;
     protected String email;
-    private String password;
-    private boolean isEnabled = true;
-    private Timestamp registrationDate;
-    private Timestamp lastUpdateDate;
+    protected String password;
+    protected boolean isEnabled = true;
+    protected Timestamp registrationDate;
+    protected Timestamp lastUpdateDate;
 
     @Column(name = "first_name")
     public String getFirstName() {
@@ -63,5 +63,21 @@ public class UserEntity<I extends Serializable> extends BaseDomainEntity<I> {
     @PreUpdate
     public void update() {
         lastUpdateDate = new Timestamp(System.currentTimeMillis());
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", isEnabled=" + isEnabled +
+                ", registrationDate=" + registrationDate +
+                ", lastUpdateDate=" + lastUpdateDate +
+                ", domain='" + domain + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

@@ -18,9 +18,9 @@ import static com.bluebox.security.authenticationserver.common.Constants.FK_ROLE
 @Setter
 @Table(name = "tbl_reg_role")
 public class RoleEntity extends BaseDomainEntity<Long> {
+    protected List<PermissionEntity> permissions;
     private List<RegularUserEntity> users;
     private String name;
-    protected List<PermissionEntity> permissions;
 
     @Column(name = "name", nullable = false)
     public String getName() {
@@ -29,9 +29,9 @@ public class RoleEntity extends BaseDomainEntity<Long> {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tbl_reg_role_permission",
-            joinColumns = @JoinColumn(name = "role_id",referencedColumnName = "pk_id",
+            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "pk_id",
                     foreignKey = @ForeignKey(name = FK_ROLE_TO_PERMISSION)),
-            inverseJoinColumns = @JoinColumn(name = "permission_id",referencedColumnName = "pk_id",
+            inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "pk_id",
                     foreignKey = @ForeignKey(name = FK_PERMISSION_TO_ROLE)
             ))
     public List<PermissionEntity> getPermissions() {
@@ -41,5 +41,15 @@ public class RoleEntity extends BaseDomainEntity<Long> {
     @ManyToMany(mappedBy = "roles")
     public List<RegularUserEntity> getUsers() {
         return users;
+    }
+
+    @Override
+    public String toString() {
+        return "RoleEntity{" +
+                ", name='" + name + '\'' +
+                ", permissions=" + permissions +
+                ", domain='" + domain + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

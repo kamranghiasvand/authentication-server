@@ -9,6 +9,10 @@ import com.bluebox.security.authenticationserver.common.viewModel.regular.RUserD
 public class RUserDtoBuilder {
     private RUserDto dto = new RUserDto();
 
+    public static RUserDtoBuilder builder() {
+        return new RUserDtoBuilder();
+    }
+
     public RUserDtoBuilder password(String password) {
         dto.setPassword(password);
         return this;
@@ -39,12 +43,7 @@ public class RUserDtoBuilder {
         return this;
     }
 
-
     public RUserDto build() {
         return dto;
-    }
-
-    public static RUserDtoBuilder builder() {
-        return new RUserDtoBuilder();
     }
 }

@@ -50,4 +50,22 @@ public class AdminUserEntity extends UserEntity<Long> {
     public List<AdminUserPermissionEntity> getPermissions() {
         return permissions;
     }
+
+    @Override
+    public String toString() {
+        return "AdminUserEntity{" +
+                "children=" + children +
+                ", permissions=" + permissions +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", isEnabled=" + isEnabled +
+                ", registrationDate=" + registrationDate +
+                ", lastUpdateDate=" + lastUpdateDate +
+                ", domain='" + domain + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

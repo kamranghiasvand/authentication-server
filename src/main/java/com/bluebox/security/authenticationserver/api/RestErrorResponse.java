@@ -50,7 +50,7 @@ public class RestErrorResponse {
                     .withGetterVisibility(JsonAutoDetect.Visibility.NONE));
             return mapper.writeValueAsString(this);
         } catch (JsonProcessingException ignored) {
-            LOGGER.error("",ignored);
+            LOGGER.error("", ignored);
             return "RestErrorResponse{" +
                     "key='" + key + '\'' +
                     ", messages=" + messages +

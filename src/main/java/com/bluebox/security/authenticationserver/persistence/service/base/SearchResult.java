@@ -14,7 +14,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SearchResult <E extends BaseEntity<I>,I extends Serializable> {
+public class SearchResult<E extends BaseEntity<I>, I extends Serializable> {
     private Collection<E> results;
     private long totalElements;
 }

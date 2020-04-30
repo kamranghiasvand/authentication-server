@@ -3,6 +3,7 @@ package com.bluebox.security.authenticationserver.api;
 import com.bluebox.security.authenticationserver.common.config.PhoneVerificationConfig;
 import com.bluebox.security.authenticationserver.common.util.RandomStringGen;
 import com.bluebox.security.authenticationserver.persistence.repository.PhoneVerificationRepository;
+import com.bluebox.security.authenticationserver.persistence.service.PhoneVerificationService;
 import com.bluebox.security.authenticationserver.persistence.service.SmsService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 class PhoneVerificationTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PhoneVerificationTest.class);
     private static final String VERIFY_CODE = "123456";
     private final String URL = REGISTRATION_BASE + SEND_PHONE_VERIFICATION_CODE;
     private final String PHONE_PATTERN_INCORRECT = MessageFormat.format(VALIDATION_REGEX_NOT_VALID_MSG, FIELD_USER_PHONE);
@@ -102,7 +106,7 @@ class PhoneVerificationTest {
         //request for sending verification code
         mockMvc.perform(MockMvcRequestBuilders.get(URL).param("phone", phoneNum)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isForbidden())
+                .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.key", is(ERROR_PHONE_VERIFICATION)))
                 .andExpect(jsonPath("$.messages", hasItem(CODE_ALREADY_SENT_MSG)));
 
@@ -136,7 +140,7 @@ class PhoneVerificationTest {
     public void sendSecondAfterExpireTime() throws Exception {
         appConfig.setExpireTimeSec(1);
         successfulSendVerification();
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(3);
         successfulSendVerification();
 
     }

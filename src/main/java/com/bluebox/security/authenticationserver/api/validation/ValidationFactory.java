@@ -13,7 +13,7 @@ import java.io.Serializable;
 /**
  * @author Yaser(amin) Sadeghi
  */
-public abstract class ValidationFactory<D extends BaseDto<I>,I extends Serializable> {
+public abstract class ValidationFactory<D extends BaseDto<I>, I extends Serializable> {
     @Getter
     protected ValidationContext<D> createCtx = new ValidationContext<>();
     @Getter

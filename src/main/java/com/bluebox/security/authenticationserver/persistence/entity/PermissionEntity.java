@@ -17,7 +17,7 @@ import static com.bluebox.security.authenticationserver.common.Constants.UNIQUE_
 @Entity
 @Setter
 @Table(name = "tbl_permission",
-        uniqueConstraints = {@UniqueConstraint(name = UNIQUE_PERMISSION_NAME, columnNames = {"name","domain"})})
+        uniqueConstraints = {@UniqueConstraint(name = UNIQUE_PERMISSION_NAME, columnNames = {"name", "domain"})})
 public class PermissionEntity extends BaseDomainEntity<Long> {
     private String url;
     private HttpMethod method;
@@ -45,4 +45,14 @@ public class PermissionEntity extends BaseDomainEntity<Long> {
         return roles;
     }
 
+    @Override
+    public String toString() {
+        return "PermissionEntity{" +
+                "url='" + url + '\'' +
+                ", method=" + method +
+                ", name='" + name + '\'' +
+                ", domain='" + domain + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

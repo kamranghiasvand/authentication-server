@@ -6,6 +6,7 @@ package com.bluebox.security.authenticationserver.common.viewModel.views;
 public class ViewRole {
     public interface PublicRequest {
     }
+
     public interface CreateRequest extends PublicRequest {
     }
 
@@ -13,6 +14,6 @@ public class ViewRole {
     public interface UpdateRequest extends PublicRequest {
     }
 
-    public interface Response extends PublicRequest, ViewMain.Query  {
+    public interface Response extends PublicRequest, ViewMain.Query {
     }
 }

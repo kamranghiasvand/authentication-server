@@ -81,7 +81,7 @@ class RegisterWithCodeTest {
                 .andExpect(jsonPath("$.lastName", Matchers.is(dto.getLastName())))
                 .andExpect(jsonPath("$.phone", Matchers.is(dto.getPhone())))
                 .andExpect(jsonPath("$.email", Matchers.is(dto.getEmail())))
-                .andExpect(jsonPath("$.isEnabled", Matchers.is(dto.isEnabled())));
+                .andExpect(jsonPath("$.isEnabled", Matchers.is(true)));
     }
 
     @Test
@@ -92,6 +92,8 @@ class RegisterWithCodeTest {
                 .email("test@email.com")
                 .firstName("test")
                 .lastName("test")
+                .password("1234")
+                .matchingPassword("1234")
                 .phone("+989333938680").build();
 
 
@@ -104,7 +106,7 @@ class RegisterWithCodeTest {
                 .andExpect(jsonPath("$.lastName", Matchers.is(dto.getLastName())))
                 .andExpect(jsonPath("$.phone", Matchers.is(dto.getPhone())))
                 .andExpect(jsonPath("$.email", Matchers.is(dto.getEmail())))
-                .andExpect(jsonPath("$.isEnabled", Matchers.is(dto.isEnabled())));
+                .andExpect(jsonPath("$.isEnabled", Matchers.is(true)));
     }
 
     @Test
@@ -253,8 +255,7 @@ class RegisterWithCodeTest {
                 .andExpect(jsonPath("$.firstName", Matchers.is(dto.getFirstName())))
                 .andExpect(jsonPath("$.lastName", Matchers.is(dto.getLastName())))
                 .andExpect(jsonPath("$.email", Matchers.is(dto.getEmail())))
-                .andExpect(jsonPath("$.enabled", Matchers.is(true)))
-                .andExpect(jsonPath("$.enabled", Matchers.is(dto.getPassword())));
+                .andExpect(jsonPath("$.isEnabled", Matchers.is(true)));
     }
 
     private String asJsonString(Object entity) throws JsonProcessingException {

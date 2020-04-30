@@ -18,17 +18,28 @@ public class PhoneVerificationEntity extends BaseEntity<Long> {
     private Timestamp sentTime;
     private String code;
 
-    @Column(name = "phone_number",nullable = false)
+    @Column(name = "phone_number", nullable = false)
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    @Column(name = "sent_time",nullable = false)
+
+    @Column(name = "sent_time", nullable = false)
     public Timestamp getSentTime() {
         return sentTime;
     }
-    @Column(name = "code",nullable = false)
+
+    @Column(name = "code", nullable = false)
     public String getCode() {
         return code;
     }
 
+    @Override
+    public String toString() {
+        return "PhoneVerificationEntity{" +
+                "phoneNumber='" + phoneNumber + '\'' +
+                ", sentTime=" + sentTime +
+                ", code='" + code + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

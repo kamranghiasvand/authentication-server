@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static com.bluebox.security.authenticationserver.common.Constants.*;
-import static com.bluebox.security.authenticationserver.validators.RuleFactory.*;
+import static com.bluebox.security.authenticationserver.validators.RuleFactory.nullEmptyLenRule;
+import static com.bluebox.security.authenticationserver.validators.RuleFactory.nullRule;
 
 /**
  * @author by kamran ghiasvand
@@ -28,9 +29,9 @@ public class PermissionValidationFactory extends ValidationFactory<PermissionDto
         var url = nullEmptyLenRule(PermissionDto::getUrl, FIELD_PERMISSION_URL, inputProps.getTextMaxLength());
 
         createCtx.addAll(nullMethod,
-                name.getNullRule(),name.getEmptyRule(),name.getLenRule(),
-                url.getNullRule(),url.getEmptyRule(),url.getLenRule());
-        updateCtx.addAll(name.getEmptyRule(),name.getLenRule(),
-                url.getEmptyRule(),url.getLenRule());
+                name.getNullRule(), name.getEmptyRule(), name.getLenRule(),
+                url.getNullRule(), url.getEmptyRule(), url.getLenRule());
+        updateCtx.addAll(name.getEmptyRule(), name.getLenRule(),
+                url.getEmptyRule(), url.getLenRule());
     }
 }

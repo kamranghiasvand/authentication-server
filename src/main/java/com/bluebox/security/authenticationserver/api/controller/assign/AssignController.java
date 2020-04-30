@@ -47,6 +47,7 @@ public class AssignController {
         rolePermissionService.assignUserRole(userId, roleId);
         return ResponseEntity.noContent().build();
     }
+
     @RequestMapping(value = PathConstant.USER_ROLE, method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> unAssignUserRole(@RequestParam("userId") Long userId,
                                               @RequestParam("roleId") Long roleId) throws GlobalException {

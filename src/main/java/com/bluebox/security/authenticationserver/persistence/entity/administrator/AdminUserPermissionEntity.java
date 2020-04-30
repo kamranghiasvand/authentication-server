@@ -21,7 +21,7 @@ public class AdminUserPermissionEntity extends BaseDomainEntity<Long> {
 
     private AdminUserEntity user;
     private PermissionEntity permission;
-    private boolean canGrant=false;
+    private boolean canGrant = false;
     private Timestamp assignTime;
 
     @Column(name = "can_grant")
@@ -46,5 +46,16 @@ public class AdminUserPermissionEntity extends BaseDomainEntity<Long> {
             FK_APE_TO_PERMISSION))
     public PermissionEntity getPermission() {
         return permission;
+    }
+
+    @Override
+    public String toString() {
+        return "AdminUserPermissionEntity{" +
+                "permission=" + permission +
+                ", canGrant=" + canGrant +
+                ", assignTime=" + assignTime +
+                ", domain='" + domain + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

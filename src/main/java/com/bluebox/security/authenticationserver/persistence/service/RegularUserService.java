@@ -31,7 +31,8 @@ public class RegularUserService extends AbstractCRUDService<RegularUserEntity, R
 
     @Override
     public RegularUserEntity create(RegularUserEntity entity) {
-        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+        if (entity.getPassword() != null)
+            entity.setPassword(passwordEncoder.encode(entity.getPassword()));
         return super.create(entity);
     }
 

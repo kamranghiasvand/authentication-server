@@ -36,6 +36,7 @@ public class ClientEntity extends BaseDomainEntity<Long> {
     public String getDescription() {
         return description;
     }
+
     @Column(name = "enabled")
     public boolean isEnabled() {
         return isEnabled;
@@ -55,5 +56,19 @@ public class ClientEntity extends BaseDomainEntity<Long> {
     @Column(name = "logo")
     public byte[] getLogo() {
         return logo;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientEntity{" +
+                "clientId='" + clientId + '\'' +
+                ", password='" + password + '\'' +
+                ", description='" + description + '\'' +
+                ", isEnabled=" + isEnabled +
+                ", registrationDate=" + registrationDate +
+                ", lastUpdateDate=" + lastUpdateDate +
+                ", domain='" + domain + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

@@ -1,8 +1,6 @@
 package com.bluebox.security.authenticationserver.validators.rules;
 
 
-
-
 import com.bluebox.security.authenticationserver.validators.Rule;
 
 import java.util.Collection;

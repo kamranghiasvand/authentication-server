@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @author by kamran ghiasvand
  */
 @Service
-public class RoleConverter implements Converter<RoleEntity, RoleDto,Long> {
+public class RoleConverter implements Converter<RoleEntity, RoleDto, Long> {
     @Override
     public RoleEntity convert(RoleDto dto, Object... args) throws GlobalException {
         return ConvertUtil.to(dto, RoleEntity.class);
@@ -19,6 +19,6 @@ public class RoleConverter implements Converter<RoleEntity, RoleDto,Long> {
 
     @Override
     public RoleDto convert(RoleEntity entity, Object... args) throws GlobalException {
-        return ConvertUtil.to(entity,RoleDto.class);
+        return ConvertUtil.to(entity, RoleDto.class);
     }
 }

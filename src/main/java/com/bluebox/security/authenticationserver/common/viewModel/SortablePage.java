@@ -26,21 +26,20 @@ public class SortablePage<F extends SortField> extends CustomPage {
     }
 
     public SortablePage(CustomPage page) {
-        this(page,null);
+        this(page, null);
     }
 
     @NoArgsConstructor
     @Getter
     @Setter
     public static class SortBy<F> {
-        public SortBy(F fieldName, Sort.Direction direction) {
-            this.fieldName = fieldName;
-            this.direction = direction;
-        }
-
         @JsonView(ViewMain.Query.class)
         private F fieldName;
         @JsonView(ViewMain.Query.class)
         private Sort.Direction direction;
+        public SortBy(F fieldName, Sort.Direction direction) {
+            this.fieldName = fieldName;
+            this.direction = direction;
+        }
     }
 }

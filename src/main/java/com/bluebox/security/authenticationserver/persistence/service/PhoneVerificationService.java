@@ -22,7 +22,8 @@ import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import static com.bluebox.security.authenticationserver.common.Constants.*;
+import static com.bluebox.security.authenticationserver.common.Constants.CODE_ALREADY_SENT_MSG;
+import static com.bluebox.security.authenticationserver.common.Constants.CODE_OR_PHONE_IS_NOT_VALID_MSG;
 
 /**
  * @author by kamran ghiasvand

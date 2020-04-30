@@ -6,7 +6,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 import static com.bluebox.security.authenticationserver.common.PathConstant.PERMIT_ALL;
-import static com.bluebox.security.authenticationserver.common.PathConstant.REGISTRATION_BASE;
 
 /**
  * @author by kamran ghiasvand

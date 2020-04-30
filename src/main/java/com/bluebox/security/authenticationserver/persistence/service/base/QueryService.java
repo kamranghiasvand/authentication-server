@@ -17,5 +17,6 @@ public interface QueryService<
         C extends BaseCto,
         F extends SortField, I extends Serializable> {
     E fetch(I key) throws GlobalException;
-    SearchResult<E,I> search(SortablePageCto<C, F> criteria);
+
+    SearchResult<E, I> search(SortablePageCto<C, F> criteria);
 }

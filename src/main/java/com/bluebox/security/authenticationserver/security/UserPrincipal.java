@@ -18,6 +18,10 @@ public class UserPrincipal implements UserDetails {
     private Set<GrantedAuthority> roles = new HashSet<>();
     private String domain;
 
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -55,10 +59,6 @@ public class UserPrincipal implements UserDetails {
 
     public String getDomain() {
         return domain;
-    }
-
-    public static Builder newBuilder() {
-        return new Builder();
     }
 
     public static class Builder {

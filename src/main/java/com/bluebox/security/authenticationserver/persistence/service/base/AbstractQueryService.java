@@ -28,10 +28,10 @@ public abstract class AbstractQueryService<
         C extends BaseCto,
         F extends SortField,
         I extends Serializable>
-        implements QueryService<E,C, F, I> {
+        implements QueryService<E, C, F, I> {
 
     @Override
-    public  E fetch(I key) throws GlobalException {
+    public E fetch(I key) throws GlobalException {
         if (key == null)
             throw new ResourceNotFoundException(format(Constants.VALIDATION_IS_NULL_OR_NEGATIVE_MSG, getEntityName() + " key"));
         Optional<E> byId = getRepository().findById(key);
@@ -42,7 +42,7 @@ public abstract class AbstractQueryService<
     }
 
     @Override
-    public SearchResult<E,I> search(SortablePageCto<C, F> criteria) {
+    public SearchResult<E, I> search(SortablePageCto<C, F> criteria) {
 
         if (criteria == null) {
             return defaultResponse();
@@ -54,9 +54,9 @@ public abstract class AbstractQueryService<
     }
 
 
-    private SearchResult<E, I>  respondWithCustomDto(SortablePageCto<C, F> dto) {
+    private SearchResult<E, I> respondWithCustomDto(SortablePageCto<C, F> dto) {
         Page<E> all;
-        SearchResult<E, I>  resp = new SearchResult<>();
+        SearchResult<E, I> resp = new SearchResult<>();
         PageRequest pageable;
         if (!dto.getSorts().isEmpty()) {
             pageable = generatePageRequest(dto.getStart(), dto.getSize(), Sort.by(getOrders(dto.getSorts())));
@@ -70,9 +70,9 @@ public abstract class AbstractQueryService<
         return resp;
     }
 
-    private SearchResult<E, I>  respondWithCustomSort(SortablePageCto<C, F> criteria) {
+    private SearchResult<E, I> respondWithCustomSort(SortablePageCto<C, F> criteria) {
         Page<E> all;
-        SearchResult<E, I>  resp = new SearchResult<>();
+        SearchResult<E, I> resp = new SearchResult<>();
         Sort sort = Sort.by(getOrders(getDefaultSort()));
         if (criteria.getSorts() != null && !criteria.getSorts().isEmpty()) {
             List<SortablePageCto.SortBy<F>> sorts = criteria.getSorts();
@@ -85,14 +85,12 @@ public abstract class AbstractQueryService<
     }
 
     private SearchResult<E, I> defaultResponse() {
-        SearchResult<E,I> resp = new SearchResult<>();
+        SearchResult<E, I> resp = new SearchResult<>();
         List<E> list = getRepository().findAll(Sort.by(getOrders(getDefaultSort())));
         resp.setResults(list);
         resp.setTotalElements(list.size());
         return resp;
     }
-
-
 
 
     private <H extends SortField> List<Sort.Order> getOrders(List<SortablePageCto.SortBy<H>> sortByList) {
@@ -111,7 +109,6 @@ public abstract class AbstractQueryService<
         SortablePageCto.SortBy<SortField> idSortFieldsSortBy = new SortablePageCto.SortBy<>(id, Sort.Direction.DESC);
         return Collections.singletonList(idSortFieldsSortBy);
     }
-
 
 
     private PageRequest generatePageRequest(Integer first, Integer count, Sort sort) {

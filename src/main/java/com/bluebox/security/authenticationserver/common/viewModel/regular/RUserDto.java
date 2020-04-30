@@ -36,16 +36,16 @@ public class RUserDto extends BaseDto<Long> {
     @JsonView({ViewRegularUser.Response.class})
     private Timestamp lastUpdateDate;
 
+    @JsonView({ViewRegularUser.UpdateRequest.class, ViewRegularUser.Response.class})
+    @Override
+    public Long getId() {
+        return super.getId();
+    }
+
     @JsonView({ViewRegularUser.UpdateRequest.class, ViewRegularUser.Response.class,
             ViewRole.CreateRequest.class, ViewRole.UpdateRequest.class})
     @Override
     public void setId(Long id) {
         super.setId(id);
-    }
-
-    @JsonView({ViewRegularUser.UpdateRequest.class, ViewRegularUser.Response.class})
-    @Override
-    public Long getId() {
-        return super.getId();
     }
 }

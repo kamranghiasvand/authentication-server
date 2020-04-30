@@ -16,7 +16,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PaginatedResultDto<D extends BaseDto<I>,I extends Serializable> {
+public class PaginatedResultDto<D extends BaseDto<I>, I extends Serializable> {
     @JsonView(ViewMain.Query.class)
     private Collection<D> results;
     @JsonView(ViewMain.Query.class)

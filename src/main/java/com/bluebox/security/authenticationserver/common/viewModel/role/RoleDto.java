@@ -20,21 +20,20 @@ import java.util.List;
 @NoArgsConstructor
 public class RoleDto extends BaseDto<Long> {
     @JsonView({ViewRole.PublicRequest.class})
-    private String name;
-
-    private List<RUserDto> users;
-    @JsonView({ViewRole.PublicRequest.class})
     protected List<PermissionDto> permissions;
-
-    @JsonView({ViewPermission.UpdateRequest.class, ViewPermission.Response.class})
-    @Override
-    public void setId(Long id) {
-        super.setId(id);
-    }
+    @JsonView({ViewRole.PublicRequest.class})
+    private String name;
+    private List<RUserDto> users;
 
     @JsonView({ViewPermission.UpdateRequest.class, ViewPermission.Response.class})
     @Override
     public Long getId() {
         return super.getId();
+    }
+
+    @JsonView({ViewPermission.UpdateRequest.class, ViewPermission.Response.class})
+    @Override
+    public void setId(Long id) {
+        super.setId(id);
     }
 }

@@ -16,7 +16,7 @@ import java.util.Collections;
 /**
  * @author Yaser(amin) Sadeghi
  */
-@ConditionalOnProperty(value = "swagger.enabled",havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(value = "swagger.enabled", havingValue = "true", matchIfMissing = true)
 @Configuration
 @EnableSwagger2
 @EnableAutoConfiguration

@@ -16,24 +16,23 @@ public class TestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
 
 
-
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String postTest(){
+    public String postTest() {
         LOGGER.info("post test");
-    return "POST";
+        return "POST";
     }
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String getTest(){
+    public String getTest() {
         LOGGER.info("get test");
         return "GET";
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String putTest(){
+    public String putTest() {
         LOGGER.info("get test");
         return "GET";
     }
-
 
 
 }
