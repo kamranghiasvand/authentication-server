@@ -1,4 +1,4 @@
-package com.bluebox.security.authenticationserver.rest;
+package com.bluebox.security.authenticationserver.api;
 
 import com.bluebox.security.authenticationserver.Builder.RUserDtoBuilder;
 import com.bluebox.security.authenticationserver.common.exception.GlobalException;
@@ -37,9 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class RegisterWithCodeTest {
     private static final String URL = REGISTRATION_BASE + REGISTER_WITH_PHONE;
-    private final String PHONE_IS_NULL = MessageFormat.format(VALIDATION_IS_NULL_MSG, FIELD_USER_PHONE);
     private final String CODE_IS_NULL = MessageFormat.format(VALIDATION_IS_NULL_MSG, FIELD_VERIFICATION_CODE);
-    private final String PHONE_PATTERN_INCORRECT = MessageFormat.format(VALIDATION_REGEX_NOT_VALID_MSG, FIELD_USER_PHONE);
     private final String PARAM_CODE = "code";
 
     private ArgumentCaptor<String> actualPhone = ArgumentCaptor.forClass(String.class);

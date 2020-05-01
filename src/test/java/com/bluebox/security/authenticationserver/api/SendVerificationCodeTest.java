@@ -1,4 +1,4 @@
-package com.bluebox.security.authenticationserver.rest;
+package com.bluebox.security.authenticationserver.api;
 
 import com.bluebox.security.authenticationserver.common.Constants;
 import com.bluebox.security.authenticationserver.common.exception.GlobalException;

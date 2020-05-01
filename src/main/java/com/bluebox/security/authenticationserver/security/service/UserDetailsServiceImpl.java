@@ -55,13 +55,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         RegularUserEntity user = byEmail.get();
         UserPrincipal.Builder builder = UserPrincipal.newBuilder()
+                .setId(user.getId())
                 .setDomain(user.getDomain())
                 .setEnabled(user.isEnabled())
                 .setPassword(user.getPassword())
                 .setUsername(username);
         for (RoleEntity role : user.getRoles()) {
             for (PermissionEntity permission : role.getPermissions()) {
-                builder.addAuthority(permission.getName());
+                builder = builder.addAuthority(permission.getName());
             }
         }
         return builder.build();
@@ -74,12 +75,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         AdminUserEntity user = byEmail.get();
         UserPrincipal.Builder builder = UserPrincipal.newBuilder()
+                .setId(user.getId())
                 .setDomain(user.getDomain())
                 .setEnabled(user.isEnabled())
                 .setUsername(username)
                 .setPassword(user.getPassword());
         for (AdminUserPermissionEntity permission : user.getPermissions())
-            builder.addAuthority(permission.getPermission().getName());
+            builder = builder.addAuthority(permission.getPermission().getName());
         return builder.build();
     }
 }

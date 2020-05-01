@@ -12,6 +12,7 @@ import java.util.Set;
  * @author by kamran ghiasvand
  */
 public class UserPrincipal implements UserDetails {
+    private Long id;
     private String username;
     private String password;
     private boolean enabled;
@@ -61,8 +62,17 @@ public class UserPrincipal implements UserDetails {
         return domain;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public static class Builder {
         private UserPrincipal instance = new UserPrincipal();
+
+        public Builder setId(Long id) {
+            instance.id = id;
+            return this;
+        }
 
         public Builder setEnabled(boolean enabled) {
             instance.enabled = enabled;

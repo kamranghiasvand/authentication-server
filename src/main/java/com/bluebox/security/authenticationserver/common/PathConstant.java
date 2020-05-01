@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class PathConstant {
     public static final String REGISTRATION_BASE = "/api/registration";
+    public static final String PROFILE_BASE = "/api/profile";
     public static final String SEND_PHONE_VERIFICATION_CODE = "/send-phone-verification-code";
     public static final String REGISTER_WITH_PHONE = "/with-code";
     public static final String LOGIN_BASE = "/api/login";

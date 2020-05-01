@@ -1,9 +1,7 @@
-package com.bluebox.security.authenticationserver.api.controller.user.register;
+package com.bluebox.security.authenticationserver.api.controller.user;
 
 import com.bluebox.security.authenticationserver.api.Converter;
 import com.bluebox.security.authenticationserver.api.base.BaseCRUDController;
-import com.bluebox.security.authenticationserver.api.controller.user.RegularUserConverter;
-import com.bluebox.security.authenticationserver.api.controller.user.RegularValidationFactory;
 import com.bluebox.security.authenticationserver.api.validation.ValidationFactory;
 import com.bluebox.security.authenticationserver.common.PathConstant;
 import com.bluebox.security.authenticationserver.common.exception.GlobalException;
@@ -70,10 +68,6 @@ public class RegistrationController extends BaseCRUDController<RegularUserEntity
     @ResponseStatus(HttpStatus.CREATED)
     public RUserDto registerWithPhoneVerificationCode(@RequestParam("code") String code, @RequestBody RUserDto userDto) throws GlobalException {
         phoneVerificationService.verify(userDto.getPhone(), code);
-//        if (StringUtils.isEmpty(userDto.getPassword())) {
-//            userDto.setPassword(RandomPassUtil.generatePassword());
-//            userDto.setMatchingPassword(userDto.getPassword());
-//        }
         userDto.setEnabled(true);
         return add(userDto);
     }

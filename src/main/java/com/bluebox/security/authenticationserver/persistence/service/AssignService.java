@@ -23,15 +23,15 @@ import static java.text.MessageFormat.format;
  * @author by kamran ghiasvand
  */
 @Service
-public class RolePermissionService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RolePermissionService.class);
+public class AssignService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AssignService.class);
 
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
     private final RegularUserRepository userRepository;
 
     @Autowired
-    public RolePermissionService(RoleRepository roleRepository, PermissionRepository permissionRepository, RegularUserRepository userRepository) {
+    public AssignService(RoleRepository roleRepository, PermissionRepository permissionRepository, RegularUserRepository userRepository) {
         this.roleRepository = roleRepository;
         this.permissionRepository = permissionRepository;
         this.userRepository = userRepository;
