@@ -251,7 +251,7 @@
                 <mysql.address>jdbc:mysql://${mysql.ip}:${mysql.port}/${mysql.db}</mysql.address>
                 <mysql.user>root</mysql.user>
                 <mysql.pass>123456</mysql.pass>
-                <log4j.root.level>info</log4j.root.level>
+                <log4j.root.level>debug</log4j.root.level>
                 <swagger.enabled>false</swagger.enabled>
             </properties>
         </profile>

@@ -1,6 +1,7 @@
 package com.bluebox.security.authenticationserver.security.config;
 
 
+import com.bluebox.security.authenticationserver.common.config.AppConfig;
 import com.bluebox.security.authenticationserver.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -25,10 +27,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsServiceImpl customUserDetailsService;
+    private final AppConfig appConfig;
 
     @Autowired
-    public WebSecurityConfig(UserDetailsServiceImpl customUserDetailsService) {
+    public WebSecurityConfig(UserDetailsServiceImpl customUserDetailsService, AppConfig appConfig) {
         this.customUserDetailsService = customUserDetailsService;
+        this.appConfig = appConfig;
     }
 
     @Bean
@@ -49,6 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+        if (appConfig.getProductionMode())
+            return new BCryptPasswordEncoder(11);
         return NoOpPasswordEncoder.getInstance();
     }
 

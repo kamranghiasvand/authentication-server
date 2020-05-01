@@ -28,9 +28,11 @@ import org.springframework.util.Base64Utils;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -51,7 +53,7 @@ public class LoginRegularUserTest {
     private final BaseClientDetails client;
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
+    @MockBean
     private RegularUserRepository userRepository;
     @Autowired
     private PermissionRepository permissionRepository;
@@ -71,7 +73,6 @@ public class LoginRegularUserTest {
     @BeforeEach
     public void before() {
         Mockito.when(clientDetailsService.loadClientByClientId(anyString())).thenAnswer(args -> client);
-        userRepository.deleteAll();
 //        permissionRepository.deleteAll();
 
     }
@@ -84,9 +85,10 @@ public class LoginRegularUserTest {
 
     @Test
     @Order(1)
-    public void test() throws Exception {
+    public void successfulLogin() throws Exception {
         var rBuilder = RegularUserEntityBuilder.newBuilder();
         var user = rBuilder.email("test@test")
+                .id(1L)
                 .phone("+989333938680")
                 .password("123")
                 .enabled(true)
@@ -94,7 +96,7 @@ public class LoginRegularUserTest {
                 .lastName("test")
                 .firstName("test")
                 .build();
-        user = userRepository.save(user);
+        Mockito.when(userRepository.findByPhone(anyString())).thenReturn(Optional.of(user));
         mockMvc.perform(post(URL)
                 .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64Utils.encodeToString((CLIENT_ID + ":" + CLIENT_SECRET).getBytes()))
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -102,9 +104,6 @@ public class LoginRegularUserTest {
                 .andExpect(status().isOk());
     }
 
-    private String asJsonString(Object entity) throws JsonProcessingException {
-        return new ObjectMapper().writeValueAsString(entity);
-    }
 
     private String buildUrlEncodedFormEntity(String... params) {
         if ((params.length % 2) > 0) {

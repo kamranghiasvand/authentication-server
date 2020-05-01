@@ -17,10 +17,10 @@ import static java.text.MessageFormat.format;
  * @author by kamran ghiasvand
  */
 @Service
-public class RegularValidationFactory extends ValidationFactory<RUserDto, Long> {
+public class UserValidationFactory extends ValidationFactory<RUserDto, Long> {
 
     @Autowired
-    public RegularValidationFactory(InputProperties inputProperties) {
+    public UserValidationFactory(InputProperties inputProperties) {
         super(inputProperties);
 
     }

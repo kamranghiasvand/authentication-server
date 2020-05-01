@@ -3,6 +3,7 @@ package com.bluebox.security.authenticationserver.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -66,6 +67,18 @@ public class UserPrincipal implements UserDetails {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return "UserPrincipal{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", roles=" + roles +
+                ", domain='" + domain + '\'' +
+                '}';
+    }
+
     public static class Builder {
         private UserPrincipal instance = new UserPrincipal();
 
@@ -95,6 +108,8 @@ public class UserPrincipal implements UserDetails {
         }
 
         public Builder addAuthority(String role) {
+            if (StringUtils.isEmpty(role))
+                return this;
             instance.roles.add(new SimpleGrantedAuthority(role));
             return this;
         }

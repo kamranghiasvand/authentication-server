@@ -32,10 +32,10 @@ import static com.bluebox.security.authenticationserver.common.Constants.REGULAR
 public class ProfileController extends BaseQueryController<RegularUserEntity, RUserDto, RUserCto, IDSortFields, Long> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
     private final RegularUserService userService;
-    private final RegularUserConverter converter;
+    private final UserConverter converter;
 
     @Autowired
-    public ProfileController(RegularUserService userService, RegularUserConverter converter) {
+    public ProfileController(RegularUserService userService, UserConverter converter) {
         this.userService = userService;
         this.converter = converter;
     }

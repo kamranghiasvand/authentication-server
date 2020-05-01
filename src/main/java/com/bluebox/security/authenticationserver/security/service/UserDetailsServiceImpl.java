@@ -16,8 +16,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.text.MessageFormat;
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -39,41 +41,54 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        LOGGER.debug("trying to find user with username '{}'", username);
         UserDetails userDetails = tryToFindAdminUser(username);
         if (userDetails != null)
             return userDetails;
         userDetails = tryToFindRegularUser(username);
         if (userDetails != null)
             return userDetails;
-        throw new UsernameNotFoundException(MessageFormat.format("username '{}' with not found", username));
+        throw new UsernameNotFoundException(MessageFormat.format("user with username '{}' with not found", username));
     }
 
     private UserDetails tryToFindRegularUser(String username) {
-        LOGGER.info("finding user: '{}' among regulars", username);
-        Optional<RegularUserEntity> byEmail = regularUserRepository.findByEmail(username);
-        if (byEmail.isEmpty())
+        LOGGER.debug("finding user with phone: '{}' among regulars", username);
+        var resp = regularUserRepository.findByPhone(username);
+        if (resp.isEmpty()) {
+            LOGGER.debug("user with phone {} not found among regulars", username);
             return null;
-        RegularUserEntity user = byEmail.get();
+        }
+        RegularUserEntity user = resp.get();
+        LOGGER.debug("user with {} has found {}", username, user);
+        LOGGER.debug("building a principle based on user with id: {}", user.getId());
         UserPrincipal.Builder builder = UserPrincipal.newBuilder()
                 .setId(user.getId())
                 .setDomain(user.getDomain())
                 .setEnabled(user.isEnabled())
                 .setPassword(user.getPassword())
                 .setUsername(username);
-        for (RoleEntity role : user.getRoles()) {
-            for (PermissionEntity permission : role.getPermissions()) {
-                builder = builder.addAuthority(permission.getName());
+        if (!CollectionUtils.isEmpty(user.getRoles()))
+            for (RoleEntity role : user.getRoles()) {
+                if (!CollectionUtils.isEmpty(role.getPermissions()))
+                    for (PermissionEntity permission : role.getPermissions()) {
+                        builder = builder.addAuthority(permission.getName());
+                    }
             }
-        }
-        return builder.build();
+        final var principal = builder.build();
+        LOGGER.debug("principle is: {}", principal);
+        return principal;
     }
 
     private UserDetails tryToFindAdminUser(String username) {
-        LOGGER.info("finding user: '{}' among admins", username);
-        var byEmail = adminUserRepository.findByEmail(username);
-        if (byEmail.isEmpty())
+        LOGGER.debug("finding admin with email: '{}' among admins", username);
+        var resp = adminUserRepository.findByEmail(username);
+        if (resp.isEmpty()) {
+            LOGGER.debug("admin with email {} not found among admin", username);
             return null;
-        AdminUserEntity user = byEmail.get();
+        }
+        AdminUserEntity user = resp.get();
+        LOGGER.debug("admin with {} has found {}", username, user);
+        LOGGER.debug("building a principle based on admin with id: {}", user.getId());
         UserPrincipal.Builder builder = UserPrincipal.newBuilder()
                 .setId(user.getId())
                 .setDomain(user.getDomain())
@@ -82,6 +97,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .setPassword(user.getPassword());
         for (AdminUserPermissionEntity permission : user.getPermissions())
             builder = builder.addAuthority(permission.getPermission().getName());
-        return builder.build();
+        final var principal = builder.build();
+        LOGGER.debug("principle is: {}", principal);
+        return principal;
     }
 }

@@ -36,12 +36,12 @@ import static com.bluebox.security.authenticationserver.common.Constants.REGULAR
 public class RegistrationController extends BaseCRUDController<RegularUserEntity, RUserDto, RUserCto, IDSortFields, Long> {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
     private final RegularUserService userService;
-    private final RegularValidationFactory validationFactory;
-    private final RegularUserConverter converter;
+    private final UserValidationFactory validationFactory;
+    private final UserConverter converter;
     private final PhoneVerificationService phoneVerificationService;
 
     @Autowired
-    public RegistrationController(RegularUserService userService, RegularValidationFactory validationFactory, RegularUserConverter converter, PhoneVerificationService phoneVerificationService) {
+    public RegistrationController(RegularUserService userService, UserValidationFactory validationFactory, UserConverter converter, PhoneVerificationService phoneVerificationService) {
         this.userService = userService;
         this.validationFactory = validationFactory;
         this.converter = converter;

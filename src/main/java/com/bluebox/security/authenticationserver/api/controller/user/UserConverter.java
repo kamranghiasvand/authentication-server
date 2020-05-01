@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @author by kamran ghiasvand
  */
 @Service
-public class RegularUserConverter implements Converter<RegularUserEntity, RUserDto, Long> {
+public class UserConverter implements Converter<RegularUserEntity, RUserDto, Long> {
     @Override
     public RegularUserEntity convert(RUserDto dto, Object... args) throws GlobalException {
         return ConvertUtil.to(dto, RegularUserEntity.class);

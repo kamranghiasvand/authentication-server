@@ -20,6 +20,11 @@ public class RegularUserEntityBuilder {
         return new RegularUserEntityBuilder();
     }
 
+    public RegularUserEntityBuilder id(Long id) {
+        instance.setId(id);
+        return this;
+    }
+
     public RegularUserEntityBuilder domain(String domain) {
         instance.setDomain(domain);
         return this;
