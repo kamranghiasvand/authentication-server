@@ -14,10 +14,16 @@ public class PermissionEntityBuilder {
 
     private PermissionEntityBuilder() {
         instance = new PermissionEntity();
+        instance.setRoles(new ArrayList<>());
     }
 
     public static PermissionEntityBuilder newBuilder() {
         return new PermissionEntityBuilder();
+    }
+
+    public PermissionEntityBuilder id(Long id) {
+        instance.setId(id);
+        return this;
     }
 
     public PermissionEntityBuilder method(HttpMethod method) {
@@ -43,8 +49,6 @@ public class PermissionEntityBuilder {
     public PermissionEntityBuilder addRoles(RoleEntity... roles) {
         if (roles == null)
             return this;
-        if (instance.getRoles() == null)
-            instance.setRoles(new ArrayList<>());
         for (RoleEntity role : roles) {
             instance.getRoles().add(role);
         }

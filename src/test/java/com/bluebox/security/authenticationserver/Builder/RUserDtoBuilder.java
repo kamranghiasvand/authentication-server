@@ -7,7 +7,11 @@ import com.bluebox.security.authenticationserver.common.viewModel.regular.RUserD
  * @author by kamran ghiasvand
  */
 public class RUserDtoBuilder {
-    private RUserDto dto = new RUserDto();
+    private RUserDto dto;
+
+    private RUserDtoBuilder() {
+        dto = new RUserDto();
+    }
 
     public static RUserDtoBuilder builder() {
         return new RUserDtoBuilder();

@@ -3,6 +3,7 @@ package com.bluebox.security.authenticationserver.persistence.entity.administrat
 import com.bluebox.security.authenticationserver.persistence.entity.BaseDomainEntity;
 import com.bluebox.security.authenticationserver.persistence.entity.PermissionEntity;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -14,8 +15,9 @@ import static com.bluebox.security.authenticationserver.common.Constants.FK_APE_
 /**
  * @author by kamran ghiasvand
  */
-@Entity
 @Setter
+@ToString(callSuper = true)
+@Entity
 @Table(name = "tbl_ad_user_permission")
 public class AdminUserPermissionEntity extends BaseDomainEntity<Long> {
 
@@ -46,16 +48,5 @@ public class AdminUserPermissionEntity extends BaseDomainEntity<Long> {
             FK_APE_TO_PERMISSION))
     public PermissionEntity getPermission() {
         return permission;
-    }
-
-    @Override
-    public String toString() {
-        return "AdminUserPermissionEntity{" +
-                "permission=" + permission +
-                ", canGrant=" + canGrant +
-                ", assignTime=" + assignTime +
-                ", domain='" + domain + '\'' +
-                ", id=" + id +
-                '}';
     }
 }

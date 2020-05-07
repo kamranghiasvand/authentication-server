@@ -1,6 +1,7 @@
 package com.bluebox.security.authenticationserver.persistence.entity;
 
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -11,6 +12,7 @@ import static com.bluebox.security.authenticationserver.common.Constants.UNIQUE_
  * @author Kamran Ghiasvand
  */
 @Setter
+@ToString(callSuper = true)
 @Entity
 @Table(name = "tbl_client", uniqueConstraints = @UniqueConstraint(name = UNIQUE_CLIENT_ID, columnNames = {"client_id", "domain"}))
 public class ClientEntity extends BaseDomainEntity<Long> {
@@ -56,19 +58,5 @@ public class ClientEntity extends BaseDomainEntity<Long> {
     @Column(name = "logo")
     public byte[] getLogo() {
         return logo;
-    }
-
-    @Override
-    public String toString() {
-        return "ClientEntity{" +
-                "clientId='" + clientId + '\'' +
-                ", password='" + password + '\'' +
-                ", description='" + description + '\'' +
-                ", isEnabled=" + isEnabled +
-                ", registrationDate=" + registrationDate +
-                ", lastUpdateDate=" + lastUpdateDate +
-                ", domain='" + domain + '\'' +
-                ", id=" + id +
-                '}';
     }
 }

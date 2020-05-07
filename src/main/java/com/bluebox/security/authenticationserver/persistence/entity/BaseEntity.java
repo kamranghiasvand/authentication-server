@@ -1,6 +1,7 @@
 package com.bluebox.security.authenticationserver.persistence.entity;
 
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.io.Serializable;
  * @author by kamran ghiasvand
  */
 @Setter
+@ToString
 @MappedSuperclass
 public class BaseEntity<I extends Serializable> {
     protected I id;
@@ -23,12 +25,5 @@ public class BaseEntity<I extends Serializable> {
     @Column(name = "pk_id")
     public final I getId() {
         return id;
-    }
-
-    @Override
-    public String toString() {
-        return "BaseEntity{" +
-                "id=" + id +
-                '}';
     }
 }

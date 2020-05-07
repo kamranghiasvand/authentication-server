@@ -14,6 +14,7 @@ public class RegularUserEntityBuilder {
 
     private RegularUserEntityBuilder() {
         instance = new RegularUserEntity();
+        instance.setRoles(new ArrayList<>());
     }
 
     public static RegularUserEntityBuilder newBuilder() {
@@ -43,8 +44,6 @@ public class RegularUserEntityBuilder {
     public RegularUserEntityBuilder roles(RoleEntity... roles) {
         if (roles == null)
             return this;
-        if (instance.getRoles() == null)
-            instance.setRoles(new ArrayList<>());
         for (RoleEntity role : roles)
             instance.getRoles().add(role);
         return this;

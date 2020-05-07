@@ -1,6 +1,7 @@
 package com.bluebox.security.authenticationserver.persistence.entity;
 
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -12,8 +13,9 @@ import java.sql.Timestamp;
 /**
  * @author by kamran ghiasvand
  */
-@MappedSuperclass
 @Setter
+@ToString(callSuper = true, exclude = {"password"})
+@MappedSuperclass
 public class UserEntity<I extends Serializable> extends BaseDomainEntity<I> {
 
     protected String firstName;
@@ -65,19 +67,4 @@ public class UserEntity<I extends Serializable> extends BaseDomainEntity<I> {
         lastUpdateDate = new Timestamp(System.currentTimeMillis());
     }
 
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", isEnabled=" + isEnabled +
-                ", registrationDate=" + registrationDate +
-                ", lastUpdateDate=" + lastUpdateDate +
-                ", domain='" + domain + '\'' +
-                ", id=" + id +
-                '}';
-    }
 }

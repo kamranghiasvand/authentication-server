@@ -1,6 +1,7 @@
 package com.bluebox.security.authenticationserver.persistence.entity;
 
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +11,9 @@ import java.sql.Timestamp;
 /**
  * @author by kamran ghiasvand
  */
-@Entity
 @Setter
+@ToString(callSuper = true)
+@Entity
 @Table(name = "tbl_phone_verification")
 public class PhoneVerificationEntity extends BaseEntity<Long> {
     private String phoneNumber;
@@ -31,15 +33,5 @@ public class PhoneVerificationEntity extends BaseEntity<Long> {
     @Column(name = "code", nullable = false)
     public String getCode() {
         return code;
-    }
-
-    @Override
-    public String toString() {
-        return "PhoneVerificationEntity{" +
-                "phoneNumber='" + phoneNumber + '\'' +
-                ", sentTime=" + sentTime +
-                ", code='" + code + '\'' +
-                ", id=" + id +
-                '}';
     }
 }

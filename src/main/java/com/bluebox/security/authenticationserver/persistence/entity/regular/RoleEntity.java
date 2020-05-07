@@ -3,6 +3,7 @@ package com.bluebox.security.authenticationserver.persistence.entity.regular;
 import com.bluebox.security.authenticationserver.persistence.entity.BaseDomainEntity;
 import com.bluebox.security.authenticationserver.persistence.entity.PermissionEntity;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,8 +15,9 @@ import static com.bluebox.security.authenticationserver.common.Constants.FK_ROLE
 /**
  * @author by kamran ghiasvand
  */
-@Entity
 @Setter
+@ToString(callSuper = true, exclude = {"users"})
+@Entity
 @Table(name = "tbl_reg_role")
 public class RoleEntity extends BaseDomainEntity<Long> {
     protected List<PermissionEntity> permissions;
@@ -41,15 +43,5 @@ public class RoleEntity extends BaseDomainEntity<Long> {
     @ManyToMany(mappedBy = "roles")
     public List<RegularUserEntity> getUsers() {
         return users;
-    }
-
-    @Override
-    public String toString() {
-        return "RoleEntity{" +
-                ", name='" + name + '\'' +
-                ", permissions=" + permissions +
-                ", domain='" + domain + '\'' +
-                ", id=" + id +
-                '}';
     }
 }

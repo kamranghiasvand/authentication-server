@@ -1,6 +1,7 @@
 package com.bluebox.security.authenticationserver.api;
 
 import com.bluebox.security.authenticationserver.Builder.RegularUserEntityBuilder;
+import com.bluebox.security.authenticationserver.api.controller.assign.AssignController;
 import com.bluebox.security.authenticationserver.persistence.repository.PermissionRepository;
 import com.bluebox.security.authenticationserver.persistence.repository.RegularUserRepository;
 import com.bluebox.security.authenticationserver.persistence.repository.RoleRepository;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +26,7 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.Base64Utils;
 
 import java.io.UnsupportedEncodingException;
@@ -43,6 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 public class LoginRegularUserTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginRegularUserTest.class);
     private static final String URL = "/oauth/token";
     private final String CLIENT_ID = "app";
     private final String CLIENT_SECRET = "123";
@@ -102,6 +107,29 @@ public class LoginRegularUserTest {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .content(buildUrlEncodedFormEntity("username", user.getPhone(), "password", user.getPassword(), "grant_type", "password")))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(2)
+    public void invalidUsername() throws Exception {
+        var rBuilder = RegularUserEntityBuilder.newBuilder();
+        var user = rBuilder.email("test@test")
+                .id(1L)
+                .phone("+989333938680")
+                .password("123")
+                .enabled(true)
+                .domain("app")
+                .lastName("test")
+                .firstName("test")
+                .build();
+        Mockito.when(userRepository.findByPhone(anyString())).thenReturn(Optional.of(user));
+        final var resultActions = mockMvc.perform(post(URL)
+                .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64Utils.encodeToString((CLIENT_ID + ":" + CLIENT_SECRET).getBytes()))
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .content(buildUrlEncodedFormEntity("username", "invalidUser", "password", user.getPassword(), "grant_type", "password")))
+                .andExpect(status().isOk());
+        LOGGER.info(resultActions.toString());
+
     }
 
 

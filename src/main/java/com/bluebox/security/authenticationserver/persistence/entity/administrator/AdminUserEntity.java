@@ -3,6 +3,7 @@ package com.bluebox.security.authenticationserver.persistence.entity.administrat
 
 import com.bluebox.security.authenticationserver.persistence.entity.UserEntity;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,8 +16,9 @@ import static com.bluebox.security.authenticationserver.common.Constants.UNIQUE_
 /**
  * @author by kamran ghiasvand
  */
-@Entity
 @Setter
+@ToString(callSuper = true, exclude = {"children", "parent"})
+@Entity
 @Table(name = "tbl_ad_user",
         uniqueConstraints = @UniqueConstraint(name = UNIQUE_ADMIN_EMAIL, columnNames = {"email", "domain"}))
 public class AdminUserEntity extends UserEntity<Long> {
@@ -51,21 +53,5 @@ public class AdminUserEntity extends UserEntity<Long> {
         return permissions;
     }
 
-    @Override
-    public String toString() {
-        return "AdminUserEntity{" +
-                "children=" + children +
-                ", permissions=" + permissions +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", isEnabled=" + isEnabled +
-                ", registrationDate=" + registrationDate +
-                ", lastUpdateDate=" + lastUpdateDate +
-                ", domain='" + domain + '\'' +
-                ", id=" + id +
-                '}';
-    }
+
 }

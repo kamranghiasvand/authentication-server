@@ -234,7 +234,7 @@
             <properties>
                 <mysql.ip>localhost</mysql.ip>
                 <mysql.port>3306</mysql.port>
-                <mysql.db>widding_auth_server_dev</mysql.db>
+                <mysql.db>wedding_auth_server_dev</mysql.db>
                 <mysql.address>jdbc:mysql://${mysql.ip}:${mysql.port}/${mysql.db}</mysql.address>
                 <mysql.user>root</mysql.user>
                 <mysql.pass>123456</mysql.pass>
