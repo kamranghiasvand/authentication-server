@@ -8,6 +8,7 @@ import com.bluebox.security.authenticationserver.persistence.repository.RoleRepo
 import com.bluebox.security.authenticationserver.persistence.service.AssignService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -34,10 +35,10 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
+import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * @author Kamran Ghiasvand
@@ -83,12 +84,6 @@ public class LoginRegularUserTest {
     }
 
     @Test
-    public void testMockIsWorking() {
-        var actual = clientDetailsService.loadClientByClientId("");
-        Assertions.assertEquals(client, actual);
-    }
-
-    @Test
     @Order(1)
     public void successfulLogin() throws Exception {
         var rBuilder = RegularUserEntityBuilder.newBuilder();
@@ -106,7 +101,11 @@ public class LoginRegularUserTest {
                 .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64Utils.encodeToString((CLIENT_ID + ":" + CLIENT_SECRET).getBytes()))
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .content(buildUrlEncodedFormEntity("username", user.getPhone(), "password", user.getPassword(), "grant_type", "password")))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.access_token", notNullValue()))
+                .andExpect(jsonPath("$.token_type", is("bearer")))
+                .andExpect(jsonPath("$.refresh_token", notNullValue()))
+                .andExpect(jsonPath("$.scope", equalToIgnoringCase(CLIENT_SCOPES.replace(',', ' '))));
     }
 
     @Test
