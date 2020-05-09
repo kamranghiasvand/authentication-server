@@ -1,14 +1,9 @@
 package com.bluebox.security.authenticationserver.api;
 
 import com.bluebox.security.authenticationserver.Builder.RegularUserEntityBuilder;
-import com.bluebox.security.authenticationserver.api.controller.assign.AssignController;
-import com.bluebox.security.authenticationserver.persistence.repository.PermissionRepository;
+import com.bluebox.security.authenticationserver.persistence.entity.regular.RegularUserEntity;
 import com.bluebox.security.authenticationserver.persistence.repository.RegularUserRepository;
-import com.bluebox.security.authenticationserver.persistence.repository.RoleRepository;
-import com.bluebox.security.authenticationserver.persistence.service.AssignService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hamcrest.Matchers;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
@@ -61,12 +56,7 @@ public class LoginRegularUserTest {
     private MockMvc mockMvc;
     @MockBean
     private RegularUserRepository userRepository;
-    @Autowired
-    private PermissionRepository permissionRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private AssignService assignService;
+
     @MockBean
     private ClientDetailsService clientDetailsService;
 
@@ -79,7 +69,6 @@ public class LoginRegularUserTest {
     @BeforeEach
     public void before() {
         Mockito.when(clientDetailsService.loadClientByClientId(anyString())).thenAnswer(args -> client);
-//        permissionRepository.deleteAll();
 
     }
 
@@ -97,20 +86,91 @@ public class LoginRegularUserTest {
                 .firstName("test")
                 .build();
         Mockito.when(userRepository.findByPhone(anyString())).thenReturn(Optional.of(user));
-        mockMvc.perform(post(URL)
-                .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64Utils.encodeToString((CLIENT_ID + ":" + CLIENT_SECRET).getBytes()))
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .content(buildUrlEncodedFormEntity("username", user.getPhone(), "password", user.getPassword(), "grant_type", "password")))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.access_token", notNullValue()))
-                .andExpect(jsonPath("$.token_type", is("bearer")))
-                .andExpect(jsonPath("$.refresh_token", notNullValue()))
-                .andExpect(jsonPath("$.scope", equalToIgnoringCase(CLIENT_SCOPES.replace(',', ' '))));
+        loginWithUser(user);
     }
 
     @Test
     @Order(2)
     public void invalidUsername() throws Exception {
+        Mockito.when(userRepository.findByPhone(anyString())).thenReturn(Optional.empty());
+        mockMvc.perform(post(URL)
+                .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64Utils.encodeToString((CLIENT_ID + ":" + CLIENT_SECRET).getBytes()))
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .content(buildUrlEncodedFormEntity("username", "invalidUser", "password", "password", "grant_type", "password")))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error", is("invalid_grant")))
+                .andExpect(jsonPath("$.error_description", is("Bad credentials")));
+    }
+
+    @Test
+    @Order(3)
+    public void invalidPassword() throws Exception {
+        final var rBuilder = RegularUserEntityBuilder.newBuilder();
+        final var user = rBuilder.email("test@test")
+                .id(1L)
+                .phone("+989333938680")
+                .password("123")
+                .enabled(true)
+                .domain("app")
+                .lastName("test")
+                .firstName("test")
+                .build();
+        Mockito.when(userRepository.findByPhone(anyString())).thenReturn(Optional.of(user));
+        mockMvc.perform(post(URL)
+                .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64Utils.encodeToString((CLIENT_ID + ":" + CLIENT_SECRET).getBytes()))
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .content(buildUrlEncodedFormEntity("username", "+989333938680", "password", "invalidPassword", "grant_type", "password")))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error", is("invalid_grant")))
+                .andExpect(jsonPath("$.error_description", is("Bad credentials")));
+    }
+
+    @Test
+    @Order(4)
+    public void invalidClient() throws Exception {
+        final var rBuilder = RegularUserEntityBuilder.newBuilder();
+        final var user = rBuilder.email("test@test")
+                .id(1L)
+                .phone("+989333938680")
+                .password("123")
+                .enabled(true)
+                .domain("app")
+                .lastName("test")
+                .firstName("test")
+                .build();
+        Mockito.when(userRepository.findByPhone(anyString())).thenReturn(Optional.of(user));
+        mockMvc.perform(post(URL)
+                .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64Utils.encodeToString(("BAD_CLIENT:BAD_SECRET").getBytes()))
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .content(buildUrlEncodedFormEntity("username", user.getPhone(), "password", user.getPassword(), "grant_type", "password")))
+                .andExpect(status().isUnauthorized())
+                .andExpect(content().string(emptyString()));
+    }
+
+    @Test
+    @Order(5)
+    public void nullClient() throws Exception {
+        final var rBuilder = RegularUserEntityBuilder.newBuilder();
+        final var user = rBuilder.email("test@test")
+                .id(1L)
+                .phone("+989333938680")
+                .password("123")
+                .enabled(true)
+                .domain("app")
+                .lastName("test")
+                .firstName("test")
+                .build();
+        Mockito.when(userRepository.findByPhone(anyString())).thenReturn(Optional.of(user));
+        mockMvc.perform(post(URL)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .content(buildUrlEncodedFormEntity("username", user.getPhone(), "password", user.getPassword(), "grant_type", "password")))
+                .andExpect(status().isUnauthorized())
+                .andExpect(content().string(emptyString()));
+    }
+
+    @Test
+    @Order(6)
+    public void loginTwiceReturnSameToken() throws Exception {
         var rBuilder = RegularUserEntityBuilder.newBuilder();
         var user = rBuilder.email("test@test")
                 .id(1L)
@@ -122,15 +182,41 @@ public class LoginRegularUserTest {
                 .firstName("test")
                 .build();
         Mockito.when(userRepository.findByPhone(anyString())).thenReturn(Optional.of(user));
-        final var resultActions = mockMvc.perform(post(URL)
-                .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64Utils.encodeToString((CLIENT_ID + ":" + CLIENT_SECRET).getBytes()))
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .content(buildUrlEncodedFormEntity("username", "invalidUser", "password", user.getPassword(), "grant_type", "password")))
-                .andExpect(status().isOk());
-        LOGGER.info(resultActions.toString());
+
+        var result = loginWithUser(user);
+        final String firstAccessToken = getAccessToken(result);
+        Assertions.assertNotNull(firstAccessToken);
+
+        result = loginWithUser(user);
+        final var secondAccessToken = getAccessToken(result);
+        Assertions.assertNotNull(secondAccessToken);
+
+        Assertions.assertEquals(firstAccessToken, secondAccessToken);
 
     }
 
+    private String getAccessToken(ResultActions result) throws UnsupportedEncodingException {
+        var content = result.andReturn().getResponse().getContentAsString();
+        return getAccessTokenFromContent(content);
+    }
+
+    private ResultActions loginWithUser(RegularUserEntity user) throws Exception {
+        return mockMvc.perform(post(URL)
+                .header(HttpHeaders.AUTHORIZATION, "Basic " + Base64Utils.encodeToString((CLIENT_ID + ":" + CLIENT_SECRET).getBytes()))
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .content(buildUrlEncodedFormEntity("username", user.getPhone(), "password", user.getPassword(), "grant_type", "password")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.access_token", notNullValue()))
+                .andExpect(jsonPath("$.token_type", is("bearer")))
+                .andExpect(jsonPath("$.refresh_token", notNullValue()))
+                .andExpect(jsonPath("$.scope", equalToIgnoringCase(CLIENT_SCOPES.replace(',', ' '))));
+    }
+
+    private String getAccessTokenFromContent(String content) {
+
+        final var jsonPath = JsonPath.compile("$.access_token");
+        return jsonPath.read(content);
+    }
 
     private String buildUrlEncodedFormEntity(String... params) {
         if ((params.length % 2) > 0) {
