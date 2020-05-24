@@ -1,10 +1,7 @@
 package com.bluebox.security.authenticationserver.Builder;
 
 import com.bluebox.security.authenticationserver.persistence.entity.PermissionEntity;
-import com.bluebox.security.authenticationserver.persistence.entity.regular.RoleEntity;
 import org.springframework.http.HttpMethod;
-
-import java.util.ArrayList;
 
 /**
  * @author Kamran Ghiasvand
@@ -14,7 +11,6 @@ public class PermissionEntityBuilder {
 
     private PermissionEntityBuilder() {
         instance = new PermissionEntity();
-        instance.setRoles(new ArrayList<>());
     }
 
     public static PermissionEntityBuilder newBuilder() {
@@ -43,15 +39,6 @@ public class PermissionEntityBuilder {
 
     public PermissionEntityBuilder domain(String domain) {
         instance.setDomain(domain);
-        return this;
-    }
-
-    public PermissionEntityBuilder addRoles(RoleEntity... roles) {
-        if (roles == null)
-            return this;
-        for (RoleEntity role : roles) {
-            instance.getRoles().add(role);
-        }
         return this;
     }
 

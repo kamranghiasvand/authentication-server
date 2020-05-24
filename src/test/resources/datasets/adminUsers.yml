@@ -1,4 +1,4 @@
-adminUserEntity:
+tbl_ad_user:
   - id: 1
     firstName: "user1 first"
     lastName: "user1 last"
@@ -8,4 +8,7 @@ adminUserEntity:
     isEnabled: true
     registrationDate: "2020-05-02 01:57:47"
     lastUpdate: "2020-05-02 01:57:47"
+    parent: null
+    children: null
+    permissions: null
 

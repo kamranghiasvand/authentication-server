@@ -67,7 +67,6 @@ public class AssignService {
         var role = getRole(roleId);
         var permission = getPermission(permissionId);
         addPermissionToRole(role, permission);
-        addRoleToPermission(role, permission);
         roleRepository.save(role);
         permissionRepository.save(permission);
         LOGGER.debug(format("permission: {0} assigned to role: {1} "), permissionId, roleId);
@@ -79,7 +78,6 @@ public class AssignService {
         var role = getRole(roleId);
         var permission = getPermission(permissionId);
         removePermissionFromRole(permissionId, role);
-        removeRoleFromPermission(roleId, permission);
         roleRepository.save(role);
         permissionRepository.save(permission);
         LOGGER.debug(format("permission: {0} revoked from role: {1} "), permissionId, roleId);
@@ -100,16 +98,6 @@ public class AssignService {
             role.getPermissions().removeIf(p -> p.getId().equals(permissionId));
     }
 
-    private void removeRoleFromPermission(Long roleId, PermissionEntity permission) {
-        if (permission.getRoles() != null)
-            permission.getRoles().removeIf(p -> p.getId().equals(roleId));
-    }
-
-    private void addRoleToPermission(RoleEntity role, PermissionEntity permission) {
-        if (CollectionUtils.isEmpty(permission.getRoles()))
-            permission.setRoles(new ArrayList<>());
-        permission.getRoles().add(role);
-    }
 
     private void addRoleToUser(RegularUserEntity user, RoleEntity role) {
         if (CollectionUtils.isEmpty(user.getRoles()))

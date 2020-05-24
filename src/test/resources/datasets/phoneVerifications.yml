@@ -1,0 +1,11 @@
+tbl_phone_verification:
+  - pk_id: 1
+    phone_number: "123456789"
+    sent_time: "2020-05-02 01:57:47"
+    code: "1"
+
+  - pk_id: 2
+    phone_number: "987654321"
+    sent_time: "2020-05-02 01:57:47"
+    code: "2"
+    

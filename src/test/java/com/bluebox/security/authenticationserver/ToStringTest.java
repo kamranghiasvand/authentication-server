@@ -3,8 +3,6 @@ package com.bluebox.security.authenticationserver;
 import com.bluebox.security.authenticationserver.Builder.PermissionEntityBuilder;
 import com.bluebox.security.authenticationserver.Builder.RegularUserEntityBuilder;
 import com.bluebox.security.authenticationserver.Builder.RoleEntityBuilder;
-import com.bluebox.security.authenticationserver.api.controller.assign.AssignController;
-import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +30,6 @@ public class ToStringTest {
                 .name("role name")
                 .permission(permission)
                 .build();
-        permission.getRoles().add(role);
         final var user = RegularUserEntityBuilder.newBuilder()
                 .id(1L)
                 .domain("domain")

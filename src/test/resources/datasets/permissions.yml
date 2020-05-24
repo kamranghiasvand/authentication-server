@@ -1,0 +1,12 @@
+tbl_permission:
+  - pk_id: 1
+    url: "/api/test"
+    method: "POST"
+    name: "POST /api/test"
+    domain: "test app"
+
+  - pk_id: 2
+    url: "/api/test"
+    method: "GET"
+    name: "GET /api/test"
+    domain: "test app"
