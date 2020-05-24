@@ -1,0 +1,11 @@
+adminUserEntity:
+  - id: 1
+    firstName: "user1 first"
+    lastName: "user1 last"
+    phone: "+123456789012"
+    email: "user1@email.com"
+    password: "user1pass"
+    isEnabled: true
+    registrationDate: "2020-05-02 01:57:47"
+    lastUpdate: "2020-05-02 01:57:47"
+

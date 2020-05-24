@@ -24,8 +24,6 @@
     </properties>
 
     <dependencies>
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -125,6 +123,11 @@
             <artifactId>jaxb-runtime</artifactId>
             <version>2.3.2</version>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
 
 
         <!-- ....................TEST...................-->
@@ -174,9 +177,28 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.5</version>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>2.7.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.database-rider</groupId>
+            <artifactId>rider-junit5</artifactId>
+            <version>1.13.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.database-rider</groupId>
+            <artifactId>rider-core</artifactId>
+            <version>1.13.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.springtestdbunit</groupId>
+            <artifactId>spring-test-dbunit</artifactId>
+            <version>1.3.0</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
@@ -251,7 +273,7 @@
                 <mysql.address>jdbc:mysql://${mysql.ip}:${mysql.port}/${mysql.db}</mysql.address>
                 <mysql.user>root</mysql.user>
                 <mysql.pass>123456</mysql.pass>
-                <log4j.root.level>debug</log4j.root.level>
+                <log4j.root.level>info</log4j.root.level>
                 <swagger.enabled>false</swagger.enabled>
             </properties>
         </profile>
