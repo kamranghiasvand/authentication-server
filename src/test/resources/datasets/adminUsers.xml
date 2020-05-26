@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+    <table name="tbl_ad_user">
+        <column>pk_id</column>
+        <column>first_name</column>
+        <column>last_name</column>
+        <column>phone</column>
+        <column>email</column>
+        <column>password</column>
+        <column>enabled</column>
+        <column>registration_date</column>
+        <column>last_update</column>
+        <row>
+            <value>1</value>
+            <value>root</value>
+            <value>superman</value>
+            <value>+123456789012</value>
+            <value>root@email.com</value>
+            <value>root</value>
+            <value>true</value>
+            <value>2020-05-02 01:57:47</value>
+            <value>2020-05-02 01:57:47</value>
+        </row>
+    </table>
+</dataset>

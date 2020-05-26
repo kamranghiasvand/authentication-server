@@ -10,5 +10,5 @@ import java.util.Optional;
  */
 public interface AdminUserRepository extends DomainAwareRepository<AdminUserEntity, Long> {
 
-    Optional<AdminUserEntity> findByEmail(String username);
+    Optional<AdminUserEntity> findByEmail(String email);
 }
