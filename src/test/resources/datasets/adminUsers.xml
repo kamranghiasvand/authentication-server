@@ -2,6 +2,7 @@
 <dataset>
     <table name="tbl_ad_user">
         <column>pk_id</column>
+        <column>domain</column>
         <column>first_name</column>
         <column>last_name</column>
         <column>phone</column>
@@ -12,6 +13,7 @@
         <column>last_update</column>
         <row>
             <value>1</value>
+            <value>test app</value>
             <value>root</value>
             <value>superman</value>
             <value>+123456789012</value>

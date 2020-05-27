@@ -1,0 +1,23 @@
+tbl_ad_user:
+  - pk_id: 1
+    domain: "test app"
+    first_name: "root"
+    last_name: "superman"
+    phone: "+123456789012"
+    email: "root@email.com"
+    password: "root"
+    enabled: "true"
+    registration_date: "2020-05-02 01:57:47"
+    last_update: "2020-05-02 01:57:47"
+
+  - pk_id: 2
+    domain: "test app"
+    first_name: "harry"
+    last_name: "potter"
+    phone: "+123456789012"
+    email: "harry.potter@email.com"
+    password: "root"
+    enabled: "true"
+    registration_date: "2020-05-02 01:57:47"
+    last_update: "2020-05-02 01:57:47"
+    parent_id: "1"

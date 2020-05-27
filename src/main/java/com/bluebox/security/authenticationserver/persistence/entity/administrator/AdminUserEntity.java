@@ -2,6 +2,7 @@ package com.bluebox.security.authenticationserver.persistence.entity.administrat
 
 
 import com.bluebox.security.authenticationserver.persistence.entity.UserEntity;
+import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -18,6 +19,7 @@ import static com.bluebox.security.authenticationserver.common.Constants.UNIQUE_
  */
 @Setter
 @ToString(callSuper = true, exclude = {"children", "parent"})
+@EqualsAndHashCode(callSuper = true, exclude = {"parent", "children"})
 @Entity
 @Table(name = "tbl_ad_user",
         uniqueConstraints = @UniqueConstraint(name = UNIQUE_ADMIN_EMAIL, columnNames = {"email", "domain"}))

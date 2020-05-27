@@ -1,5 +1,6 @@
 package com.bluebox.security.authenticationserver.persistence.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -15,6 +16,7 @@ import java.sql.Timestamp;
  */
 @Setter
 @ToString(callSuper = true, exclude = {"password"})
+@EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 public class UserEntity<I extends Serializable> extends BaseDomainEntity<I> {
 

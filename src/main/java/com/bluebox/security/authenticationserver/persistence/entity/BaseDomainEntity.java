@@ -1,5 +1,6 @@
 package com.bluebox.security.authenticationserver.persistence.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Filter;
@@ -15,6 +16,7 @@ import java.io.Serializable;
  */
 @Setter
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 @FilterDef(name = "domainFilter", parameters = {@ParamDef(name = "domainParam", type = "string")})
 @Filter(name = "domainFilter", condition = "domain= :domainParam")
