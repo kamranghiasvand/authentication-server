@@ -7,6 +7,9 @@ import java.text.MessageFormat;
  */
 public class Constants {
     /*.................... FIELDS .............................................................*/
+    public static final String UNKNOWN_DOMAIN = "unknown_domain";
+
+    /*.................... FIELDS .............................................................*/
     public static final String FIELD_ID = "id";
     public static final String FIELD_VERIFICATION_CODE = "code";
     public static final String FIELD_USER_PHONE = "phone";

@@ -5,18 +5,18 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.hibernate.Filter;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import static com.bluebox.security.authenticationserver.common.Constants.UNKNOWN_DOMAIN;
 
 /**
  * @author Kamran Ghiasvand
@@ -38,9 +38,9 @@ public class DomainFilterAdvisor {
     public Object enableOwnerFilter(ProceedingJoinPoint joinPoint) throws Throwable {
         Session session = null;
         try {
-            UserPrincipal user = getUserPrinciple();
+            String domain = getDomainFromPrincipal();
             session = entityManager.unwrap(Session.class);
-            session.enableFilter("domainFilter").setParameter("domainParam", user.getDomain());
+            session.enableFilter("domainFilter").setParameter("domainParam", domain);
 
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
@@ -52,12 +52,16 @@ public class DomainFilterAdvisor {
 
     }
 
-    private UserPrincipal getUserPrinciple() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
-            throw new AuthenticationServiceException("no authenticated user found");
-        return (UserPrincipal) authentication.getPrincipal();
-
+    private String getDomainFromPrincipal() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null || authentication instanceof AnonymousAuthenticationToken)
+                return UNKNOWN_DOMAIN;
+            final var principal = (UserPrincipal) authentication.getPrincipal();
+            return principal.getDomain() != null ? principal.getDomain() : "";
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
+        return UNKNOWN_DOMAIN;
     }
 }

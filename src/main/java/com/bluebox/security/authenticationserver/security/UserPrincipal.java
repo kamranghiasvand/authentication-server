@@ -20,6 +20,9 @@ public class UserPrincipal implements UserDetails {
     private Set<GrantedAuthority> roles = new HashSet<>();
     private String domain;
 
+    private UserPrincipal() {
+    }
+
     public static Builder newBuilder() {
         return new Builder();
     }
