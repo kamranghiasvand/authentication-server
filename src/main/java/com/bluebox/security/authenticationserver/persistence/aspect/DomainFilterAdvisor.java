@@ -40,7 +40,7 @@ public class DomainFilterAdvisor {
         try {
             UserPrincipal user = getUserPrinciple();
             session = entityManager.unwrap(Session.class);
-            Filter filter = session.enableFilter("domainFilter").setParameter("domainParam", user.getDomain());
+            session.enableFilter("domainFilter").setParameter("domainParam", user.getDomain());
 
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);
