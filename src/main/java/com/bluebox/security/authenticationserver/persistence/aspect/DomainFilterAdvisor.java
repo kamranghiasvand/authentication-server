@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -49,7 +50,6 @@ public class DomainFilterAdvisor {
         if (session != null)
             session.disableFilter("domainFilter");
         return obj;
-
     }
 
     private String getDomainFromPrincipal() {

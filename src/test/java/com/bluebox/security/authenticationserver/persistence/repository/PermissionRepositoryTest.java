@@ -1,5 +1,6 @@
 package com.bluebox.security.authenticationserver.persistence.repository;
 
+import com.bluebox.security.authenticationserver.util.CustomDBUnitExtension;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.junit5.DBUnitExtension;
@@ -15,8 +16,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  * @author by kamran ghiasvand
  */
 @SpringBootTest(properties = {"spring.aop.auto=false"})
-@ExtendWith({SpringExtension.class, DBUnitExtension.class})
-@DataSet(cleanBefore = true)
+@ExtendWith({SpringExtension.class, CustomDBUnitExtension.class})
+@DataSet(value = "permissions.yml",cleanBefore = true,useSequenceFiltering = false)
 @DBUnit(schema = "wedding_auth_server_test")
 public class PermissionRepositoryTest {
     @Autowired
@@ -25,7 +26,6 @@ public class PermissionRepositoryTest {
 
     @Test
     @Order(1)
-    @DataSet("permissions.yml")
     public void findById() {
         final var actual = repository.findById(1L);
         Assertions.assertNotNull(actual);
@@ -36,7 +36,6 @@ public class PermissionRepositoryTest {
 
     @Test
     @Order(2)
-    @DataSet("permissions.yml")
     public void findAll() {
         final var actual = repository.findAll();
         Assertions.assertNotNull(actual);

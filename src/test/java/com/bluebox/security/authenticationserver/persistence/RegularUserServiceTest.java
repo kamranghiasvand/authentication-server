@@ -22,7 +22,7 @@ import java.util.Optional;
 /**
  * @author Kamran Ghiasvand
  */
-@SpringBootTest(properties = {"spring.aop.auto=false"})
+@SpringBootTest()
 @ExtendWith({SpringExtension.class})
 public class RegularUserServiceTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegularUserServiceTest.class);
@@ -97,6 +97,7 @@ public class RegularUserServiceTest {
         var expected = buildUser();
         expected.setDomain(null);
         var exception = Assertions.assertThrows(DataIntegrityViolationException.class, () -> service.create(expected));
+        Assertions.assertNotNull(exception.getRootCause());
         Assertions.assertEquals("Column 'domain' cannot be null", exception.getRootCause().getMessage());
     }
 
@@ -106,6 +107,7 @@ public class RegularUserServiceTest {
         var expected = buildUser();
         expected.setPassword(null);
         var exception = Assertions.assertThrows(DataIntegrityViolationException.class, () -> service.create(expected));
+        Assertions.assertNotNull(exception.getRootCause());
         Assertions.assertEquals("Column 'password' cannot be null", exception.getRootCause().getMessage());
     }
 
