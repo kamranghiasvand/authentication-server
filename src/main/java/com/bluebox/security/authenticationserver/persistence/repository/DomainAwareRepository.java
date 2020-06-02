@@ -2,6 +2,7 @@ package com.bluebox.security.authenticationserver.persistence.repository;
 
 import com.bluebox.security.authenticationserver.persistence.entity.BaseDomainEntity;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 

@@ -29,6 +29,7 @@ import static com.bluebox.security.authenticationserver.common.Constants.CODE_OR
  * @author by kamran ghiasvand
  */
 @Service
+@Transactional
 public class PhoneVerificationService extends AbstractCRUDService<PhoneVerificationEntity, BaseCto, IDSortFields, Long> {
     private static final Logger LOGGER = LoggerFactory.getLogger(PhoneVerificationService.class);
     private final PhoneVerificationRepository repository;
@@ -45,7 +46,6 @@ public class PhoneVerificationService extends AbstractCRUDService<PhoneVerificat
         this.randomStringGen = randomStringGen;
     }
 
-    @Transactional
     public void send(String phoneNumber) throws GlobalException {
         checkIfAlreadySent(phoneNumber);
         var code = randomStringGen.nextString(config.getCodeLen());
@@ -64,7 +64,6 @@ public class PhoneVerificationService extends AbstractCRUDService<PhoneVerificat
             throw new PhoneVerificationException(CODE_ALREADY_SENT_MSG);
     }
 
-    @Transactional
     public void verify(String phoneNumber, String code) throws PhoneVerificationException {
         var result = repository.findFirstByPhoneNumberAndCode(phoneNumber, code);
         try {

@@ -4,10 +4,8 @@ import com.bluebox.security.authenticationserver.Builder.RegularUserEntityBuilde
 import com.bluebox.security.authenticationserver.persistence.entity.regular.RegularUserEntity;
 import com.bluebox.security.authenticationserver.persistence.repository.RegularUserRepository;
 import com.bluebox.security.authenticationserver.persistence.service.RegularUserService;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.hibernate.PropertyValueException;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Optional;
@@ -22,8 +21,10 @@ import java.util.Optional;
 /**
  * @author Kamran Ghiasvand
  */
-@SpringBootTest()
+@SpringBootTest
 @ExtendWith({SpringExtension.class})
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Transactional
 public class RegularUserServiceTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegularUserServiceTest.class);
     @Autowired
@@ -98,7 +99,9 @@ public class RegularUserServiceTest {
         expected.setDomain(null);
         var exception = Assertions.assertThrows(DataIntegrityViolationException.class, () -> service.create(expected));
         Assertions.assertNotNull(exception.getRootCause());
-        Assertions.assertEquals("Column 'domain' cannot be null", exception.getRootCause().getMessage());
+        Assertions.assertEquals(PropertyValueException.class, exception.getRootCause().getClass());
+        final var rootCause = (PropertyValueException) exception.getRootCause();
+        Assertions.assertEquals("domain", rootCause.getPropertyName());
     }
 
     @Test
@@ -108,7 +111,9 @@ public class RegularUserServiceTest {
         expected.setPassword(null);
         var exception = Assertions.assertThrows(DataIntegrityViolationException.class, () -> service.create(expected));
         Assertions.assertNotNull(exception.getRootCause());
-        Assertions.assertEquals("Column 'password' cannot be null", exception.getRootCause().getMessage());
+        Assertions.assertEquals(PropertyValueException.class, exception.getRootCause().getClass());
+        final var rootCause = (PropertyValueException) exception.getRootCause();
+        Assertions.assertEquals("password", rootCause.getPropertyName());
     }
 
 

@@ -36,19 +36,14 @@ public class DomainFilterAdvisor {
     }
 
     @Around(value = "domainAwareRepositoryMethod()")
-    public Object enableOwnerFilter(ProceedingJoinPoint joinPoint) throws Throwable {
-        Session session = null;
-        try {
-            String domain = getDomainFromPrincipal();
-            session = entityManager.unwrap(Session.class);
-            session.enableFilter("domainFilter").setParameter("domainParam", domain);
+    public Object enableDomainFilter(ProceedingJoinPoint joinPoint) throws Throwable {
+        String domain = getDomainFromPrincipal();
 
-        } catch (Exception ex) {
-            LOGGER.error(ex.getMessage(), ex);
-        }
+        Session session = (Session) entityManager.getDelegate();
+        session.enableFilter("domainFilter").setParameter("domainParam", domain);
+
         Object obj = joinPoint.proceed();
-        if (session != null)
-            session.disableFilter("domainFilter");
+        session.disableFilter("domainFilter");
         return obj;
     }
 

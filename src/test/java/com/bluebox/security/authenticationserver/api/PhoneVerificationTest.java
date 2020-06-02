@@ -4,10 +4,7 @@ import com.bluebox.security.authenticationserver.common.config.PhoneVerification
 import com.bluebox.security.authenticationserver.common.util.RandomStringGen;
 import com.bluebox.security.authenticationserver.persistence.repository.PhoneVerificationRepository;
 import com.bluebox.security.authenticationserver.persistence.service.SmsService;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -36,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PhoneVerificationTest {
     private static final String VERIFY_CODE = "123456";
     private final String URL = REGISTRATION_BASE + SEND_PHONE_VERIFICATION_CODE;

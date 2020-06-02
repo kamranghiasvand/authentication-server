@@ -13,11 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author by kamran ghiasvand
  */
 @Service
+@Transactional
 public class RegularUserService extends AbstractCRUDService<RegularUserEntity, RUserCto, IDSortFields, Long> {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegularUserService.class);
     private final RegularUserRepository regularUserRepository;

@@ -9,9 +9,7 @@ import com.bluebox.security.authenticationserver.persistence.service.PhoneVerifi
 import com.bluebox.security.authenticationserver.persistence.service.RegularUserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -36,6 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class RegisterWithCodeTest {
     private static final String URL = REGISTRATION_BASE + REGISTER_WITH_PHONE;
     private final String PASS_IS_NULL = format(VALIDATION_IS_NULL_MSG, FIELD_REGULAR_USER_PASSWORD);

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 
-@Transactional(readOnly = true)
+@Transactional
 public abstract class AbstractCRUDService<
         E extends BaseEntity<I>,
         C extends BaseCto,
@@ -18,13 +18,11 @@ public abstract class AbstractCRUDService<
         implements CommandService<E, I> {
 
 
-    @Transactional
     @Override
     public E create(E entity) {
         return getRepository().save(entity);
     }
 
-    @Transactional(rollbackFor = GlobalException.class)
     @Override
     public E update(E entity) throws GlobalException {
         E foundedInDB = fetch(entity.getId());
@@ -32,7 +30,6 @@ public abstract class AbstractCRUDService<
         return getRepository().save(foundedInDB);
     }
 
-    @Transactional(rollbackFor = GlobalException.class)
     @Override
     public E remove(I id) throws GlobalException {
         E foundedInDB = fetch(id);

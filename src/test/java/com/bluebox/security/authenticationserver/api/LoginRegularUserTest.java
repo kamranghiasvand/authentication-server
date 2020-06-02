@@ -4,10 +4,7 @@ import com.bluebox.security.authenticationserver.Builder.RegularUserEntityBuilde
 import com.bluebox.security.authenticationserver.persistence.entity.regular.RegularUserEntity;
 import com.bluebox.security.authenticationserver.persistence.repository.RegularUserRepository;
 import com.jayway.jsonpath.JsonPath;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.slf4j.Logger;
@@ -42,6 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(properties = {"spring.aop.auto=false"})
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LoginRegularUserTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginRegularUserTest.class);
     private static final String URL = "/oauth/token";

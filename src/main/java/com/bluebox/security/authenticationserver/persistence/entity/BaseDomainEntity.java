@@ -9,6 +9,7 @@ import org.hibernate.annotations.ParamDef;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PreUpdate;
 import java.io.Serializable;
 
 /**
@@ -27,4 +28,5 @@ public class BaseDomainEntity<I extends Serializable> extends BaseEntity<I> {
     public String getDomain() {
         return domain;
     }
+
 }

@@ -23,6 +23,7 @@ import static java.text.MessageFormat.format;
  * @author by kamran ghiasvand
  */
 @Service
+@Transactional
 public class AssignService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AssignService.class);
 
@@ -37,7 +38,6 @@ public class AssignService {
         this.userRepository = userRepository;
     }
 
-    @Transactional
     public void assignUserRole(Long userId, Long roleId) throws ResourceNotFoundException {
         LOGGER.debug(format("assigning role: {0} to user: {1} "), roleId, userId);
         var user = getUser(userId);
@@ -49,7 +49,6 @@ public class AssignService {
         LOGGER.debug(format("role: {0} assigned to user: {1} "), roleId, userId);
     }
 
-    @Transactional
     public void unAssignUserRole(Long userId, Long roleId) throws ResourceNotFoundException {
         LOGGER.debug(format("revoking role: {0} from user: {1} "), roleId, userId);
         var user = getUser(userId);
@@ -61,7 +60,6 @@ public class AssignService {
         LOGGER.debug(format("role: {0} revoked from user: {1}."), roleId, userId);
     }
 
-    @Transactional
     public void assignRolePermission(Long roleId, Long permissionId) throws ResourceNotFoundException {
         LOGGER.debug(format("assigning permission: {0} to role: {1} "), permissionId, roleId);
         var role = getRole(roleId);
@@ -72,7 +70,6 @@ public class AssignService {
         LOGGER.debug(format("permission: {0} assigned to role: {1} "), permissionId, roleId);
     }
 
-    @Transactional
     public void unAssignRolePermission(Long roleId, Long permissionId) throws ResourceNotFoundException {
         LOGGER.debug(format("revoking permission: {0} from role: {1} "), permissionId, roleId);
         var role = getRole(roleId);
