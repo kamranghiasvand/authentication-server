@@ -21,7 +21,10 @@
 
     <properties>
         <java.version>11</java.version>
-
+        <mysql.ddl-auto>update</mysql.ddl-auto>
+        <mysql.show-sql>true</mysql.show-sql>
+        <swagger.enabled>true</swagger.enabled>
+        <app.production-mode>false</app.production-mode>
     </properties>
 
     <dependencies>
@@ -183,48 +186,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.2</version>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>${project.artifactId}</artifactId>
-                                    <version>${project.version}</version>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.10</version>
-                <executions>
-                    <execution>
-                        <id>default</id>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <phase>package</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <repository>${project.groupId}/${project.artifactId}</repository>
-                    <tag>${project.version}</tag>
-                    <dockerfile>${project.basedir}/Dockerfile</dockerfile>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>1.7</version>
@@ -270,7 +231,7 @@
                 <mysql.user>root</mysql.user>
                 <mysql.pass>123456</mysql.pass>
                 <log4j.root.level>info</log4j.root.level>
-                <swagger.enabled>true</swagger.enabled>
+
             </properties>
         </profile>
         <profile>
@@ -283,8 +244,69 @@
                 <mysql.user>root</mysql.user>
                 <mysql.pass>123456</mysql.pass>
                 <log4j.root.level>debug</log4j.root.level>
-                <swagger.enabled>false</swagger.enabled>
             </properties>
+        </profile>
+        <profile>
+            <id>production</id>
+            <properties>
+                <mysql.ip>localhost</mysql.ip>
+                <mysql.port>3306</mysql.port>
+                <mysql.db>wedding_auth_server_test</mysql.db>
+                <mysql.address>jdbc:mysql://${mysql.ip}:${mysql.port}/${mysql.db}</mysql.address>
+                <mysql.user>root</mysql.user>
+                <mysql.pass>123456</mysql.pass>
+                <log4j.root.level>warn</log4j.root.level>
+                <swagger.enabled>false</swagger.enabled>
+                <mysql.ddl-auto>none</mysql.ddl-auto>
+                <mysql.show-sql>false</mysql.show-sql>
+                <app.production-mode>true</app.production-mode>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>3.1.2</version>
+                        <executions>
+                            <execution>
+                                <id>unpack</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>${project.groupId}</groupId>
+                                            <artifactId>${project.artifactId}</artifactId>
+                                            <version>${project.version}</version>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>dockerfile-maven-plugin</artifactId>
+                        <version>1.4.10</version>
+                        <executions>
+                            <execution>
+                                <id>default</id>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <repository>${project.groupId}/${project.artifactId}</repository>
+                            <tag>${project.version}</tag>
+                            <dockerfile>Dockerfile</dockerfile>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
