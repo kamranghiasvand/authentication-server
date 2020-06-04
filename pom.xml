@@ -10,8 +10,8 @@
     </parent>
     <scm>
         <!-- Replace the connection below with your project connection -->
-        <connection>scm:git:git://github.com/kamranghiasvand/wedding-auth-server.git</connection>
-        <url>https://github.com/kamranghiasvand/wedding-auth-server.git</url>
+        <connection>scm:git:git://github.com/kamranghiasvand/authentication-server.git</connection>
+        <url>https://github.com/kamranghiasvand/authentication-server.git</url>
     </scm>
     <groupId>com.bluebox.security</groupId>
     <artifactId>authentication-server</artifactId>
@@ -300,7 +300,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <repository>${project.groupId}/${project.artifactId}</repository>
+                            <repository>docker.pkg.github.com/kamranghiasvand/${project.artifactId}</repository>
                             <tag>${project.version}</tag>
                             <dockerfile>Dockerfile</dockerfile>
                         </configuration>
