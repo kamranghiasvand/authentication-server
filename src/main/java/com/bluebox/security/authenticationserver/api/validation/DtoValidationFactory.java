@@ -13,14 +13,14 @@ import java.io.Serializable;
 /**
  * @author Yaser(amin) Sadeghi
  */
-public abstract class ValidationFactory<D extends BaseDto<I>, I extends Serializable> {
+public abstract class DtoValidationFactory<D extends BaseDto<I>, I extends Serializable> {
     @Getter
     protected ValidationContext<D> createCtx = new ValidationContext<>();
     @Getter
     protected ValidationContext<D> updateCtx = new ValidationContext<>();
     protected InputProperties inputProps;
 
-    protected ValidationFactory(InputProperties inputProps) {
+    protected DtoValidationFactory(InputProperties inputProps) {
         this.inputProps = inputProps;
         updateCtx.addAll(
                 RuleFactory.nullRule(BaseDto::getId, Constants.FIELD_ID));

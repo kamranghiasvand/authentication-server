@@ -12,6 +12,7 @@ import com.bluebox.security.authenticationserver.persistence.repository.PhoneVer
 import com.bluebox.security.authenticationserver.persistence.service.base.AbstractCRUDService;
 import com.bluebox.security.authenticationserver.persistence.service.base.BaseSpec;
 import com.bluebox.security.authenticationserver.persistence.service.base.enums.IDSortFields;
+import com.bluebox.security.authenticationserver.persistence.service.sms.SmsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

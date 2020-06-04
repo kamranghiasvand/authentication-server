@@ -1,6 +1,6 @@
 package com.bluebox.security.authenticationserver.api.base;
 
-import com.bluebox.security.authenticationserver.api.validation.ValidationFactory;
+import com.bluebox.security.authenticationserver.api.validation.DtoValidationFactory;
 import com.bluebox.security.authenticationserver.common.exception.GlobalException;
 import com.bluebox.security.authenticationserver.common.viewModel.BaseCto;
 import com.bluebox.security.authenticationserver.common.viewModel.BaseDto;
@@ -24,7 +24,7 @@ public abstract class BaseCRUDController<
 
     protected abstract CommandService<E, I> getCommandService();
 
-    protected abstract ValidationFactory<D, I> getValidationFactory();
+    protected abstract DtoValidationFactory<D, I> getValidationFactory();
 
     protected D add(D dto) throws GlobalException {
         getLogger().info("Creating {}", getEntityLabel());

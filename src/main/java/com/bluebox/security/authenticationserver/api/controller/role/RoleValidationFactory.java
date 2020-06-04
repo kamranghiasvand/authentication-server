@@ -1,6 +1,6 @@
 package com.bluebox.security.authenticationserver.api.controller.role;
 
-import com.bluebox.security.authenticationserver.api.validation.ValidationFactory;
+import com.bluebox.security.authenticationserver.api.validation.DtoValidationFactory;
 import com.bluebox.security.authenticationserver.common.config.InputProperties;
 import com.bluebox.security.authenticationserver.common.viewModel.permission.PermissionDto;
 import com.bluebox.security.authenticationserver.common.viewModel.role.RoleDto;
@@ -21,7 +21,7 @@ import static java.text.MessageFormat.format;
  * @author by kamran ghiasvand
  */
 @Service
-public class RoleValidationFactory extends ValidationFactory<RoleDto, Long> {
+public class RoleValidationFactory extends DtoValidationFactory<RoleDto, Long> {
 
     @Autowired
     public RoleValidationFactory(InputProperties inputProperties) {

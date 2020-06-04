@@ -2,7 +2,7 @@ package com.bluebox.security.authenticationserver.api.controller.permission;
 
 import com.bluebox.security.authenticationserver.api.Converter;
 import com.bluebox.security.authenticationserver.api.base.BaseCRUDController;
-import com.bluebox.security.authenticationserver.api.validation.ValidationFactory;
+import com.bluebox.security.authenticationserver.api.validation.DtoValidationFactory;
 import com.bluebox.security.authenticationserver.common.PathConstant;
 import com.bluebox.security.authenticationserver.common.exception.GlobalException;
 import com.bluebox.security.authenticationserver.common.viewModel.permission.PermissionCto;
@@ -77,7 +77,7 @@ public class PermissionController extends BaseCRUDController<PermissionEntity, P
     }
 
     @Override
-    protected ValidationFactory<PermissionDto, Long> getValidationFactory() {
+    protected DtoValidationFactory<PermissionDto, Long> getValidationFactory() {
         return validationFactory;
     }
 

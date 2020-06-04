@@ -1,6 +1,6 @@
 package com.bluebox.security.authenticationserver.api.controller.permission;
 
-import com.bluebox.security.authenticationserver.api.validation.ValidationFactory;
+import com.bluebox.security.authenticationserver.api.validation.DtoValidationFactory;
 import com.bluebox.security.authenticationserver.common.config.InputProperties;
 import com.bluebox.security.authenticationserver.common.viewModel.permission.PermissionDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import static com.bluebox.security.authenticationserver.validators.RuleFactory.n
  * @author by kamran ghiasvand
  */
 @Service
-public class PermissionValidationFactory extends ValidationFactory<PermissionDto, Long> {
+public class PermissionValidationFactory extends DtoValidationFactory<PermissionDto, Long> {
 
     @Autowired
     public PermissionValidationFactory(InputProperties inputProperties) {

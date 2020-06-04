@@ -25,7 +25,7 @@ public class BaseEntity<I extends Serializable> {
             strategy = "native"
     )
     @Column(name = "pk_id")
-    public final I getId() {
+    public I getId() {
         return id;
     }
 }

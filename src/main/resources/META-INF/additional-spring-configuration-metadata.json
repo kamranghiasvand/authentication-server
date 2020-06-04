@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "servlet.req.resp.log.enabled",
+      "type": "java.lang.String",
+      "description": "Description for servlet.req.resp.log.enabled."
+    },
+    {
+      "name": "swagger.enabled",
+      "type": "java.lang.String",
+      "description": "Description for swagger.enabled."
+    },
+    {
+      "name": "springfox.documentation.swagger.v2.path",
+      "type": "java.lang.String",
+      "description": "Description for springfox.documentation.swagger.v2.path."
+    },
+    {
+      "name": "springfox.documentation.swagger.v1.path",
+      "type": "java.lang.String",
+      "description": "Description for springfox.documentation.swagger.v1.path."
+    }
+  ] }

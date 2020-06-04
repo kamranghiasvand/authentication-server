@@ -2,7 +2,7 @@ package com.bluebox.security.authenticationserver.api.controller.user;
 
 import com.bluebox.security.authenticationserver.api.Converter;
 import com.bluebox.security.authenticationserver.api.base.BaseCRUDController;
-import com.bluebox.security.authenticationserver.api.validation.ValidationFactory;
+import com.bluebox.security.authenticationserver.api.validation.DtoValidationFactory;
 import com.bluebox.security.authenticationserver.common.PathConstant;
 import com.bluebox.security.authenticationserver.common.exception.GlobalException;
 import com.bluebox.security.authenticationserver.common.viewModel.regular.RUserCto;
@@ -84,7 +84,7 @@ public class RegistrationController extends BaseCRUDController<RegularUserEntity
     }
 
     @Override
-    protected ValidationFactory<RUserDto, Long> getValidationFactory() {
+    protected DtoValidationFactory<RUserDto, Long> getValidationFactory() {
         return validationFactory;
     }
 

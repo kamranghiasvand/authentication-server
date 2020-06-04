@@ -1,6 +1,6 @@
 package com.bluebox.security.authenticationserver.api.controller.user;
 
-import com.bluebox.security.authenticationserver.api.validation.ValidationFactory;
+import com.bluebox.security.authenticationserver.api.validation.DtoValidationFactory;
 import com.bluebox.security.authenticationserver.common.config.InputProperties;
 import com.bluebox.security.authenticationserver.common.viewModel.regular.RUserDto;
 import com.bluebox.security.authenticationserver.validators.Rule;
@@ -17,7 +17,7 @@ import static java.text.MessageFormat.format;
  * @author by kamran ghiasvand
  */
 @Service
-public class UserValidationFactory extends ValidationFactory<RUserDto, Long> {
+public class UserValidationFactory extends DtoValidationFactory<RUserDto, Long> {
 
     @Autowired
     public UserValidationFactory(InputProperties inputProperties) {

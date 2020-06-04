@@ -10,6 +10,7 @@ public class Constants {
     public static final String UNKNOWN_DOMAIN = "unknown_domain";
 
     /*.................... FIELDS .............................................................*/
+
     public static final String FIELD_ID = "id";
     public static final String FIELD_VERIFICATION_CODE = "code";
     public static final String FIELD_USER_PHONE = "phone";
@@ -63,6 +64,7 @@ public class Constants {
     public static final String ERROR_NOT_FOUND = "not_found_error";
     public static final String ERROR_VALIDATION = "validation_error";
     public static final String ERROR_PHONE_VERIFICATION = "phone_verification_error";
+    public static final String ERROR_SMS_PROVIDER = "sms_provider_error";
     public static final String ERROR_CONVERTER = "converter_error";
     public static final String ERROR_CLIENT = "client_error";
     public static final String ERROR_UNHANDLED = "unhandled_error";

@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Kamran Ghiasvand
  */
 
-@SpringBootTest(properties = {"spring.aop.auto=false"})
+@SpringBootTest(properties = {"spring.aop.auto=false","app.production-mode=false"})
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

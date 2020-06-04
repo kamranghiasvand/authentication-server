@@ -3,7 +3,7 @@ package com.bluebox.security.authenticationserver.api;
 import com.bluebox.security.authenticationserver.common.config.PhoneVerificationConfig;
 import com.bluebox.security.authenticationserver.common.util.RandomStringGen;
 import com.bluebox.security.authenticationserver.persistence.repository.PhoneVerificationRepository;
-import com.bluebox.security.authenticationserver.persistence.service.SmsService;
+import com.bluebox.security.authenticationserver.persistence.service.sms.SmsService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;

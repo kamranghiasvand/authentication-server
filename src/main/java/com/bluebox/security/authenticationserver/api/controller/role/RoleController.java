@@ -2,7 +2,7 @@ package com.bluebox.security.authenticationserver.api.controller.role;
 
 import com.bluebox.security.authenticationserver.api.Converter;
 import com.bluebox.security.authenticationserver.api.base.BaseCRUDController;
-import com.bluebox.security.authenticationserver.api.validation.ValidationFactory;
+import com.bluebox.security.authenticationserver.api.validation.DtoValidationFactory;
 import com.bluebox.security.authenticationserver.common.PathConstant;
 import com.bluebox.security.authenticationserver.common.exception.GlobalException;
 import com.bluebox.security.authenticationserver.common.viewModel.role.RoleCto;
@@ -78,7 +78,7 @@ public class RoleController extends BaseCRUDController<RoleEntity, RoleDto, Role
     }
 
     @Override
-    protected ValidationFactory<RoleDto, Long> getValidationFactory() {
+    protected DtoValidationFactory<RoleDto, Long> getValidationFactory() {
         return validationFactory;
     }
 
