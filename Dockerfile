@@ -5,12 +5,15 @@ COPY ${JAR_FILE} application.jar
 RUN /opt/openjdk-13/bin/java -Djarmode=layertools -jar application.jar extract
 
 FROM openjdk:13-alpine3.10
-LABEL "MAINTAINER"="Kamran Ghiasvand <kamran.ghaisvand@gmail.com>"
-
-RUN addgroup -S bluebox && adduser -S authuser -G bluebox
 
 ENV APP_ROOT /app
 ENV CONFIG_DIR $APP_ROOT/config
+ARG GIT_COMMIT=latest
+
+LABEL "GIT_COMMIT"="$GIT_COMMIT"
+LABEL "MAINTAINER"="Kamran Ghiasvand <kamran.ghaisvand@gmail.com>"
+
+RUN addgroup -S bluebox && adduser -S authuser -G bluebox
 
 RUN mkdir $APP_ROOT
 RUN chown authuser:bluebox ${APP_ROOT}
