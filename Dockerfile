@@ -33,4 +33,4 @@ RUN chown authuser:bluebox /app/entrypoint.sh && \
 
 USER authuser
 WORKDIR /app
-ENTRYPOINT ["./entrypoint"]
+ENTRYPOINT ["./entrypoint.sh"]
