@@ -16,6 +16,7 @@ Expose REST api to communicate with. Use MySql as Database. Stateless applicatio
 1. Download and install Docker from https://docs.docker.com/
 2. run `git log -1 --format=%h --abbrev=12 > _tag`
 For Windows:
-    run `FOR /F %A IN ('type _tag') DO docker build -t com.bluebox.security.auth-server:%~A --build-arg GIT_COMMIT=%~A .`
+    run `FOR /F %A IN ('type _tag') DO docker build -t docker.pkg.github.com/kamranghiasvand/authentication-server/authentication-server:%~A --build-arg GIT_COMMIT=%~A .`
 For linux :
-    run `docker build -t com.bluebox.security.auth-server:$('cat _tag') --build-arg GIT_COMMIT=$('cat _tag') .`
+    run `docker build -t docker.pkg.github.com/kamranghiasvand/authentication-server/authentication-server:$('cat _tag') --build-arg GIT_COMMIT=$('cat _tag') .`
+  
