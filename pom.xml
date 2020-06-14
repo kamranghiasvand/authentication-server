@@ -263,7 +263,7 @@
                 <mysql.pass>123456</mysql.pass>
                 <log4j.root.level>warn</log4j.root.level>
                 <swagger.enabled>false</swagger.enabled>
-                <mysql.ddl-auto>none</mysql.ddl-auto>
+                <mysql.ddl-auto>update</mysql.ddl-auto>
                 <mysql.show-sql>false</mysql.show-sql>
                 <app.production-mode>true</app.production-mode>
             </properties>
