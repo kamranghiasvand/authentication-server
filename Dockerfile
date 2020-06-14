@@ -1,29 +1,43 @@
-FROM openjdk:13-alpine3.10 as builder
-WORKDIR application
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} application.jar
-RUN /opt/openjdk-13/bin/java -Djarmode=layertools -jar application.jar extract
+### Build Project ###
+FROM maven:3.6.3-jdk-11 as builder
+# create app folder for sources
+RUN mkdir -p /build
+WORKDIR /build
+COPY pom.xml /build
+#Download all required dependencies into one layer
+RUN mvn -B dependency:resolve dependency:resolve-plugins
+#Copy source code
+COPY src /build/src
+# Build application
+RUN mvn package -Dmaven.test.skip=true -P production
+COPY target/*.jar application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
 
-FROM openjdk:13-alpine3.10
+### Run Application ###
+FROM openjdk:13-alpine3.10 as runtime
 
-ENV APP_ROOT /app
-ENV CONFIG_DIR $APP_ROOT/config
-ARG GIT_COMMIT=latest
-
+ENV GIT_COMMIT=latest
 LABEL "GIT_COMMIT"="$GIT_COMMIT"
 LABEL "MAINTAINER"="Kamran Ghiasvand <kamran.ghaisvand@gmail.com>"
 
-RUN addgroup -S bluebox && adduser -S authuser -G bluebox
+#Possibility to set JVM options (https://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html)
+ENV JAVA_OPT ""
+ENV APP_ROOT /app
+ENV CONFIG_DIR $APP_ROOT/config
+ENV LOGGING_LEVEL warn
+ENV SERVER_PORT 8081
 
 RUN mkdir $APP_ROOT
+RUN mkdir $CONFIG_DIR
+RUN addgroup -S bluebox && adduser -S authuser -G bluebox
 RUN chown authuser:bluebox ${APP_ROOT}
 
 USER authuser:bluebox
-RUN mkdir $CONFIG_DIR
-COPY --chown=authuser:bluebox --from=builder /application/dependencies/ /app/
-COPY --chown=authuser:bluebox --from=builder /application/spring-boot-loader/ /app/
-COPY --chown=authuser:bluebox --from=builder /application/snapshot-dependencies/ /app/
-COPY --chown=authuser:bluebox --from=builder /application/application/ /app/
+COPY --chown=authuser:bluebox --from=builder /build/dependencies/ /app/
+COPY --chown=authuser:bluebox --from=builder /build/spring-boot-loader/ /app/
+COPY --chown=authuser:bluebox --from=builder /build/snapshot-dependencies/ /app/
+COPY --chown=authuser:bluebox --from=builder /build/application/ /app/
+
 
 USER root
 COPY entrypoint.sh /app/entrypoint.sh
