@@ -21,16 +21,11 @@ LABEL "GIT_COMMIT"="$GIT_COMMIT"
 LABEL "MAINTAINER"="Kamran Ghiasvand <kamran.ghaisvand@gmail.com>"
 
 #Possibility to set JVM options (https://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html)
-ENV JAVA_OPT ""
-ENV APP_ROOT /app
-ENV CONFIG_DIR $APP_ROOT/config
-ENV LOGGING_LEVEL warn
-ENV SERVER_PORT 8081
+ENV JAVA_OPTS ""
 
-RUN mkdir $APP_ROOT
-RUN mkdir $CONFIG_DIR
+RUN mkdir /app
 RUN addgroup -S bluebox && adduser -S authuser -G bluebox
-RUN chown authuser:bluebox ${APP_ROOT}
+RUN chown authuser:bluebox /app
 
 USER authuser:bluebox
 COPY --chown=authuser:bluebox --from=builder /build/dependencies/ /app/
@@ -47,4 +42,4 @@ RUN chown authuser:bluebox /app/entrypoint.sh && \
 
 USER authuser
 WORKDIR /app
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom  org.springframework.boot.loader.JarLauncher $0 $@
