@@ -60,11 +60,19 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-hal-browser</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -236,7 +244,7 @@
                 <mysql.address>jdbc:mysql://${mysql.ip}:${mysql.port}/${mysql.db}</mysql.address>
                 <mysql.user>root</mysql.user>
                 <mysql.pass>123456</mysql.pass>
-                <log4j.root.level>info</log4j.root.level>
+                <log4j.root.level>debug</log4j.root.level>
 
             </properties>
         </profile>
