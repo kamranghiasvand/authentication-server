@@ -1,7 +1,6 @@
 package com.bluebox.security.authenticationserver.persistence.service.sms.meliPayment;
 
 
-import com.bluebox.security.authenticationserver.common.exception.GlobalException;
 import com.bluebox.security.authenticationserver.common.exception.ValidationException;
 import com.bluebox.security.authenticationserver.persistence.service.sms.SmsProviderException;
 import com.bluebox.security.authenticationserver.persistence.service.sms.SmsService;
@@ -53,6 +52,7 @@ public class MeliPaymentSmsServiceImpl implements SmsService {
         try {
             response = restTemplate.postForEntity(config.getUrl(), request, MeliPaymentResp.class);
         } catch (RestClientException e) {
+            LOGGER.error("", e);
             throw new SmsProviderException(e.getMessage());
         }
 

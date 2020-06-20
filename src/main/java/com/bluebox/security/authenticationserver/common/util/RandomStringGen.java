@@ -4,7 +4,6 @@ package com.bluebox.security.authenticationserver.common.util;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
-import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -12,22 +11,13 @@ import java.util.Random;
  */
 @Component
 public class RandomStringGen {
-
-    @SuppressWarnings("SpellCheckingInspection")
-    public static final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-    public static final String lower = upper.toLowerCase(Locale.ROOT);
-
     public static final String digits = "0123456789";
-
-    public static final String alphanum = upper + lower + digits;
-
     private Random random;
     private char[] symbols;
 
     public RandomStringGen() {
         this.random = new SecureRandom();
-        this.symbols = alphanum.toCharArray();
+        this.symbols = digits.toCharArray();
     }
 
     public String nextString(int length) {
