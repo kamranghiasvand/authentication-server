@@ -69,7 +69,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(1)
-    public void assignNullRuleToNullUser() {
+    public void nullRuleToNullUser() {
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(null, null));
         Assertions.assertNotNull(exception);
         Assertions.assertNotNull(exception.getMessages());
@@ -79,7 +79,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(2)
-    public void assignNegativeRuleIdToNullUser() {
+    public void negativeRuleIdToNullUser() {
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(null, -1L));
         Assertions.assertNotNull(exception);
         Assertions.assertNotNull(exception.getMessages());
@@ -89,7 +89,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(3)
-    public void assignZeroRuleIdToNullUser() {
+    public void zeroRuleIdToNullUser() {
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(null, 0L));
         Assertions.assertNotNull(exception);
         Assertions.assertNotNull(exception.getMessages());
@@ -99,7 +99,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(4)
-    public void assignPositiveRuleIdToNullUser() {
+    public void positiveRuleIdToNullUser() {
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(null, 1L));
         Assertions.assertNotNull(exception);
         Assertions.assertNotNull(exception.getMessages());
@@ -109,7 +109,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(5)
-    public void assignNullRuleToNegativeUserId() {
+    public void nullRuleToNegativeUserId() {
         final var userId = -1L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, null));
         Assertions.assertNotNull(exception);
@@ -120,7 +120,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(6)
-    public void assignNegativeRuleIdToNegativeUserId() {
+    public void negativeRuleIdToNegativeUserId() {
         final var userId = -1L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, -1L));
         Assertions.assertNotNull(exception);
@@ -131,7 +131,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(7)
-    public void assignZeroRuleIdToNegativeUserId() {
+    public void zeroRuleIdToNegativeUserId() {
         final var userId = -1L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, 0L));
         Assertions.assertNotNull(exception);
@@ -142,7 +142,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(8)
-    public void assignPositiveRuleIdToNegativeUserId() {
+    public void positiveRuleIdToNegativeUserId() {
         final var userId = -1L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, 1L));
         Assertions.assertNotNull(exception);
@@ -153,7 +153,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(9)
-    public void assignNullRuleToZeroUserId() {
+    public void nullRuleToZeroUserId() {
         final var userId = 0L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, null));
         Assertions.assertNotNull(exception);
@@ -164,7 +164,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(10)
-    public void assignNegativeRuleIdToZeroUserId() {
+    public void negativeRuleIdToZeroUserId() {
         final var userId = 0L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, -1L));
         Assertions.assertNotNull(exception);
@@ -175,7 +175,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(11)
-    public void assignZeroRuleIdToZeroUserId() {
+    public void zeroRuleIdToZeroUserId() {
         final var userId = 0L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, 0L));
         Assertions.assertNotNull(exception);
@@ -186,7 +186,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(12)
-    public void assignPositiveRuleIdToZeroUserId() {
+    public void positiveRuleIdToZeroUserId() {
         final var userId = 0L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, 1L));
         Assertions.assertNotNull(exception);
@@ -198,7 +198,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(13)
-    public void assignNullRuleToPositiveNotExistUserId() {
+    public void nullRuleToPositiveNotExistUserId() {
         final var userId = 1000L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, null));
         Assertions.assertNotNull(exception);
@@ -209,7 +209,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(14)
-    public void assignNegativeRuleIdToPositiveNotExistUserId() {
+    public void negativeRuleIdToPositiveNotExistUserId() {
         final var userId = 1000L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, -1L));
         Assertions.assertNotNull(exception);
@@ -220,7 +220,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(15)
-    public void assignZeroRuleIdToPositiveNotExistUserId() {
+    public void zeroRuleIdToPositiveNotExistUserId() {
         final var userId = 1000L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, 0L));
         Assertions.assertNotNull(exception);
@@ -231,7 +231,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(16)
-    public void assignPositiveRuleIdToPositiveNotExistUserId() {
+    public void positiveRuleIdToPositiveNotExistUserId() {
         final var userId = 1000L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, 1L));
         Assertions.assertNotNull(exception);
@@ -242,7 +242,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(13)
-    public void assignNullRuleToUser() {
+    public void nullRuleToUser() {
         final var userId = user.getId();
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, null));
         Assertions.assertNotNull(exception);
@@ -253,7 +253,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(14)
-    public void assignNegativeRuleIdToUser() {
+    public void negativeRuleIdToUser() {
         final var userId = user.getId();
         final var roleId = -1L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, roleId));
@@ -265,7 +265,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(15)
-    public void assignZeroRuleIdToUser() {
+    public void zeroRuleIdToUser() {
         final var userId = user.getId();
         final var roleId = 0L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, roleId));
@@ -277,9 +277,9 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(16)
-    public void assignPositiveNotExistRuleIdToUser() {
+    public void positiveNotExistRuleIdToUser() {
         final var userId = user.getId();
-        final var roleId = 1L;
+        final var roleId = 1000L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.assignUserRole(userId, roleId));
         Assertions.assertNotNull(exception);
         Assertions.assertNotNull(exception.getMessages());
@@ -289,7 +289,7 @@ public class AssignUserRoleTest {
 
     @Test
     @Order(16)
-    public void assignRuleIdToUser() throws ResourceNotFoundException {
+    public void ruleIdToUser() throws ResourceNotFoundException {
         assignService.assignUserRole(user.getId(), role.getId());
         final var resp = userRepository.findById(user.getId());
         Assertions.assertNotNull(resp);

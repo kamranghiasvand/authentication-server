@@ -280,7 +280,7 @@ public class UnAssignUserRoleTest {
     @Order(16)
     public void positiveNotExistRuleIdToUser() {
         final var userId = user.getId();
-        final var roleId = 1L;
+        final var roleId = 1000L;
         final var exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> assignService.unAssignUserRole(userId, roleId));
         Assertions.assertNotNull(exception);
         Assertions.assertNotNull(exception.getMessages());
