@@ -29,13 +29,13 @@ import static com.bluebox.security.authenticationserver.common.Constants.REGULAR
  */
 @RestController
 @RequestMapping(PathConstant.PROFILE_BASE)
-public class ProfileController extends BaseQueryController<RegularUserEntity, RUserDto, RUserCto, IDSortFields, Long> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
+public class UserProfileController extends BaseQueryController<RegularUserEntity, RUserDto, RUserCto, IDSortFields, Long> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserProfileController.class);
     private final RegularUserService userService;
     private final UserConverter converter;
 
     @Autowired
-    public ProfileController(RegularUserService userService, UserConverter converter) {
+    public UserProfileController(RegularUserService userService, UserConverter converter) {
         this.userService = userService;
         this.converter = converter;
     }

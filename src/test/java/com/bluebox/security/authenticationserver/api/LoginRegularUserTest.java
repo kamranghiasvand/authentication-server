@@ -7,8 +7,6 @@ import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,12 +34,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Kamran Ghiasvand
  */
 
-@SpringBootTest(properties = {"spring.aop.auto=false","app.production-mode=false"})
+@SpringBootTest(properties = {"spring.aop.auto=false", "app.production-mode=false"})
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LoginRegularUserTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginRegularUserTest.class);
     private static final String URL = "/oauth/token";
     private final String CLIENT_ID = "app";
     private final String CLIENT_SECRET = "123";

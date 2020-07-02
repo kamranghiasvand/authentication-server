@@ -34,7 +34,7 @@ public class RegularUserEntity extends UserEntity<Long> {
     }
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
     @JoinTable(name = "tbl_reg_user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "pk_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "pk_id"))
     public List<RoleEntity> getRoles() {

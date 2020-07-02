@@ -2,6 +2,7 @@ package com.bluebox.security.authenticationserver.persistence.entity.regular;
 
 import com.bluebox.security.authenticationserver.persistence.entity.BaseDomainEntity;
 import com.bluebox.security.authenticationserver.persistence.entity.PermissionEntity;
+import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -17,6 +18,7 @@ import static com.bluebox.security.authenticationserver.common.Constants.FK_ROLE
  */
 @Setter
 @ToString(callSuper = true, exclude = {"users"})
+@EqualsAndHashCode(callSuper = true, exclude = {"users", "permissions"})
 @Entity
 @Table(name = "tbl_reg_role")
 public class RoleEntity extends BaseDomainEntity<Long> {
