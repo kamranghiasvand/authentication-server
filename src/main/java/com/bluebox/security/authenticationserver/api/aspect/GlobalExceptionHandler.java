@@ -158,7 +158,7 @@ public class GlobalExceptionHandler {
 
     private ResponseEntity<RestErrorResponse> checkSaveOrUpdateException(Exception ex) {
         String s = ExceptionUtil.fkException(ex);
-        if (s != null && !"".equals(s))
+        if (!"".equals(s))
             return handleException(new ResourceNotFoundException(s));
         return null;
     }

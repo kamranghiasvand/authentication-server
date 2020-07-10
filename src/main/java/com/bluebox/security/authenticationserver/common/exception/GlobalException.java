@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public abstract class GlobalException extends Exception {
+public abstract class GlobalException extends RuntimeException {
     private final String key;
     private final HttpStatus status;
     private final List<Object> messages = new ArrayList<>();

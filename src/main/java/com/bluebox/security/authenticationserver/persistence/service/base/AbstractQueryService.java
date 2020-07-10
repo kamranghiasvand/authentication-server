@@ -31,7 +31,7 @@ public abstract class AbstractQueryService<
         implements QueryService<E, C, F, I> {
 
     @Override
-    public E fetch(I key) throws GlobalException {
+    public E fetch(I key) {
         if (key == null)
             throw new ResourceNotFoundException(format(Constants.VALIDATION_IS_NULL_OR_NEGATIVE_MSG, getEntityName() + " key"));
         Optional<E> byId = getRepository().findById(key);

@@ -12,6 +12,7 @@ public class AuthenticationServerApplication {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationServerApplication.class);
 
     public static void main(String[] args) {
+
         ConfigurableApplicationContext run = SpringApplication.run(AuthenticationServerApplication.class, args);
         ConfigurableEnvironment environment = run.getEnvironment();
         String context = environment.getProperty("server.servlet.context-path");
