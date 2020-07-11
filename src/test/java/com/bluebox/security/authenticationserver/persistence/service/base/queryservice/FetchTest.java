@@ -1,8 +1,9 @@
-package com.bluebox.security.authenticationserver.persistence.service.base;
+package com.bluebox.security.authenticationserver.persistence.service.base.queryservice;
 
 import com.bluebox.security.authenticationserver.common.exception.GlobalException;
 import com.bluebox.security.authenticationserver.common.exception.ResourceNotFoundException;
 import com.bluebox.security.authenticationserver.persistence.repository.BaseRepository;
+import com.bluebox.security.authenticationserver.persistence.service.base.TestQueryService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.when;
  */
 @ExtendWith({SpringExtension.class})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class AbstractQueryServiceTest {
+public class FetchTest {
 
 
     private TestQueryService service;
