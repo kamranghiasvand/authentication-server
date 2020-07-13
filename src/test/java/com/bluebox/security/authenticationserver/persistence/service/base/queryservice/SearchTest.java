@@ -1,5 +1,7 @@
 package com.bluebox.security.authenticationserver.persistence.service.base.queryservice;
 
+import com.bluebox.security.authenticationserver.common.viewModel.SortField;
+import com.bluebox.security.authenticationserver.common.viewModel.SortablePageCto;
 import com.bluebox.security.authenticationserver.persistence.repository.BaseRepository;
 import com.bluebox.security.authenticationserver.persistence.service.base.TestQueryService;
 import org.junit.jupiter.api.*;
@@ -27,14 +29,16 @@ public class SearchTest {
     private TestQueryService service;
     private BaseRepository<TestQueryService.TestEntity, Long> repository;
     private Collection<TestQueryService.TestEntity> entities = new ArrayList<>();
+    private final TestQueryService.TestEntity firstEntity;
+    private final TestQueryService.TestEntity secondEntity;
 
     public SearchTest() {
-        var entity = new TestQueryService.TestEntity();
-        entity.setId(1L);
-        entities.add(entity);
-        entity = new TestQueryService.TestEntity();
-        entity.setId(2L);
-        entities.add(entity);
+        firstEntity = new TestQueryService.TestEntity();
+        firstEntity.setId(1L);
+        entities.add(firstEntity);
+        secondEntity = new TestQueryService.TestEntity();
+        secondEntity.setId(2L);
+        entities.add(secondEntity);
     }
 
 
@@ -71,5 +75,13 @@ public class SearchTest {
         Assertions.assertEquals(entities.size(), result.getResults().size());
         Assertions.assertEquals(entities, result.getResults());
     }
+
+//    @Test
+//    public void filterFirstEntity_shouldReturnFirstEntity() {
+//        var filter = new SortablePageCto<TestQueryService.TestCto, SortField>();
+//        var cto = new TestQueryService.TestCto();
+//        filter.setCto();
+//        service.search()
+//    }
 
 }
