@@ -43,11 +43,5 @@ public abstract class BaseCRUDController<
         return getConverter().convert(updated);
     }
 
-    protected D remove(I id) throws GlobalException {
-        getLogger().info("Deleting {} with id '{}'", getEntityLabel(), id);
-        E delete = getCommandService().remove(id);
-        getLogger().info("{} with id '{}' deleted", getEntityLabel(), id);
-        return getConverter().convert(delete);
-    }
 
 }
