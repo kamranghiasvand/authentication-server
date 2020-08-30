@@ -11,7 +11,7 @@ import lombok.Getter;
 import java.io.Serializable;
 
 /**
- * @author Yaser(amin) Sadeghi
+ * @author Kamran Ghiasvand
  */
 public abstract class DtoValidationFactory<D extends BaseDto<I>, I extends Serializable> {
     @Getter

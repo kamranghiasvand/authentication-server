@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -129,6 +130,31 @@ public class GlobalExceptionHandler {
     public ResponseEntity<RestErrorResponse> handleException(MissingPathVariableException exception) {
         return clientError(exception);
     }
+    @ExceptionHandler(UndeclaredThrowableException.class)
+    public ResponseEntity<RestErrorResponse> handleException(UndeclaredThrowableException ex) {
+        if (ex.getCause() instanceof GlobalException)
+            return handleException((GlobalException) ex.getCause());
+        if (ex.getCause() instanceof MissingServletRequestParameterException)
+            return handleException((MissingServletRequestParameterException) ex.getCause());
+        if (ex.getCause() instanceof MissingServletRequestPartException)
+            return handleException((MissingServletRequestPartException) ex.getCause());
+        if (ex.getCause() instanceof JpaObjectRetrievalFailureException)
+            return handleException((JpaObjectRetrievalFailureException) ex.getCause());
+        if (ex.getCause() instanceof MethodArgumentNotValidException)
+            return handleException((MethodArgumentNotValidException) ex.getCause());
+        if (ex.getCause() instanceof IllegalArgumentException)
+            return handleException((IllegalArgumentException) ex.getCause());
+        if (ex.getCause() instanceof HttpMessageConversionException)
+            return handleException((HttpMessageConversionException) ex.getCause());
+        if (ex.getCause() instanceof HttpMessageNotReadableException)
+            return handleException((HttpMessageNotReadableException) ex.getCause());
+        if (ex.getCause() instanceof MethodArgumentTypeMismatchException)
+            return handleException((MethodArgumentTypeMismatchException) ex.getCause());
+        if (ex.getCause() instanceof MissingPathVariableException)
+            return handleException((MissingPathVariableException) ex.getCause());
+        return unhandledError(ex);
+    }
+
 
 
     private ResponseEntity<RestErrorResponse> clientError(Exception exception) {

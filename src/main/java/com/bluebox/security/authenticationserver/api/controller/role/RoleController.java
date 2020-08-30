@@ -1,19 +1,10 @@
 package com.bluebox.security.authenticationserver.api.controller.role;
 
-import com.bluebox.security.authenticationserver.api.Converter;
-import com.bluebox.security.authenticationserver.api.base.BaseCRUDController;
-import com.bluebox.security.authenticationserver.api.validation.DtoValidationFactory;
+import com.bluebox.security.authenticationserver.api.controller.role.dto.*;
 import com.bluebox.security.authenticationserver.common.PathConstant;
 import com.bluebox.security.authenticationserver.common.exception.GlobalException;
-import com.bluebox.security.authenticationserver.common.viewModel.role.RoleCto;
-import com.bluebox.security.authenticationserver.common.viewModel.role.RoleDto;
-import com.bluebox.security.authenticationserver.common.viewModel.views.ViewRole;
 import com.bluebox.security.authenticationserver.persistence.entity.regular.RoleEntity;
 import com.bluebox.security.authenticationserver.persistence.service.RoleService;
-import com.bluebox.security.authenticationserver.persistence.service.base.CommandService;
-import com.bluebox.security.authenticationserver.persistence.service.base.QueryService;
-import com.bluebox.security.authenticationserver.persistence.service.base.enums.IDSortFields;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,79 +17,56 @@ import static com.bluebox.security.authenticationserver.common.Constants.ROLE;
  * @author by kamran ghiasvand
  */
 @RestController
-@RequestMapping(PathConstant.ROLE_BASE)
-public class RoleController extends BaseCRUDController<RoleEntity, RoleDto, RoleCto, IDSortFields, Long> {
+@RequestMapping(path = PathConstant.ROLE_BASE, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+public class RoleController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
 
-    private final RoleValidationFactory validationFactory;
-    private final RoleService roleService;
-    private final RoleConverter roleConverter;
+    private final RoleValidationFactory factory;
+    private final RoleService service;
+    private final RoleMapper mapper;
 
 
     @Autowired
-    public RoleController(RoleValidationFactory validationFactory, RoleService roleService, RoleConverter roleConverter) {
-        this.validationFactory = validationFactory;
-        this.roleService = roleService;
-        this.roleConverter = roleConverter;
+    public RoleController(RoleValidationFactory factory, RoleService service, RoleMapper mapper) {
+        this.factory = factory;
+        this.service = service;
+        this.mapper = mapper;
     }
 
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @JsonView(ViewRole.Response.class)
-    public RoleDto post(@JsonView(ViewRole.CreateRequest.class) @RequestBody RoleDto dto) throws GlobalException {
-        return add(dto);
+    @RequestMapping(method = RequestMethod.POST)
+    public CreateRoleResp post(@RequestBody CreateRoleReq dto) {
+        LOGGER.info("Creating {}", ROLE);
+        factory.createCtx.validate(dto);
+        RoleEntity entity = mapper.createReqToEntity(dto);
+        entity = service.create(entity);
+        LOGGER.info("{} created", ROLE);
+        return mapper.entityToCreateResp(entity);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @JsonView(ViewRole.Response.class)
-    public RoleDto put(@JsonView(ViewRole.UpdateRequest.class) @RequestBody RoleDto dto) throws GlobalException {
-        return edit(dto);
+    @RequestMapping(method = RequestMethod.PUT)
+    public UpdateRoleResp put(@RequestBody UpdateRoleReq dto) {
+        LOGGER.info("Updating {} '{}'", ROLE, dto);
+        factory.updateCtx.validate(dto);
+        var entity = mapper.updateReqToEntity(dto);
+        entity = service.update(entity);
+        LOGGER.info("{} with id '{}' updated", ROLE, entity.getId());
+        return mapper.entityToUpdateResp(entity);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @JsonView(ViewRole.Response.class)
-    public RoleDto delete(@RequestParam("id") Long id) throws GlobalException {
-        return remove(id);
+    @RequestMapping(method = RequestMethod.DELETE)
+    public DeleteRoleResp delete(@RequestBody DeleteRoleReq dto) throws GlobalException {
+        LOGGER.info("Deleting {} '{}'", ROLE, dto);
+        factory.deleteCtx.validate(dto);
+        var entity = mapper.deleteReqToEntity(dto);
+        entity = service.remove(entity);
+        LOGGER.info("{} with id '{}' deleted", ROLE, entity.getId());
+        return mapper.entityToDeleteResp(entity);
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @JsonView(ViewRole.Response.class)
-    public RoleDto get(@RequestParam("id") Long id) throws GlobalException {
-        return fetch(id);
-    }
-
-
-    @Override
-    protected Converter<RoleEntity, RoleDto, Long> getConverter() {
-        return roleConverter;
-    }
-
-    @Override
-    protected CommandService<RoleEntity, Long> getCommandService() {
-        return roleService;
-    }
-
-    @Override
-    protected DtoValidationFactory<RoleDto, Long> getValidationFactory() {
-        return validationFactory;
-    }
-
-    @Override
-    protected QueryService<RoleEntity, RoleCto, IDSortFields, Long> getQueryService() {
-        return roleService;
-    }
-
-    @Override
-    protected String getEntityLabel() {
-        return ROLE;
-    }
-
-    @Override
-    protected Class<RoleDto> getDTOClass() {
-        return RoleDto.class;
-    }
-
-    @Override
-    protected Logger getLogger() {
-        return LOGGER;
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+    public GetRoleResp get(@PathVariable("id") Long id) throws GlobalException {
+        LOGGER.info("Fetching {} with id '{}'", ROLE, id);
+        final var entity = service.fetch(id);
+        return mapper.entityToGetResp(entity);
     }
 }

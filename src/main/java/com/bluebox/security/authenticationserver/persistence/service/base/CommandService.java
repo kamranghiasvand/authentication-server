@@ -14,5 +14,5 @@ public interface CommandService<E extends BaseEntity<I>, I extends Serializable>
 
     E update(E entity) throws GlobalException;
 
-    E remove(I id) throws GlobalException;
+    E remove(E id) throws GlobalException;
 }

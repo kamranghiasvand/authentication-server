@@ -24,11 +24,12 @@ public abstract class BaseCRUDController<
 
     protected abstract CommandService<E, I> getCommandService();
 
-    protected abstract DtoValidationFactory<D, I> getValidationFactory();
+    protected abstract DtoValidationFactory<D, I> getFactory();
+
 
     protected D add(D dto) throws GlobalException {
         getLogger().info("Creating {}", getEntityLabel());
-        getValidationFactory().getCreateCtx().validate(dto);
+        getFactory().getCreateCtx().validate(dto);
         E added = getCommandService().create(getConverter().convert(dto));
         getLogger().info("{} created", getEntityLabel());
         return getConverter().convert(added);
@@ -36,7 +37,7 @@ public abstract class BaseCRUDController<
 
     protected D edit(D dto) throws GlobalException {
         getLogger().info("Updating {} '{}'", getEntityLabel(), dto);
-        getValidationFactory().getUpdateCtx().validate(dto);
+        getFactory().getUpdateCtx().validate(dto);
         E updated = getCommandService().update(getConverter().convert(dto));
         getLogger().info("{} with id '{}' updated", getEntityLabel(), dto.getId());
         return getConverter().convert(updated);

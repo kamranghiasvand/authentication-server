@@ -1,7 +1,5 @@
 package com.bluebox.security.authenticationserver.persistence.service.base;
 
-import com.bluebox.security.authenticationserver.common.Constants;
-import com.bluebox.security.authenticationserver.common.exception.GlobalException;
 import com.bluebox.security.authenticationserver.common.exception.ResourceNotFoundException;
 import com.bluebox.security.authenticationserver.common.viewModel.BaseCto;
 import com.bluebox.security.authenticationserver.common.viewModel.SortField;
@@ -20,6 +18,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static com.bluebox.security.authenticationserver.common.Constants.VALIDATION_IS_NULL_OR_NEGATIVE_MSG;
+import static com.bluebox.security.authenticationserver.common.Constants.VALIDATION_NOT_FOUND_MSG;
 import static java.text.MessageFormat.format;
 
 @Transactional(readOnly = true)
@@ -33,13 +33,16 @@ public abstract class AbstractQueryService<
     @Override
     public E fetch(I key) {
         if (key == null)
-            throw new ResourceNotFoundException(format(Constants.VALIDATION_IS_NULL_OR_NEGATIVE_MSG, getEntityName() + " key"));
+            throw new ResourceNotFoundException(format(VALIDATION_IS_NULL_OR_NEGATIVE_MSG, getEntityName() + " key"));
         Optional<E> byId = getRepository().findById(key);
         if (byId.isEmpty())
-            throw new ResourceNotFoundException(format(Constants.VALIDATION_NOT_FOUND_MSG, getEntityName(), key));
-        return byId.get();
-
+            throw new ResourceNotFoundException(format(VALIDATION_NOT_FOUND_MSG, getEntityName(), key));
+        final var entity = byId.get();
+        if (entity.getDeleted())
+            throw new ResourceNotFoundException(format(VALIDATION_NOT_FOUND_MSG, getEntityName(), key));
+        return entity;
     }
+
 
     @Override
     public SearchResult<E, I> search(SortablePageCto<C, F> criteria) {

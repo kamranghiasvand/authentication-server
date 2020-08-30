@@ -28,10 +28,9 @@ public abstract class BaseQueryController<
 
     protected abstract Converter<E, D, I> getConverter();
 
-    protected D fetch(I id) throws GlobalException {
+    protected E fetch(I id) throws GlobalException {
         getLogger().info("Fetching {} with id '{}'", getEntityLabel(), id);
-        E fetch = getQueryService().fetch(id);
-        return getConverter().convert(fetch);
+        return getQueryService().fetch(id);
     }
 
     protected PaginatedResultDto<D, I> query(SortablePageCto<C, F> page) throws ValidationException {

@@ -26,13 +26,12 @@ public class Constants {
     public static final String FIELD_REGULAR_USER_PASSWORD = "password";
     public static final String FIELD_REGULAR_USER_MATCHING_PASSWORD = "matchingPassword";
 
-    public static final String FIELD_PERMISSION_METHOD = "method";
-    public static final String FIELD_PERMISSION_NAME = "name";
-    public static final String FIELD_PERMISSION_URL = "url";
-    public static final String FIELD_PERMISSION_ROLES = "roles";
+    public static final String FIELD_METHOD = "method";
+    public static final String FIELD_NAME = "name";
+    public static final String FIELD_URL = "url";
+    public static final String FIELD_ROLES = "roles";
 
     public static final String FIELD_ROLE_PERMISSIONS = "permissions";
-    public static final String FIELD_ROLE_NAME = "name";
     public static final String FIELD_ROLE_PERMISSIONS_ID = "permissions[{0}].id";
 
     public static final String FIELD_CLIENT_ID = "clientId";

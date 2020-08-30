@@ -2,6 +2,7 @@ package com.bluebox.security.authenticationserver.persistence.entity;
 
 
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.http.HttpMethod;
@@ -19,11 +20,16 @@ import static com.bluebox.security.authenticationserver.common.Constants.UNIQUE_
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "tbl_permission",
-        uniqueConstraints = {@UniqueConstraint(name = UNIQUE_PERMISSION_NAME, columnNames = {"name", "domain"})})
+        uniqueConstraints = {@UniqueConstraint(name = UNIQUE_PERMISSION_NAME, columnNames = {"name", "domain", "deleted"})})
+@NoArgsConstructor
 public class PermissionEntity extends BaseDomainEntity<Long> {
     private String url;
     private HttpMethod method;
     private String name;
+
+    public PermissionEntity(Long id) {
+        this.id = id;
+    }
 
     @Column(name = "url", nullable = false)
     public String getUrl() {

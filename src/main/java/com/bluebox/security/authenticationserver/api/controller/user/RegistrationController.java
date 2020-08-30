@@ -35,15 +35,14 @@ import static com.bluebox.security.authenticationserver.common.Constants.REGULAR
 @RequestMapping(PathConstant.REGISTRATION_BASE)
 public class RegistrationController extends BaseCRUDController<RegularUserEntity, RUserDto, RUserCto, IDSortFields, Long> {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
-    private final RegularUserService userService;
-    private final UserValidationFactory validationFactory;
-    private final UserConverter converter;
+    private final RegularUserService service;
+    private final UserValidationFactory factory;
     private final PhoneVerificationService phoneVerificationService;
 
     @Autowired
-    public RegistrationController(RegularUserService userService, UserValidationFactory validationFactory, UserConverter converter, PhoneVerificationService phoneVerificationService) {
-        this.userService = userService;
-        this.validationFactory = validationFactory;
+    public RegistrationController(RegularUserService service, UserValidationFactory factory, UserConverter converter, PhoneVerificationService phoneVerificationService) {
+        this.service = service;
+        this.factory = factory;
         this.converter = converter;
         this.phoneVerificationService = phoneVerificationService;
     }
@@ -80,17 +79,17 @@ public class RegistrationController extends BaseCRUDController<RegularUserEntity
 
     @Override
     protected CommandService<RegularUserEntity, Long> getCommandService() {
-        return userService;
+        return service;
     }
 
     @Override
-    protected DtoValidationFactory<RUserDto, Long> getValidationFactory() {
-        return validationFactory;
+    protected DtoValidationFactory<RUserDto, Long> getFactory() {
+        return factory;
     }
 
     @Override
     protected QueryService<RegularUserEntity, RUserCto, IDSortFields, Long> getQueryService() {
-        return userService;
+        return service;
     }
 
     @Override

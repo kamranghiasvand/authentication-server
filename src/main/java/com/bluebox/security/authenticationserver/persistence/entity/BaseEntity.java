@@ -17,6 +17,7 @@ import java.io.Serializable;
 @MappedSuperclass
 public class BaseEntity<I extends Serializable> {
     protected I id;
+    private Boolean deleted;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -27,5 +28,10 @@ public class BaseEntity<I extends Serializable> {
     @Column(name = "pk_id")
     public I getId() {
         return id;
+    }
+
+    @Column(name = "deleted")
+    public Boolean getDeleted() {
+        return deleted;
     }
 }
